@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String ctx=request.getContextPath(); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="/top.jsp" />
+<c:import url="/top" />
 
 <script type="text/javascript" src="./js/channel/chDoor.js"></script>
 <link rel="stylesheet" href="./css/channel.css" />
@@ -15,7 +15,7 @@
 <!-- :::::::::::::::::::::::::::::::::::::::: -->
 
 <div class="channelImage">
-	<img src="<%=ctx%>/images/channel/channel_image.png" alt="channelImage">
+	<img src="${pageContext.request.contextPath}/resources/images/channel/noChImg.png" alt="channelImage">
 	<button class="button-active" id="changeChImg">이미지 변경</button>
 </div>
 
@@ -51,4 +51,4 @@
 	</div>
 </div>
 
-<jsp:include page="/foot.jsp" />
+<c:import url="/foot" />

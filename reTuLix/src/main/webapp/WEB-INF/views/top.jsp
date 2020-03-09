@@ -19,7 +19,7 @@
 		</li>
 
 		<li class="topNavRight"><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
-		<li class="topNavRight"><a href="${pageContext.request.contextPath}/chDoor"><i class="fa fa-cog"></i></a></li>
+		<li class="topNavRight"><a href="${pageContext.request.contextPath}/channel"><i class="fa fa-cog"></i></a></li>
 		<li class="topNavRight"><a href="${pageContext.request.contextPath}/admin"><i class="fa fa-star"></i></a></li>
 	</ul>
 </div>
@@ -82,7 +82,7 @@
 					<li><a href="${pageContext.request.contextPath}/noticeMain">
 						<span class=""><i class="fa fa-exclamation-circle"></i>공지사항</span>
 					</a></li>
-					<li><a href="${pageContext.request.contextPath}/chDoor">
+					<li><a href="${pageContext.request.contextPath}/channel">
 						<span class=""><i class="fa fa-cog"></i>내 채널</span> 
 					</a></li>
 					<li><a href="${pageContext.request.contextPath}/logout"> <span class=""><i class="fa fa-times"></i>로그아웃</span>

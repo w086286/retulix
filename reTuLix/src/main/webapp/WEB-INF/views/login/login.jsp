@@ -1,6 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
+<%
+	String key="";
+	String saveId="";
+	String saveLogin="";
+	boolean saveIdFlag=false;
+	boolean saveLoginFlag=false;
+	
+	Cookie[] cks=request.getCookies();
+	if(cks!=null){
+		for(Cookie c:cks){
+			key=c.getName();
+			if(key.equals("saveId")){
+ 			saveId=c.getValue();
+ 			saveIdFlag=true;
+ 			break;
+			} else {
+				saveIdFlag=false;
+			}
+		}
+	}
+ %>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,10 +66,10 @@
                 </td>
             </tr>
         </table><br>
-        <input type="checkbox" name="saveId" id="saveId" class="form-check-input"> 아이디 저장&nbsp&nbsp&nbsp&nbsp&nbsp
-        <input type="checkbox" name="savePwd" id="savePwd" class="form-check-input"> 자동 로그인<p></p>
+        <input type="checkbox" name="saveId" id="saveId" value="Y" class="form-check-input"> 아이디 저장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="checkbox" name="saveLogin" id="saveLogin" value="Y" class="form-check-input"> 자동 로그인<p></p>
         <button type="button" onclick="loginCheck()" id="btLogin" name="btLogin" class="button-active">로그인</button>
-        <button type="button" onclick="loginCheck()" id="btLogin" name="btLogin">회원가입</button><br><br>
+        <!-- <button type="button" onclick="loginCheck()" id="btJoin" name="btJoin">회원가입</button><br><br> -->
         <a href="#">아이디/비밀번호를 분실하셨습니까?</a>
     </form>
     </div>
@@ -55,6 +77,34 @@
 </html>
 
 <script>
+	/*
+	function loginCheck(){
+		var userData={
+			"email":$("#email").val(),
+			"pwd":$(#pwd).val(),
+			"isSaveId":$("#saveId").prop("checked")==true? "Y":"N"
+			"isSaveLogin":$("#saveLogin").prop("checked")==true? "Y":"N"
+		};
+		
+		$.ajax({
+			type:"post",
+			url:"/login",
+			data:userData,
+			dataType:"json",
+			success:function(res){
+				if(res.status==0){
+					alert(JSON.stringify(res));
+					window.location.href="/";
+				}else if(res.status==1){
+					alert(JSON.stringify(res));
+				}
+			},
+			error:function(err){
+				alert("error: "+err.status);
+			}
+		});
+	}
+	*/
 	function loginCheck() {
 		if (!loginF.email.value) {
 			alert("아이디를 입력하세요. 아이디는 이메일 형식입니다.");
@@ -69,23 +119,3 @@
 		loginF.submit();
 	}
 </script>
-
-<%
- 	String key="";
- 	String saveId="";
- 	boolean ckflag=false;
- 	
- 	Cookie[] cks=request.getCookies();
- 	if(cks!=null){
- 		for(Cookie c:cks){
- 			key=c.getName();
- 			if(key.equals("saveId")){
-	 			saveId=c.getValue();
-	 			ckflag=true;
-	 			break;
- 			} else {
- 				ckflag=false;
- 			}
- 		}
- 	}
- %>
