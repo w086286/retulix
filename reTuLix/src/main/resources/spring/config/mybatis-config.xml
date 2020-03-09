@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+		<!-- 별칭 지정 -->
+		<typeAliases>
+			<typeAlias type="com.tis.retulix.domain.TrailerVO" alias="Trailer" />
+			<typeAlias type="com.tis.retulix.domain.ReviewVO" alias="Review" />
+			<typeAlias type="com.tis.retulix.domain.MemberVO" alias="Member" />
+			<typeAlias type="com.tis.retulix.domain.NoticeVO" alias="Notice" />
+			<typeAlias type="com.tis.retulix.domain.SubsVO" alias="Subs" />
+			<typeAlias type="com.tis.retulix.domain.HistoryVO" alias="History" />
+			<typeAlias type="com.tis.retulix.domain.Good_TrailerVO" alias="Good_Trailer" />
+			<typeAlias type="com.tis.retulix.domain.Good_ReviewVO" alias="Good_Review" />
+			<typeAlias type="com.tis.retulix.domain.Zzim_TrailerVO" alias="Zzim_Trailer" />
+			<typeAlias type="com.tis.retulix.domain.Zzim_ReviewVO" alias="Zzim_Review" />
+		</typeAliases>
+		
+		<!-- 맵퍼 등록 -->
+		<mappers>
+			<!-- <mapper resource="spring/mapper/SampleMapper.xml" /> -->
+		</mappers>
+</configuration>
