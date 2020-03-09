@@ -20,8 +20,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
 		MemberVO member=(MemberVO)ses.getAttribute("loginUser");
 		if(member!=null) return true;
 
+		//유효성 통과 못했을 경우
 		request.setAttribute("msg", "로그인 후 서비스 이용이 가능합니다.");
-		request.setAttribute("loc", request.getContextPath()+"/index");
+		request.setAttribute("loc", request.getContextPath()+"/");
 		
 		String viewName="/WEB-INF/views/message.jsp";
 		RequestDispatcher disp=request.getRequestDispatcher(viewName);

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tis.retulix.mapper.UserMapper">
+
+	<!-- id는 UserMapper인터페이스의 메소드명과 동일하게 준다 -->
+	<!-- [1]mybatis-config.xml에서 별칭 및 맵퍼 등록하고 와서 insert문 작성 -->
+	
+	<select id="findUserByEmail" parameterType="string" resultType="Member">
+		<!-- sql에서 view 생성하여 탈퇴회원 로그인 못하도록 처리
+			 create or replace view memberView as (select * from member where m_state > -2); -->
+		select * from member where email=#{value}
+		<!-- UserServiceImpl.isLoginOk() 작성하러 가기 -->
+	</select>
+
+</mapper>

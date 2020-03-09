@@ -1,5 +1,7 @@
 package com.tis.retulix;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,18 +11,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class IndexController {
 	
 	@RequestMapping("/top")
-	public void top() {
-		
+	public String top() {
+		return "top";
 	}
 
-	@RequestMapping("/foot")
-	public void foot() {
-		
+	@RequestMapping("/main")
+	public String main() {
+		return "main/main";
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
+	@RequestMapping("/foot")
+	public String foot() {
+		return "foot";
+	}
+
+	@RequestMapping("/user/index")
+	public String home(Model model, HttpSession ses) {
 		return "index";	//WEB-INF/spring/views/index.jsp
 	}
-	
 }

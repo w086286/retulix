@@ -22,5 +22,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<!-- 맵퍼 등록 -->
 		<mappers>
 			<!-- <mapper resource="spring/mapper/SampleMapper.xml" /> -->
+			<mapper resource="spring/mapper/UserMapper.xml" />
 		</mappers>
 </configuration>

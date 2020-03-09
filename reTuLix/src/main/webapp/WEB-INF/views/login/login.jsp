@@ -28,7 +28,7 @@
 
 <body>
     <div class="login">
-	<form name="loginF" id="loginF" action="loginCheck.do" method="post">
+	<form name="loginF" id="loginF" action="${pageContext.request.contextPath}/login" method="post">
         <img src="${pageContext.request.contextPath}/resources/images/logo-col.png"><br><br>
         <table>
             <tr>

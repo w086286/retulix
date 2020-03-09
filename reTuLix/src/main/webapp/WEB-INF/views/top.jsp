@@ -3,23 +3,11 @@
 <!--구독 리스트 boardList.jsp참고할것  -->
 <% String ctx=request.getContextPath(); %>
 
-<!-- 세션에 저장된 loginUser 추출================================================= -->
-<form id="user" name="user">
-	<input type="hidden" id="email" name="email">
-</form>
-<c:if test="${loginUser ne null}">
-	<script>
-		sessionStorage.setItem('user_email', '${loginUser.email}')
-		var email=sessionStorage.getItem('user_email', '${loginUser.email}')
-		$("#email").val(email);
-	</script>
-</c:if>
-
 <!-- 상단바====================================================================== -->
 <div id="wrap">
 	<ul class="topNav">
 		<li class="topNavLeft" id="menuToggle"><i class="fa fa-bars"></i></li>
-		<li class="topNavLeft"><a href="<%=ctx%>/index"><img src="${pageContext.request.contextPath}/resources/images/logo-row.png" alt="logo" class="retulix_logo"></a></li>
+		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/resources/images/logo-row.png" alt="logo" class="retulix_logo"></a></li>
 
 		<li class="topNavLeft"><a href="#">영화</a></li>
 		<li class="topNavLeft"><a href="#">TV프로그램</a></li>
@@ -30,9 +18,9 @@
 			</form>
 		</li>
 
-		<li class="topNavRight"><a href="#">로그아웃</a></li>
-		<li class="topNavRight"><a href="<%=ctx%>/chDoor.do"><i class="fa fa-cog"></i></a></li>
-		<li class="topNavRight"><a href="<%=ctx%>/admin.do"><i class="fa fa-star"></i></a></li>
+		<li class="topNavRight"><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
+		<li class="topNavRight"><a href="${pageContext.request.contextPath}/chDoor"><i class="fa fa-cog"></i></a></li>
+		<li class="topNavRight"><a href="${pageContext.request.contextPath}/admin"><i class="fa fa-star"></i></a></li>
 	</ul>
 </div>
 
@@ -91,13 +79,13 @@
 			<hr>
 			<div class="sideNavFoot">
 				<ul>
-					<li><a href="<%=ctx%>/noticeMain.do">
+					<li><a href="${pageContext.request.contextPath}/noticeMain">
 						<span class=""><i class="fa fa-exclamation-circle"></i>공지사항</span>
 					</a></li>
-					<li><a href="<%=ctx%>/chDoor.do">
+					<li><a href="${pageContext.request.contextPath}/chDoor">
 						<span class=""><i class="fa fa-cog"></i>내 채널</span> 
 					</a></li>
-					<li><a href="#"> <span class=""><i class="fa fa-times"></i>로그아웃</span>
+					<li><a href="${pageContext.request.contextPath}/logout"> <span class=""><i class="fa fa-times"></i>로그아웃</span>
 					</a></li>
 					<hr>
 					<button type="button">

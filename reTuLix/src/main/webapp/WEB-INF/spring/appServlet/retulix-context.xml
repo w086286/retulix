@@ -4,6 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- [1]bean 생성 -->
+	<bean id="loginController" class="com.tis.retulix.LoginController" name="/"></bean>
 	<bean id="indexController" class="com.tis.retulix.IndexController" name="/index"></bean>
 
 </beans>
