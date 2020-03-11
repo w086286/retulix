@@ -13,5 +13,7 @@
 		select * from member where email=#{value}
 		<!-- UserServiceImpl.isLoginOk() 작성하러 가기 -->
 	</select>
+	
+
 
 </mapper>

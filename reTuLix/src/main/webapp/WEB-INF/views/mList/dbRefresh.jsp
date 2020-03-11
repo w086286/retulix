@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="application/json; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	페이지 종료 처리
-</body>
-</html>
+    <%
+    	int result = (int)request.getAttribute("result");
+    	System.out.println("나오냐  결과 : "+result);
+    
+    
+    %>
+  {
+  	"result":<%=result%>
+  }

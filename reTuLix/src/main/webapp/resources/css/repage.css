@@ -1,4 +1,5 @@
 
+
 .container {
 	display: grid;
 	grid-template-columns: 250px repeat(1, 1fr);
@@ -11,6 +12,10 @@
 	z-index:9;
 	color:white;
 }
+
+.highlight { 
+	background: red! important;
+	}
 
 
 .item1 {
@@ -46,7 +51,7 @@
 	top: 190px;
 	left: 120px;
 	font-size:30px;
-	
+	cursor: pointer;
 }
 
 
@@ -83,19 +88,21 @@ iframe {
 	z-index: 6;
 }
 
-.imbt3,.imbt4 {
+#imbt3 {
+	color:white;
+
 	position: absolute;
 	top: 0.5%;
 	left: 49%;
 	height: 25px;
 	width: 25px;
 	z-index: 9;
+	
+
+	font-size:30px;
 }
 
-.imbt3:hover {
-	opacity: 0;
-	transition: opacity 0.4s;
-}
+
 .z_container{
 	position : releatve;
 	display:flex;
@@ -131,6 +138,113 @@ iframe {
 	
 
 }
+/* //////////////////////////////////////////////////////// */
+
+.off-screen {
+	display: none;
+}
+#nav {
+	width: 100%;
+	text-align: center;
+}
+#nav a {
+	display: inline-block;
+	padding: 3px 5px;
+	margin-right: 10px;
+	font-family:Tahoma;
+	background: #ccc;
+	color: #000;
+	text-decoration: none;
+}
+#nav a.active {
+	background: #333;
+	color: #fff;
+}
+
+
+
+ .success{
+	overflow: hidden;
+	 text-overflow: clip;
+	 white-space: nowrap;
+	  text-overflow: ellipsis;
+} 
+
+
+/* 검색 오버레이 */
+ .tables{
+	width :100%;
+	height :100%;
+	table-layout: fixed;
+	overflow: hidden;
+	
+}
+
+.tables td{
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+	 white-space: nowrap;
+	table-layout: fixed;
+	
+	
+}
+ th{
+	border:1px solid black;
+}  
+/* /////////////////////////////////////////////////////////// */
+#change_info_tab {
+	width: 700px;
+	height: 250px;
+	display: flex-direction:row;
+	
+	position: absolute;
+	top:130px;
+}
+/* 오버레이 설정 */
+#overlay,#change_info{
+            position: fixed;
+            top:0; left:0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            /* 시작시 보이지 않게 처리 */
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.5s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+ 
+
+        /* 오버레이를 보여 줄때 사용 */
+        #overlay.show,#change_info.show {
+            visibility: visible;
+            opacity: 1;
+        }
+	/*오버레이시 스크롤링 금지*/
+  .stop-scrolling {
+            /* height: 100%; */
+            overflow: hidden;
+        }
+        /*
+        오버레이 버튼 css
+        */
+        .close, .fix_but {
+        	font-size:30px;
+            position:absolute;
+            top:50px; right: 30px;
+            width: 36px;
+            margin:0; padding: 0;
+            cursor: pointer;
+            margin: 8px auto;
+            
+        }
+
+
+
 /* css 변수로 사용 */
 :root{
 	--main_bg:url('');

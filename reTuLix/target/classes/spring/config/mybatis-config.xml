@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
@@ -7,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 		<!-- 별칭 지정 -->
 		<typeAliases>
-			<typeAlias type="com.tis.retulix.domain.TrailerVO" alias="Trailer" />
+			<typeAlias type="com.tis.retulix.domain.Trailer_ViewVO" alias="Trailer" />
 			<typeAlias type="com.tis.retulix.domain.ReviewVO" alias="Review" />
 			<typeAlias type="com.tis.retulix.domain.MemberVO" alias="Member" />
 			<typeAlias type="com.tis.retulix.domain.NoticeVO" alias="Notice" />
@@ -23,5 +22,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mappers>
 			<!-- <mapper resource="spring/mapper/SampleMapper.xml" /> -->
 			<mapper resource="spring/mapper/UserMapper.xml" />
+			<mapper resource="spring/mapper/Trailer_Mapper.xml" />
 		</mappers>
 </configuration>

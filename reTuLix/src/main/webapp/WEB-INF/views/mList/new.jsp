@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="/top.jsp" />
+<c:import url="/top" />
 
-<jsp:include page="/mList/repage.jsp" />
+<c:import url="/mList/repage" />
 
-<jsp:include page="/foot.jsp" />
+<c:import url="/foot" />
