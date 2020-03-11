@@ -23,7 +23,7 @@ var init=function(){
 function chHome(){
 	$.ajax({
 		type:"post",
-		url:"chHome.do",	//do로 보내면 properties에서 받아 controller에서 처리
+		url:"/chHome",	//do로 보내면 properties에서 받아 controller에서 처리
 		dataType:"text",
 		cache:false,
 		data:$("#email").serialize()+"&"+$("#pwd").serialize(),

@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.login{
+    text-align: center;
+    line-height: 3em;
+}
+.login table{
+    display: inline-table;
+    text-align: center;
+}
+.login img{
+    margin-top: 8em;
+    height: 12em;
+}
+.login a:hover{
+    color: rgb(209, 0, 0);
+}

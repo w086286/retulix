@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>reTuLix</title>
+<link rel="stylesheet" href="./css/whole.css" /> <!-- 전체 기본 스타일 -->
+<style>
+    .login{
+        text-align: center;
+        line-height: 3em;
+    }
+    .login table{
+        display: inline-table;
+        text-align: center;
+    }
+    .login img{
+        margin-top: 10em;
+    }
+    .login a:hover{
+        color: rgb(209, 0, 0);
+    }
+</style>
+</head>
+
+<body>
+    <div class="login">
+	<form name="loginF" id="loginF" action="loginCheck.do" method="post">
+        <img src="" alt="">
+        <label for="">아이디를 잊으셨습니까?</label><br>
+        회원가입시 입력한 분실용 이메일을 입력하세요<br>
+        <table>
+            <tr>
+                <td>이메일</td>
+                <td><input type="email" id="email" name="email" placeholder="이메일를 입력하세요" required></td>
+                <td><button type="button" onclick="loginCheck()" id="btLogin" name="btLogin" class="button-active">아이디 찾기</button></td>
+            </tr>
+        </table>
+    </form>
+    
+    <form name="loginF" id="loginF" action="loginCheck.do" method="post">
+        <img src="" alt="">
+        <label for="">비밀번호를 잊으셨습니까?</label><br>
+        회원가입시 입력한 분실용 이메일을 입력하세요<br>
+        <table>
+            <tr>
+                <td>이메일</td>
+                <td><input type="email" id="email" name="email" placeholder="이메일를 입력하세요" required></td>
+                <td><button type="button" onclick="loginCheck()" id="btLogin" name="btLogin" class="button-active">아이디 찾기</button></td>
+            </tr>
+        </table>
+    </form>
+    </div>
+</body>
+</html>
+

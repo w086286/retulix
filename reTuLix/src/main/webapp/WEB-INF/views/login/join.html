@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>reTuLix</title>
+<link rel="stylesheet" href="./css/whole.css" /> <!-- 전체 기본 스타일 -->
+<style>
+    .login{
+        text-align: center;
+        line-height: 3em;
+    }
+    .login table{
+        display: inline-table;
+        text-align: center;
+    }
+    .login img{
+        margin-top: 10em;
+    }
+    .login a:hover{
+        color: rgb(209, 0, 0);
+    }
+</style>
+</head>
+
+<body>
+    <div class="login">
+	<form name="loginF" id="loginF" action="loginCheck.do" method="post">
+        <img src="./images/logo-01.png"><br>
+        reTuLix에 오신 것을 환영합니다<br>
+        <table>
+            <tr>
+                <td>아이디</td>
+                <td><input type="email" id="email" name="email" placeholder="아이디를 입력하세요" required></td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td><input type="password" id="pwd" name="pwd" placeholder="비밀번호를 입력하세요" required></td>
+            </tr>
+            <tr>
+                <td>비밀번호 확인</td>
+                <td><input type="password" id="pwd" name="pwd" placeholder="비밀번호를 동일하게 입력하세요" required></td>
+            </tr>
+            <tr>
+                <td>별명</td>
+                <td><input type="password" id="pwd" name="pwd" placeholder="별명을 입력하세요" required></td>
+            </tr>
+            <tr>
+                <td>나이</td>
+                <td><input type="password" id="pwd" name="pwd" placeholder="나이를 입력하세요" required></td>
+            </tr>
+            <tr>
+                <td>분실 확인 이메일</td>
+                <td><input type="password" id="pwd" name="pwd" placeholder="이메일을 입력하세요" required></td>
+            </tr>
+        </table><br>
+        <button type="button" onclick="loginCheck()" id="btLogin" name="btLogin" class="button-active">회원가입</button>
+        <button type="reset" onclick="loginCheck()" id="btLogin" name="btLogin">다시쓰기</button><br><br>
+    </form>
+    </div>
+</body>
+</html>
+

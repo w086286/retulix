@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webflow-project-description>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.9.12.202001201914-CI-B2372]]></pluginVersion>
+	<configs>
+		<config>
+			<file>src/main/resources/spring/mapper/dd.xml</file>
+			<name><![CDATA[dd]]></name>
+		</config>
+	</configs>
+</webflow-project-description>

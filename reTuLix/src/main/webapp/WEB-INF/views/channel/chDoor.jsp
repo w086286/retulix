@@ -4,25 +4,15 @@
 
 <c:import url="/top" />
 
-<script type="text/javascript" src="./js/channel/chDoor.js"></script>
-<link rel="stylesheet" href="./css/channel.css" />
-
-<!-- 진입 테스트 회원 정보:::::::::::나중에 삭제 -->
-<div style="display:none">
-<input id="email" name="email" value="nofootbird@gmail.com">
-<input id="pwd" name="pwd" value="123">
-</div>
-<!-- :::::::::::::::::::::::::::::::::::::::: -->
-
 <div class="channelImage">
 	<img src="${pageContext.request.contextPath}/resources/images/channel/noChImg.png" alt="channelImage">
 	<button class="button-active" id="changeChImg">이미지 변경</button>
 </div>
 
 <div class="channelMenu">
-	<button class="button-active" onclick="chHome()" id="btChHome">홈</button>
-	<button onclick="chStat()" id="btChStat">내 채널 및 영상</button>
-	<button onclick="chInfo()" id="btChInfo">내 정보 및 포인트</button>
+	<button class="button-active" onclick="chHome('${pageContext.request.contextPath}/user/chHome')" id="btChHome">홈</button>
+	<button onclick="chStat('${pageContext.request.contextPath}/user/chStat')" id="btChStat">내 채널 및 영상</button>
+	<button onclick="chInfo('${pageContext.request.contextPath}/user/chInfo')" id="btChInfo">내 정보 및 포인트</button>
 	<button class="button-active" onclick="chUpload()"  id="btChUpload">영상 업로드</button>
 </div>
 
@@ -52,3 +42,88 @@
 </div>
 
 <c:import url="/foot" />
+
+<script type="text/javascript">
+//메뉴 버튼 처리===================================
+//홈
+function chHome(url){	//url을 click이벤트 파라미터로 넘겨받아 처리
+	$.ajax({
+		type:"post",
+		url:url,
+		dataType:"text",
+		cache:false,
+		success: function(res){
+			$("#chArticle").html(res);
+		},
+		error:function(err){
+			console.log("error @chDoor.jsp/chInfo(): "+err.status);
+		}
+	});
+}
+
+//내 채널 및 영상
+function chStat(url){
+	$.ajax({
+		type:"post",
+		url:url,
+		dataType:"text",
+		cache:false,
+		success: function(res){
+			$("#chArticle").html(res);
+		},
+		error:function(err){
+			console.log("error @chDoor.jsp/chInfo(): "+err.status);
+		}
+	});
+}
+
+//내 정보 및 포인트
+function chInfo(url){
+	$.ajax({
+		type:"post",
+		url:url,	//channel/chInfo
+		dataType:"text",
+		cache:false,
+		success: function(res){
+			$("#chArticle").html(res);
+		},
+		error:function(err){
+			console.log("error @chDoor.jsp/chInfo(): "+err.status);
+		}
+	});
+}
+
+//영상 업로드===================================
+function chUpload(){
+	
+}
+
+//이미지 변경 모달 처리=============================
+$(function() {
+	//"내 채널 및 영상" 진입시만 <이미지 변경> 버튼 보임
+	$("#btChStat").on("click", function(){
+		$("#changeChImg").css("display", "block");
+	})
+	$("#btChHome").on("click", function(){
+		$("#changeChImg").css("display", "none");
+	})
+	$("#btChInfo").on("click", function(){
+		$("#changeChImg").css("display", "none");
+	})
+	$("#btChUpload").on("click", function(){
+		$("#changeChImg").css("display", "none");
+	})
+
+	//이미지 변경 버튼 클릭시 모달 팝업
+	$("#changeChImg").on("click", function(){
+		$("#chImgModal").css("display","block");
+	})
+	
+	$("#chImgModalClose").click(function(){
+		$("#chImgModal").css("display","none");
+	})
+})
+function chImgModalClose(){
+	chImgModal.style.display="none";
+}
+</script>

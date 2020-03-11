@@ -29,4 +29,5 @@ public class IndexController {
 	public String home(Model model, HttpSession ses) {
 		return "index";	//WEB-INF/spring/views/index.jsp
 	}
+
 }

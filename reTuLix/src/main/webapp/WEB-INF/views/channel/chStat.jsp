@@ -4,8 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% String ctx=request.getContextPath(); %>
 
-<script type="text/javascript" src="./js/channel/chStat.js"></script>
-
 <div class="myChannelHead">채널 추이</div>
 <div class="chEdit">
 
@@ -117,5 +115,26 @@
 	
 </div>
 	
-<script type="text/javascript" src="<%=ctx%>/js/channel/loader.js"></script>
-<script type="text/javascript" src="<%=ctx%>/js/channel/charts.js"></script>
+<%-- <script type="text/javascript" src="<%=ctx%>/js/channel/loader.js"></script>
+<script type="text/javascript" src="<%=ctx%>/js/channel/charts.js"></script> --%>
+
+<script type="text/javascript">
+/*$(function(){
+$("#btSearch").click(function(){
+	if($("#search").val()==""){
+		alert('검색어를 입력하세요');
+		return;
+	}
+	$("#statSearch").submit;
+})
+})
+*/
+function statReviewSearch(){
+if(!statSearch.statKeyword.value){
+	alert("검색어를 입력하세요");
+	stat.Search.statKeyword.focus();
+	return false;
+}
+statSearch.submit;
+}
+</script>
