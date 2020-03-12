@@ -4,7 +4,7 @@
 <div class="infoAndPoint">
 	<div class="myChannelHead">내 정보</div>
 	<div>
-		<form name="infoEdit" id="infoEdit" role="form" action="${pageContext.request.contextPath}/user/chInfoEdit" method="post">
+		<form name="infoEdit" id="infoEdit" role="form" action="${pageContext.request.contextPath}/user/chInfo" method="post">
 		<table>
 			<tr><td rowspan="4">
 				<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png" style="width:120px; height:120px; border-radius:0.2em"><br>
@@ -71,17 +71,17 @@
 </div>
 
 <!-- 회원 아이콘 변경 모달 -->
-<form name="iconEdit" id="iconEdit" role="form" action="/user/iconEdit" method="post" enctype="multipart/form-data">
+<form name="iconEdit" id="iconEdit" role="form" action="${pageContext.request.contextPath}/user/iconEdit" method="post" enctype="multipart/form-data">
 <div id="EditUserIcon" class="chImgModal">
 	<div class="chImgModal-content">
 		<p>내 아이콘 변경
-			<i class="chImgModalClose fa fa-times" id="chImgModalClose"></i>
-		<p>
+			<i class="fa fa-times" id="btIconEditModalClose"></i>
+		</p>
 		
 		<input type="file" name="btUpUserIcon" id="btUpUserIcon"><br>
 		
 		<button type="button" class="button-active" id="userIconEdit" name="userIconEdit">적용</button>
-		<button type="button" class="button-inactive">취소</button>
+		<button type="button" class="button-inactive" onclick="iconEditModalClose()">취소</button>
 		<span>
 			채널 이미지 권장 크기: 500 X 500 픽셀<br>
 			최대 파일 크기 : 6MB
@@ -109,11 +109,41 @@ $(function(){
 				reqReject("pwd");
 				return;
 			}
-			var yn=confirm("정말 비밀번호를 변경하시겠습니까?");
+			var yn=confirm("정말 비밀번호를 변경하시겠습니까? 변경 후에는 다시 로그인해야 합니다.");
 			if(yn==true) $("#infoEdit").submit();
 			else return;
 		}
-		infoEdit.submit();
+		
+		//infoEdit.submit();
+		//form submit ajax로 처리
+		var formData=$("#infoEdit").serialize();
+		$.ajax({
+            url : "${pageContext.request.contextPath}/user/chInfo",	//이 url로 데이터 전송함
+            type : 'POST',
+            data : formData,
+            dataType:"json",
+			cache : false,
+            success:function(res) {
+                //정보 수정 성공==T
+                if(res.result=="true"){
+                	alert(res.msg);
+                	//비밀번호 변경시 자동 로그아웃
+                	if(res.pwdEdited=="pwdEdited") location.href="${pageContext.request.contextPath}/login";
+                	//비밀번호 미변경시 페이지 갱신
+                	else{
+                		var url="${pageContext.request.contextPath}/user/chInfo";
+                		chInfo(url);
+                	}
+                		//window.location.reload();
+                }else{
+                	alert(res.msg);
+                	reqReject("originPwd");
+                }
+            }, 
+            error:function(err) {
+                alert(err.status);
+            }
+		});
 	})
 	
 	//[수정]생년월일 정규식 검사
@@ -156,10 +186,10 @@ $(function(){
 			return;
 		}
 		
-		var path = window.location.pathname;	//프로젝트 경로 추출: retulix/user/channel
+		//var path = window.location.pathname;	//프로젝트 경로 추출: retulix/user/channel
 		var yn=confirm("정말 탈퇴하시겠습니까? 탈퇴 후에는 재가입해야 이용할 수 있습니다");
 		if(yn){	//y==true
-			infoEdit.action=path+"/userDrop";
+			infoEdit.action="${pageContext.request.contextPath}/user/userDrop";
 			infoEdit.submit();
 		}else{
 			return;
@@ -169,13 +199,38 @@ $(function(){
 	//[아이콘변경]아이콘 변경 버튼 클릭시 모달 팝업=========================
 	$("#btEditUserIcon").on("click", function(){
 		$("#EditUserIcon").css("display","block");
+		$("html, body").scrollTop(0);
+	})
+	//모달 창 닫기 [X]버튼 처리
+	$("#btIconEditModalClose").on("click", function(){
+		$("#EditUserIcon").css("display","none");
 	})
 	
 	//[아이콘변경]적용 버튼 클릭시
 	$("#userIconEdit").click(function(){
-		
 		$("#iconEdit").submit();
 	})
 	
 });
+//모달 취소 버튼 처리
+function iconEditModalClose(){
+	EditUserIcon.style.display="none";
+}
+
+//:::내 정보 및 포인트 진입 함수: js 모두 합치고 지우기::::::::::::::::::::::::::::
+function chInfo(url){
+	$.ajax({
+		type:"get",
+		url:url,
+		dataType:"text",
+		cache:false,
+		success: function(res){
+			$("#chArticle").html(res);
+		},
+		error:function(err){
+			console.log("error @chDoor.jsp/chInfo(): "+err.status);
+		}
+	});
+}
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 </script>

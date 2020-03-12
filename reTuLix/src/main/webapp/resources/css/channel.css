@@ -88,13 +88,13 @@
 }
 
 /* 모달 닫기 버튼 */
-.chImgModalClose {
+.chImgModalClose, .btIconEditModalClose {
     color: #aaa;
     float: right;
     font-size: 2em;
     padding-top: 0.5em;
 }
-.chImgModalClose:hover, .chImgModalClose:focus {
+.chImgModalClose:hover, .chImgModalClose:focus, .btIconEditModalClose:hover, .btIconEditModalClose:focus {
     color: #fff;
     cursor: pointer;
 }

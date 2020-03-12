@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="/top" />
@@ -13,7 +12,7 @@
 	<button class="button-active" onclick="chHome('${pageContext.request.contextPath}/user/chHome')" id="btChHome">홈</button>
 	<button onclick="chStat('${pageContext.request.contextPath}/user/chStat')" id="btChStat">내 채널 및 영상</button>
 	<button onclick="chInfo('${pageContext.request.contextPath}/user/chInfo')" id="btChInfo">내 정보 및 포인트</button>
-	<button class="button-active" onclick="chUpload()"  id="btChUpload">영상 업로드</button>
+	<button class="button-active" onclick="chUpload()" id="btChUpload">영상 업로드</button>
 </div>
 
 <div id="chArticle"></div>
@@ -64,7 +63,7 @@ function chHome(url){	//url을 click이벤트 파라미터로 넘겨받아 처�
 //내 채널 및 영상
 function chStat(url){
 	$.ajax({
-		type:"post",
+		type:"get",
 		url:url,
 		dataType:"text",
 		cache:false,
@@ -80,8 +79,8 @@ function chStat(url){
 //내 정보 및 포인트
 function chInfo(url){
 	$.ajax({
-		type:"post",
-		url:url,	//channel/chInfo
+		type:"get",
+		url:url,
 		dataType:"text",
 		cache:false,
 		success: function(res){

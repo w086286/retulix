@@ -5,6 +5,22 @@
 <mapper 
    	namespace="com.tis.channel.mapper.ChannelMapper">
 	
+	<!-- chStat====================================================== -->
+	<select id="showUserStat" resultType="Stat_View" parameterType="string">
+		select sum(good) good, sum(click) click, sum(zzim) zzim, count(subs) subs
+		from stat_view where email=#{value}
+	</select>
+	<select id="showStatMax" resultType="Stat_View" parameterType="string">
+		select title, url, wdate from(
+			select row_number() over(order by click desc) row_num, stat_view.* 
+			from stat_view where email=#{value})
+		where row_num=1;
+	</select>
+	<select id="showUserReview" resultType="Stat_View" parameterType="string">
+		select row_number() over(order by wdate desc) row_num, stat_view.*
+		from stat_view where email=#{value}
+	</select>
+	
 	<!-- chInfo====================================================== -->
 	<select id="showUserInfo" resultType="Member" parameterType="string">
 		select * from member where email=#{value}
@@ -15,4 +31,5 @@
 	<delete id="deleteUserInfo" parameterType="string">
 		delete from member where email=#{value}
 	</delete>
+
 </mapper>

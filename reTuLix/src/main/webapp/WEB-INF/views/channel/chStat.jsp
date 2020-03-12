@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.text.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<% String ctx=request.getContextPath(); %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="myChannelHead">채널 추이</div>
 <div class="chEdit">
@@ -22,23 +21,27 @@
 				<td>찜</td>
 			</tr>
 			<tr>
-				<td>회</td>
-				<td>회</td>
-				<td>회</td>
-				<td>회</td>
+				<td>${stat.click}회</td>
+				<td>${stat.good}회</td>
+				<td>${stat.subs}회</td>
+				<td>${stat.zzim}회</td>
 			</tr>
 			<tr>
 				<td colspan="2">
 					가장 조회수가 많은 영상<br>
-					<img src="<%=ctx%>/images/channel/channel_image.png" alt="mostView">
-					<span>영상 제목</span><br>
-					<span>업로드일</span><br>
+					<img src="${statMax.url}" alt="mostView">
+					<span>${statMax.title}</span><br>
+					<span>
+						<fmt:formatDate value="${statMax.wdate}" pattern="yyyy년 MM월 DD일"/>
+					</span><br>
 				</td>
 				<td colspan="2">
 					가장 좋아요가 많은 영상<br>
-					<img src="<%=ctx%>/images/channel/channel_image.png" alt="mostLike">
-					<span>영상 제목</span><br>
-					<span>업로드일</span><br>
+					<img src="${statMax.url}" alt="mostLike">
+					<span>${statMax.title}</span><br>
+					<span>
+						<fmt:formatDate value="${statMax.wdate}" pattern="yyyy년 MM월 DD일"/>
+					</span><br>
 				</td>
 			</tr>
 		</table>
@@ -46,12 +49,6 @@
 
 	<div class="myChannelHead">영상 관리</div>
 	<form name="statSearch" id="statSearch" role="form" action="chStat.do" method="post">
-	<!-- 진입 테스트 회원 정보:::::::::::나중에 삭제 -->
-	<div style="display:none">
-	<input id="email" name="email" value="nofootbird@gmail.com">
-	<input id="pwd" name="pwd" value="123">
-	</div>
-	<!-- :::::::::::::::::::::::::::::::::::::::: -->
 		<div class="chHomeHead">
 			<div class="channelAlign">
 				<select name="statType" id="statType">
@@ -66,12 +63,12 @@
 		</div>
 	</form>
 	<div>
-	<c:if test="${statArr==null || empty statArr}">
+	<c:if test="${reviewList==null || empty reviewList}">
 		<b>업로드한 영상이 없습니다.</b>
 	</c:if>
 
 	<table>
-		<c:if test="${statArr!=null && not empty statArr}">
+		<c:if test="${reviewList!=null && not empty reviewList}">
 			<tr>
 				<th>영상 제목</th>
 				<th>업로드 날짜</th>
@@ -81,14 +78,16 @@
 				<th>리뷰 영화</th>
 				<th>수정 | 삭제</th>
 			</tr>
-			<c:forEach var="stat" items="${statArr}">
+			<c:forEach var="reviewList" items="${reviewList}">
 			<tr>
-				<td><c:out value="${stat.title}" /></td>
-				<td><c:out value="${stat.wdate}" /></td>
-				<td><c:out value="${stat.click}" /></td>
-				<td><c:out value="${stat.good}" /></td>
-				<td><c:out value="${stat.zzim}" /></td>
-				<td><c:out value="${stat.t_title}" /></td>
+				<td><a href="${reviewList.url}">
+					<c:out value="${reviewList.title}" />
+				</a></td>
+				<td><fmt:formatDate value="${reviewList.wdate}" pattern="yyyy년 MM월 DD일"/></td>
+				<td><c:out value="${reviewList.click}" /></td>
+				<td><c:out value="${reviewList.good}" /></td>
+				<td><c:out value="${reviewList.zzim}" /></td>
+				<td><c:out value="${reviewList.t_title}" /></td>
 				<td>
 					<a href="#"><i class="fas fa-pen"></i></a>&nbsp; | &nbsp;
 					<a href="#"><i class="fas fa-trash"></i></a> 
@@ -118,23 +117,23 @@
 <%-- <script type="text/javascript" src="<%=ctx%>/js/channel/loader.js"></script>
 <script type="text/javascript" src="<%=ctx%>/js/channel/charts.js"></script> --%>
 
-<script type="text/javascript">
-/*$(function(){
-$("#btSearch").click(function(){
-	if($("#search").val()==""){
-		alert('검색어를 입력하세요');
-		return;
+<script>
+	/*$(function(){
+	$("#btSearch").click(function(){
+		if($("#search").val()==""){
+			alert('검색어를 입력하세요');
+			return;
+		}
+		$("#statSearch").submit;
+	})
+	})
+	*/
+	function statReviewSearch(){
+	if(!statSearch.statKeyword.value){
+		alert("검색어를 입력하세요");
+		stat.Search.statKeyword.focus();
+		return false;
 	}
-	$("#statSearch").submit;
-})
-})
-*/
-function statReviewSearch(){
-if(!statSearch.statKeyword.value){
-	alert("검색어를 입력하세요");
-	stat.Search.statKeyword.focus();
-	return false;
-}
-statSearch.submit;
-}
+	statSearch.submit;
+	}
 </script>
