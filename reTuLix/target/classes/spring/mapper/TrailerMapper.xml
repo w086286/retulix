@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tis.admin.mapper.TrailerMapper">
+	<!-- 총 트레일러 수 -->
+	<select id="getTotalTrailer" resultType="int">
+		select count(idx) from trailer_view
+	</select>
+	<!-- 검색한 트레일러 수 -->
+	<select id="getTotalSearchTrailer" resultType="int" parameterType="Map">
+		select count(idx) from trailer_view
+		<include refid="whereClause"/>
+	</select>
+	<!-- 트레일러 목록 -->
+	<select id="getTrailer" resultType="Trailer" parameterType="Map">
+		select * from (
+		select rownum rn, trailer.* from
+		(select
+		<include refid="trailer_col"/>
+		from trailer order by idx) trailer)
+		where rn between #{start} and #{end}
+	</select>
+
+	<!-- trailer의 모든 컬럼 조각 sql -->
+	<sql id="trailer_col">
+		divi, genre, num, idx, api_idx, url, title, good, click, zzim, email
+	</sql>
+	<!-- 검색창 조각sql -->
+	<sql id="whereClause">
+		<if test="selectBox != null and searchInput != ''">
+			<where>
+				<choose>
+					<when test="selectBox=='idx'">
+						idx like upper('%'||#{searchInput}||'%')
+					</when>
+					<when test="selectBox=='title'">
+						title like '%'||#{searchInput}||'%'
+					</when>
+					<otherwise>
+						idx like upper('%'||#{searchInput}||'%')
+					</otherwise>
+				</choose>
+			</where>
+		</if>
+	</sql>
+</mapper>
