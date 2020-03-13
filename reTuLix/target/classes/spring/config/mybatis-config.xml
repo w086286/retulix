@@ -18,6 +18,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<typeAlias type="com.tis.retulix.domain.Zzim_TrailerVO" alias="Zzim_Trailer" />
 			<typeAlias type="com.tis.retulix.domain.Zzim_ReviewVO" alias="Zzim_Review" />
 			<typeAlias type="com.tis.retulix.domain.Stat_ViewVO" alias="Stat_View" />
+			<typeAlias type="com.tis.common.model.PagingVO" alias="Paging" />
 		</typeAliases>
 		
 		<!-- 맵퍼 등록 -->

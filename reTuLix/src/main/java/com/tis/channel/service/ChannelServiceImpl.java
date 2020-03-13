@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.tis.channel.mapper.ChannelMapper;
+import com.tis.common.model.PagingVO;
 import com.tis.retulix.domain.MemberVO;
 import com.tis.retulix.domain.Stat_ViewVO;
 
@@ -29,6 +30,11 @@ public class ChannelServiceImpl implements ChannelService {
 	@Override
 	public Stat_ViewVO showStatMax(String email) {
 		return this.channelMapper.showStatMax(email);
+	}
+	
+	@Override
+	public int getTotalPage(PagingVO paging) {
+		return this.channelMapper.getTotalPage(paging);
 	}
 	
 	@Override

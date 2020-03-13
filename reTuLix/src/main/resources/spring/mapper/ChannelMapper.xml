@@ -20,6 +20,9 @@
 		select row_number() over(order by wdate desc) row_num, stat_view.*
 		from stat_view where email=#{value}
 	</select>
+	<select id="getTotalPage" resultType="int" parameterType="Paging">
+		select count(idx) from review_view
+	</select>
 	
 	<!-- chInfo====================================================== -->
 	<select id="showUserInfo" resultType="Member" parameterType="string">

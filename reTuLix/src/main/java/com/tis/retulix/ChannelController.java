@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tis.channel.service.ChannelService;
 import com.tis.common.CommonUtil;
+import com.tis.common.model.PagingVO;
 import com.tis.retulix.domain.MemberVO;
 import com.tis.retulix.domain.Stat_ViewVO;
 
@@ -61,16 +62,33 @@ public class ChannelController {
 	
 	/**[내 채널 관리]진입*/
 	@GetMapping("/chStat")
-	public String chStat(HttpSession ses, Model m) {
+	public String chStat(HttpSession ses, Model m, @ModelAttribute("paging") PagingVO paging) {
 		String email=LoginUser(ses, m);
 		
-		Stat_ViewVO stat=channelService.showUserStat(email);
-		//Stat_ViewVO statMax=channelService.showStatMax(email);
-		List<Stat_ViewVO> reviewList=channelService.showUserReview(email);
+		Stat_ViewVO stat=channelService.showUserStat(email);	//total 조회수, 찜 수등..
+		//Stat_ViewVO statMax=channelService.showStatMax(email);//가장 조회수가 높은 영상
 		
+		//업로드한 영상 테이블 출력+페이징 처리
+		List<Stat_ViewVO> reviewList=channelService.showUserReview(email);
+	/*
+		int totalPage=channelService.getTotalPage(paging);	//총 업로드 영상 갯수 추출
+		paging.setTotalCount(totalPage);//총 게시글 수 전달
+		paging.setPageSize(15);			//한 페이지당 보여줄 글 수
+		paging.setPagingBlock(5);		//네이게이션 블록 단위
+		paging.init();					//페이징 연산
+		List<Stat_ViewVO> reviewList=channelService.showUserReview(email);	//게시목록 출력
+		String ctx="/retulix";
+		String loc="channel/chStat";
+		String pageStr=paging.getPageNavi(ctx, loc);//페이징 처리값 문자열로 변환
+	*/	
 		m.addAttribute("stat", stat);
 		//m.addAttribute("statMax", statMax);	//맵퍼 syntax 해결하고 주석 풀기
 		m.addAttribute("reviewList", reviewList);
+	/*
+		m.addAttribute("totalPage", totalPage);
+		m.addAttribute("pageNavi", pageStr);
+		m.addAttribute("paging", paging);
+	*/
 		return "/channel/chStat";
 	}
 

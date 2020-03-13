@@ -114,8 +114,8 @@
 	
 </div>
 	
-<%-- <script type="text/javascript" src="<%=ctx%>/js/channel/loader.js"></script>
-<script type="text/javascript" src="<%=ctx%>/js/channel/charts.js"></script> --%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/channel/loader.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/channel/charts.js"></script>
 
 <script>
 	/*$(function(){
