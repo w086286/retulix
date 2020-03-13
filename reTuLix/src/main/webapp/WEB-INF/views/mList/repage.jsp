@@ -48,7 +48,7 @@
         	 console.log("page on load")
         	
         	 var substr='${mvo.idx}';
-        	 var m_info='${m_info}';
+        	 
         	 substr= substr.substring(0,1)
         	 /* 드라마 영화 판단후 각자 실행 */
         		 fetchMovie('${mvo.api_idx}',substr,function(result){
@@ -62,8 +62,10 @@
         	        		 }
         	             document.documentElement.style.setProperty('--main_bg', result[4]);
         	             }) 
+        	 var m_info='${m_info}';
         	 
         	       if(m_info=='true'){
+        	    	  
         	    	   $('#lasttime').addClass('ch_color');
         	       }
         	  

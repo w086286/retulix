@@ -49,7 +49,7 @@ public class Trailer_viewController {
 			Zzim_TrailerVO Ztv=trailer_Service.ZtVo(mvo.getEmail(),vo.getIdx());
 			if(Ztv!=null)
 			{
-				m.addAttribute(" ","true");
+				m.addAttribute("m_info","true");
 			}
 		}
 		
