@@ -14,5 +14,6 @@ public class MemberVO {
 	private String icon;
 	private String chimg;
 	private int state;
+	private String stateStr;
 	
 }

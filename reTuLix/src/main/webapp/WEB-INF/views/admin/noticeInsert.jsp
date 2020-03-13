@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="/admin/adminTop.jsp"/>
+
+<c:import url="/admin/adminTop"/>
 
 <!-- ------------------------------------------- -->
 <div class='box'>
@@ -11,7 +13,7 @@
 <div class='box'>
 
 <!-- 전송폼 -------------------------- -->
-<form action='noticeInsertEnd.do' name='noticeInsertForm' method='POST'>
+<form action='noticeInsert' name='noticeInsertForm' method='POST'>
 	<div class='box'>
 		<label for='title'>제  목</label>
 		<input type='text' name='title' id='title' required>
@@ -44,4 +46,4 @@ function goBack(){
 </script>
 <!-- //script -->
 
-<jsp:include page="/foot.jsp"/>
+<c:import url="/foot"/>

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="function" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-<jsp:include page="/admin/adminTop.jsp"/>
+<c:import url="/admin/adminTop"/>
 
 <!-- -------------------------------------------------------- -->
 
@@ -25,19 +25,19 @@
 				<td>이름</td>
 				<td>${oldMember.name }</td>
 				<td><b> → </b></td>
-				<td>${newMember.name }</td>
+				<td>${member.name }</td>
 			</tr>
 			<tr>
 				<td>포인트</td>
 				<td>${oldMember.point }</td>
 				<td><b> → </b></td>
-				<td>${newMember.point }</td>
+				<td>${member.point }</td>
 			</tr>
 			<tr>
 				<td>상태</td>
 				<td>${oldMember.stateStr }</td>
 				<td><b> → </b></td>
-				<td>${newMember.stateStr}</td>
+				<td>${member.stateStr}</td>
 			</tr>
 		</table>		
 	</div>
@@ -52,7 +52,7 @@
 <script>
 
 function goMemberList() {
-	location.href="memberList.do";
+	location.href="memberList";
 }
 function goBack(){
 	history.back();
@@ -61,4 +61,4 @@ function goBack(){
 </script>
 <!-- -------------------------------------------------------- -->
 
-<jsp:include page="/foot.jsp"/>
+<c:import url="/foot"/>
