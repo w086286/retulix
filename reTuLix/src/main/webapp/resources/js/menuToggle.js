@@ -42,4 +42,18 @@ $(function(){
 
 }); 	
 
+//정렬하기 
+
+$(function(){
+	$('#alignButton').on("click", function(){
+		//alert($("#g_button").val());
+		if ($("#g_button").val()=='click'){
+			window.location.href="clickAlign";
+		}else if ($("#g_button").val()=='good'){
+			window.location.href="goodAlign";
+		}
+	})
+	
+	
+})
     

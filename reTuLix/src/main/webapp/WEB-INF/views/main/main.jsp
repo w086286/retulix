@@ -1,72 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <c:import url="/top" />
   
 		<!-- 인트로 이미지 시작-->
 		<section id="top" class="one dark cover">
 		
-		<c:forEach var="url" items="${url}" begin="0" end="0">
+		<c:forEach var="url" items="${mainTrailer}" begin="0" end="0">
 			<div class="container">
 				<div>
 					<iframe width="100%" height="700"
 						src="${url.url}"></iframe>
 				</div>
 				<!--?autoplay=1 자동재생  크롬에서는 작동 안함 -->
+				<div id="zzim"></div>	
 				<header> reTuLix에서 제공하는 최신 리뷰를 만나보세요 </header>
 
 				<footer>
 
 					<a href="#portfolio" class="button scrolly">지금 영상 보러가기</a>
 				</footer>
+				
 			</div>
 			</c:forEach>
-			
+		
 		</section>
 		<!-- 인트로 이미지 끝-->
 
 		<!--정렬하기 시작-->
-		<div class="align">
-			<tr>
-				<td>*정렬하기</td>
-				<td><select name="align" id="g_button">
-						<option value="조회수순">조회수순</option>
-						<option value="좋아요순">좋아요순</option>
-						<option value="업로드순">업로드순</option>
-				</select></td>
-			</tr>
+		<div class="align">	
+				<select name="align" id="g_button">
+						<option value="click">조회수순</option>
+						<option value="good">좋아요순</option>	
+				</select>	
+				<button id="alignButton">정렬하기</button>
 		</div>
 		<!--정렬하기 끝	-->
 
 		<!-- 슬라이더 시작 -->
 		
 		<!--시청 중인 영상-->
+		
 		<section id="about" class="two">
 			<div class="container-fluid" id="cslide">
-				<h3 align="left" style="color: lavender">누구누구가 최근에 본 영상</h3>
+				<h3 align="left" style="color: lavender">누구누구가 찜한 영상</h3>
 				<div class="demo">
+				<div id="history"></div>
 					<div class="row">
-						<ul id="mvs" class="content-slider"> <!-- 아이디 바꿀 것 -->
-						
-			<c:forEach var="MOVIE" items="${MS_title}">		
-			 <div class="col-6 col-lg-2 animate-in-down"><a href="'+[movies[i]]+'">
-			 <img src="./포스터/${MOVIE.title}.png" 
-			 class="center-block img-fluid my-3" height="230px"></a></div>
-   			 </c:forEach>
+						<ul id="content-slider" class="content-slider"> <!-- 아이디 바꿀 것 -->
+								
+			<c:forEach var="zzimList" items="${zzimListTitle}">		
+			 <div class="col-6 col-lg-2 animate-in-down"><a href="movieView?idx=${zzimList.idx}">
+			 <img src="${pageContext.request.contextPath}/resources/poster/${zzimList.title}.png" 
+			 class="center-block img-fluid my-3" height="230px" width="158px"></a></div>
+   			 </c:forEach>		
+		<!--movieView?idx=MR010  -->
 						</ul>
 					</div>
 				</div>
 			</div>
-
+			
 			<!--찜한 영상-->
 			<div class="container-fluid" id="cslide">
-				<h3 align="left" style="color: lavender">나중에 볼 찜 영상</h3>
+				<h3 align="left" style="color: lavender">누구누구가 최근에 본 영상</h3>
 				<div class="demo">
+				<div id="click"></div>
 					<div class="row">
 						<ul id="content-slider" class="content-slider">
-
+					
+			<c:forEach var="historyList" items="${historyListTitle}">		
+			 <div class="col-6 col-lg-2 animate-in-down"><a href="movieView?idx=${historyList.idx}">
+			 <img src="${pageContext.request.contextPath}/resources/poster/${historyList.title}.png" 
+			 class="center-block img-fluid my-3" height="230px" width="158px"></a></div>
+   			 </c:forEach>
+		
 						</ul>
 					</div>
 				</div>
+			
 			</div>
 			<!--최근 인기 영상-->
 			<div class="container-fluid" id="cslide">
@@ -74,6 +85,11 @@
 				<div class="demo">
 					<div class="row">
 						<ul id="content-slider" class="content-slider">
+			<c:forEach var="clickSlider" items="${clickSlider}">		
+			 <div class="col-6 col-lg-2 animate-in-down"><a href="movieView?idx=${clickSlider.idx}">
+			 <img src="${pageContext.request.contextPath}/resources/poster/${clickSlider.title}.png" 
+			 class="center-block img-fluid my-3" height="230px" width="158px"></a></div>
+   			 </c:forEach>
 
 						</ul>
 					</div>
@@ -88,9 +104,9 @@
 					<div class="row">
 						<ul id="content-slider" class="content-slider">
 			<c:forEach var="MOVIE" items="${MC_title}">		
-			 <div class="col-6 col-lg-2 animate-in-down"><a href="'+[movies[i]]+'">
-			 <img src="./포스터/${MOVIE.title}.png" 
-			 class="center-block img-fluid my-3" height="230px"></a></div>
+			 <div class="col-6 col-lg-2 animate-in-down"><a href="movieView?idx=${MOVIE.idx}">
+			 <img src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png" 
+			 class="center-block img-fluid my-3" height="230px" width="158px"></a></div>
    			 </c:forEach>
 
 						</ul>
@@ -105,9 +121,9 @@
 						<ul id="content-slider" class="content-slider">
 			
 			<c:forEach var="MOVIE" items="${MH_title}">		
-			 <div class="col-6 col-lg-2 animate-in-down"><a href="'+[movies[i]]+'">
-			 <img src="./포스터/${MOVIE.title}.png" 
-			 class="center-block img-fluid my-3" height="230px"></a></div>
+			 <div class="col-6 col-lg-2 animate-in-down"><a href="movieView?idx=${MOVIE.idx}">
+			 <img src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png" 
+			 class="center-block img-fluid my-3" height="230px" width="158px"></a></div>
    			 </c:forEach>
 			
 						</ul>
@@ -122,9 +138,9 @@
 						<ul id="content-slider" class="content-slider">
 						
 			<c:forEach var="MOVIE" items="${MS_title}">		
-			 <div class="col-6 col-lg-2 animate-in-down"><a href="'+[movies[i]]+'">
-			 <img src="./포스터/${MOVIE.title}.png" 
-			 class="center-block img-fluid my-3" height="230px"></a></div>
+			 <div class="col-6 col-lg-2 animate-in-down"><a href="movieView?idx=${MOVIE.idx}">
+			 <img src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png" 
+			 class="center-block img-fluid my-3" height="230px" width="158px"></a></div>
    			 </c:forEach>
 
 						</ul>
@@ -139,9 +155,9 @@
 						<ul id="content-slider" class="content-slider">
 						
 			<c:forEach var="MOVIE" items="${MA_title}">		
-			 <div class="col-6 col-lg-2 animate-in-down"><a href="'+[movies[i]]+'">
-			 <img src="./포스터/${MOVIE.title}.png" 
-			 class="center-block img-fluid my-3" height="230px"></a></div>
+			 <div class="col-6 col-lg-2 animate-in-down"><a href="movieView?idx=${MOVIE.idx}">
+			 <img src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png" 
+			 class="center-block img-fluid my-3" height="230px" width="158px"></a></div>
    			 </c:forEach>
 						
 						</ul>
@@ -156,9 +172,9 @@
 						<ul id="content-slider" class="content-slider">
 						
 			<c:forEach var="MOVIE" items="${MR_title}">		
-			 <div class="col-6 col-lg-2 animate-in-down"><a href="'+[movies[i]]+'">
-			 <img src="./포스터/${MOVIE.title}.png" 
-			 class="center-block img-fluid my-3" height="230px"></a></div>
+			 <div class="col-6 col-lg-2 animate-in-down"><a href="movieView?idx=${MOVIE.idx}">
+			 <img src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png" 
+			 class="center-block img-fluid my-3" height="230px" width="158px"></a></div>
    			 </c:forEach>
 			
 						</ul>
@@ -173,9 +189,9 @@
 						<ul id="content-slider" class="content-slider">
 						
 			<c:forEach var="DRAMA" items="${D_title}">		
-			 <div class="col-6 col-lg-2 animate-in-down"><a href="'+[movies[i]]+'">
-			 <img src="./포스터/${DRAMA.title}.png" 
-			 class="center-block img-fluid my-3" height="230px"></a></div>
+			 <div class="col-6 col-lg-2 animate-in-down"><a href="movieView?idx=${DRAMA.idx}">
+			 <img src="${pageContext.request.contextPath}/resources/poster/${DRAMA.title}.png" 
+			 class="center-block img-fluid my-3" height="230px" width="158px"></a></div>
    			 </c:forEach>
 
 						</ul>
@@ -185,3 +201,4 @@
 
 		</section>
 	<!-- 슬라이더 끝 -->
+<c:import url="/foot" />

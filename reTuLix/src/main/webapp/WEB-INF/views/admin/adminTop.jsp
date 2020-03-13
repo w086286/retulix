@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="/top.jsp"/>
+<c:import url="/top"/>
 <!-- admintop-------------------------------------------------------- -->
 <% String myctx= request.getContextPath(); %>
 <div class="box">
@@ -9,10 +10,10 @@
 </div>
 <div id="" class="box">
 	<div class="" style='display:inline-block; float:left'>
-		<a href="<%=myctx %>/memberList.do" class='button'>회원정보</a> 
-		<a href="<%=myctx %>/trailerList.do" class='button'>컨텐츠목록</a> 
+		<a href="<%=myctx %>/admin/member" class='button'>회원정보</a> 
+		<a href="<%=myctx %>/admin/trailer" class='button'>컨텐츠목록</a> 
 		<a href="<%=myctx %>/memberAllContent.do" class="button">회원컨텐츠</a> 
-		<a type="button" class="">결제내역</a>
+		<!-- <a type="button" class="">결제내역</a> -->
 	</div>
 	<div class='' style='display:inline-block; float:right;'>
 		<a href='trailerInsert.do' class='button' style='margin-left:2em;'>등록</a>

@@ -4,7 +4,16 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- [1]bean 생성 -->
-	<bean id="loginController" class="com.tis.retulix.LoginController" name="/"></bean>
+	<bean id="adminController" class="com.tis.retulix.AdminController" name="/admin"></bean>
+	<bean id="channelController" class="com.tis.retulix.ChannelController" name="/channel"></bean>
+	<bean id="clickAlignController" class="com.tis.retulix.clickAlignController" name="/clickAlign"></bean>
+	<bean id="goodAlignController" class="com.tis.retulix.goodAlignController" name="/goodAlign"></bean>
 	<bean id="indexController" class="com.tis.retulix.IndexController" name="/index"></bean>
+	<bean id="loginController" class="com.tis.retulix.LoginController" name="/login"></bean>
+	<bean id="mainController" class="com.tis.retulix.mainController" name="/main"></bean>
+	<bean id="onlyDramaController" class="com.tis.retulix.onlyDramaController" name="/onlyDrama"></bean>
+	<bean id="onlyMovieController" class="com.tis.retulix.onlyMovieController" name="/onlyMovie"></bean>
+	<bean id="trailer_viewController" class="com.tis.retulix.Trailer_viewController" name="/Trailer_view"></bean>
+	<bean id="userRegController" class="com.tis.retulix.UserRegController" name="/UserReg"></bean>
 
 </beans>

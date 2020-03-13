@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper 
+   	namespace="com.tis.channel.mapper.ChannelMapper">
+	
+	<!-- chStat====================================================== -->
+	<select id="showUserStat" resultType="Stat_View" parameterType="string">
+		select sum(good) good, sum(click) click, sum(zzim) zzim, count(subs) subs
+		from stat_view where email=#{value}
+	</select>
+	<select id="showStatMax" resultType="Stat_View" parameterType="string">
+		select title, url, wdate from(
+			select row_number() over(order by click desc) row_num, stat_view.* 
+			from stat_view where email=#{value})
+		where row_num=1;
+	</select>
+	<select id="showUserReview" resultType="Stat_View" parameterType="string">
+		select row_number() over(order by wdate desc) row_num, stat_view.*
+		from stat_view where email=#{value}
+	</select>
+	<select id="getTotalPage" resultType="int" parameterType="Paging">
+		select count(idx) from review_view
+	</select>
+	
+	<!-- chInfo====================================================== -->
+	<select id="showUserInfo" resultType="Member" parameterType="string">
+		select * from member where email=#{value}
+	</select>
+	<insert id="updateUserInfo" parameterType="Member">
+		update member set pwd=#{pwd:VARCHAR}, age=#{age:VARCHAR} where email=#{email}
+	</insert>
+	<delete id="deleteUserInfo" parameterType="string">
+		delete from member where email=#{value}
+	</delete>
+
+</mapper>

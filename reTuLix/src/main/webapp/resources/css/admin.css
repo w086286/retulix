@@ -37,14 +37,14 @@ input.label:not:hover, input.label:focus {
 .box {
 	overflow-x:auto;
 	margin:0.5em;
-	border:1px solid red;
+	/*border:1px solid red;*/
 }
 .outer {
 	overflow-x:auto;
 	margin:0.5em;
 	text-align: center;
 	
-	border:1px solid blue;
+	/* border:1px solid blue; */
 }
 .left {
 	display:inline-block;
@@ -62,7 +62,7 @@ input.label:not:hover, input.label:focus {
 .tableContainer table {
 	display: inline-block;
 	overflow-x: hidden;
-	border: 1px solid green;
+	/* border: 1px solid green; */
 }
 .tableContainer table tbody tr td{
 	overflow-y: hidden;
@@ -90,4 +90,7 @@ input.label:not:hover, input.label:focus {
 .bg-list {
 	background-color:#008000;
 	opacity:0.5;
+}
+.test-outline{
+	border:1px solid red;
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tis.retulix.trailer.mapper.Trailer_Mapper">
+
+	<!-- id는 UserMapper인터페이스의 메소드명과 동일하게 준다 -->
+	<!-- [1]mybatis-config.xml에서 별칭 및 맵퍼 등록하고 와서 insert문 작성 -->
+	<select id="selectReview" resultType="Review" parameterType="string">
+	select  url, substr(url,(instr(url,'/',4,4))+1) as title from REVIEW_VIEW where t_idx =#{value}
+ 
+	</select>
+	
+	<select id = "selectPoster" resultType="Trailer" parameterType="map">
+
+	select * from  ( select * from TRAILER_VIEW where idx != #{not} and idx like #{end}
+	 	 order by dbms_random.value) where rownum  <![CDATA[ <= 5 ]]>
+</select>
+<select id="select_Random_One" resultType="Trailer">
+	select * from  (select * from TRAILER_VIEW order by dbms_random.value) where rownum <![CDATA[<= 1	]]>
+</select>
+ <select id ="selectOne" resultType="Trailer" parameterType="string">
+  	select * from TRAILER_VIEW where idx=#{value}
+</select> 
+
+	 <update id="update_seleted" parameterType="map">
+  		
+  		update TRAILER_VIEW set api_idx = #{api_num} , title=#{title} where idx = #{idx}
+  </update>
+  
+  <insert id="insert_ZzimT" parameterType="map">
+  	insert into ZZIM_TRAILER (email,idx) values(#{email:VARCHAR},#{idx:VARCHAR})
+  </insert>
+  <select id="ZtVo" resultType="com.tis.retulix.domain.Zzim_TrailerVO" parameterType="map">
+  	select email,idx from ZZIM_TRAILER where email=#{email} and idx=#{idx}
+  </select>
+  
+  <delete id="del_Zzim" parameterType="map">
+  	delete from ZZIM_TRAILER where email=#{email} and idx=#{idx}
+  </delete>
+  
+</mapper>
