@@ -10,9 +10,13 @@ import org.springframework.stereotype.Service;
 
 import com.tis.retulix.domain.ReviewVO;
 import com.tis.retulix.domain.Trailer_ViewVO;
+import com.tis.retulix.domain.Zzim_TrailerVO;
 import com.tis.retulix.trailer.mapper.Trailer_Mapper;
 
+import lombok.extern.log4j.Log4j;
+
 @Service
+@Log4j
 public class Trailer_ServiceImpl implements Trailer_Service {
 
 	@Inject
@@ -53,6 +57,31 @@ public class Trailer_ServiceImpl implements Trailer_Service {
 		map.put("api_num", info[1]);
 		map.put("idx", info[2]);
 		return trailer_Mapper.update_seleted(map);
+	}
+
+	@Override
+	public int insert_ZzimT(String email,String idx) {
+		Map<String,String> map= new HashMap<>();
+		map.put("email", email);
+		map.put("idx", idx);
+		return trailer_Mapper.insert_ZzimT(map);
+	}
+
+	@Override
+	public Zzim_TrailerVO ZtVo(String email, String idx) {
+		Map<String,String> map= new HashMap<>();
+		map.put("email", email);
+		map.put("idx", idx);
+		log.info("map값 확인"+map);
+		return trailer_Mapper.ZtVo(map);
+	}
+
+	@Override
+	public int del_Zzim(String email, String idx) {
+		Map<String,String> map= new HashMap<>();
+		map.put("email", email);
+		map.put("idx", idx);
+		return trailer_Mapper.del_Zzim(map);
 	}
 
 }

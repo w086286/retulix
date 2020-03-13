@@ -48,6 +48,7 @@
         	 console.log("page on load")
         	
         	 var substr='${mvo.idx}';
+        	 var m_info='${m_info}';
         	 substr= substr.substring(0,1)
         	 /* 드라마 영화 판단후 각자 실행 */
         		 fetchMovie('${mvo.api_idx}',substr,function(result){
@@ -61,8 +62,10 @@
         	        		 }
         	             document.documentElement.style.setProperty('--main_bg', result[4]);
         	             }) 
-        	             
-        	       
+        	 
+        	       if(m_info=='true'){
+        	    	   $('#lasttime').addClass('ch_color');
+        	       }
         	  
     	});
      
@@ -185,7 +188,7 @@ $('body').removeClass("stop-scrolling");
 
 	}
 
-	function showList(arr, tmp) {
+	function showList(arr) {
 		var str = ""
 			$.each(arr, function(i, list) {
 				if(list.media_type=='tv'){
@@ -332,6 +335,35 @@ $('body').removeClass("stop-scrolling");
 
 		})
 	}
+	
+	
+	function change_last(){
+		var str="idx="+'${mvo.idx}';
+		$.ajax({
+			type:'POST',
+			url : 'ck_zzim',
+			data:str,
+			dataType : 'json',
+			cache:'false',
+			success:function(res){
+				if(res.result==-1)
+					{
+						alert('로그인 해야함');
+						return;
+					}
+				else if(res.result==0)
+					$('#lasttime').removeClass('ch_color')
+				else if(res.result==1)
+					$('#lasttime').addClass('ch_color')
+
+
+			},
+			error:function (e){
+				alert("e : " + e.status)
+				
+			}
+		})
+	}
 </script>
 
 
@@ -392,14 +424,19 @@ $('body').removeClass("stop-scrolling");
 		
 			<div class='item1'>
 				<img class='poster_img'>
+				
 			 <i id="play_movie" class="fas fa-play"></i>
+			 	<div class="gudok"><!-- 구독 나중에 보기 -->
+				<i id="likeit" style="padding-right: 25px; font-size:2em" class="fas fa-plus"></i>
+				<i id="lasttime" onclick="change_last()" style="font-size:2em"  class="fas fa-heart"></i>		
+	</div>
 		</div>
 			<div class="ma" style = "color : white;" >
 				 <!--  본문-->
 			</div>
 			
 		</div>
-
+	
 		<p></p>
 		
 		 <c:forEach var="pos" items="${arr}">

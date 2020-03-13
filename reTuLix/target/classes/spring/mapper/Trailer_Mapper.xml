@@ -27,4 +27,16 @@
   		
   		update TRAILER_VIEW set api_idx = #{api_num} , title=#{title} where idx = #{idx}
   </update>
+  
+  <insert id="insert_ZzimT" parameterType="map">
+  	insert into ZZIM_TRAILER (email,idx) values(#{email:VARCHAR},#{idx:VARCHAR})
+  </insert>
+  <select id="ZtVo" resultType="com.tis.retulix.domain.Zzim_TrailerVO" parameterType="map">
+  	select email,idx from ZZIM_TRAILER where email=#{email} and idx=#{idx}
+  </select>
+  
+  <delete id="del_Zzim" parameterType="map">
+  	delete from ZZIM_TRAILER where email=#{email} and idx=#{idx}
+  </delete>
+  
 </mapper>

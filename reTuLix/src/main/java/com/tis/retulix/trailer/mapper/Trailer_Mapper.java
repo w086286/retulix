@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.tis.retulix.domain.ReviewVO;
 import com.tis.retulix.domain.Trailer_ViewVO;
+import com.tis.retulix.domain.Zzim_TrailerVO;
 
 public interface Trailer_Mapper {
 
@@ -13,6 +14,10 @@ public interface Trailer_Mapper {
 	public List<Trailer_ViewVO> selectPoster(Map map);//연관영상 가져오기
 	public List<ReviewVO> selectReview(String idx); //영상리뷰
 	int update_seleted(Map info); //영상정보 업데이트
+	
+	int insert_ZzimT(Map map);//Zzim추가
+	Zzim_TrailerVO ZtVo(Map map);//Zzim안에 있나 확인
+	int del_Zzim(Map map);//Zzim삭제
 
 	
 }

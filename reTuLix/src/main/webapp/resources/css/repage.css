@@ -12,6 +12,26 @@
 	z-index:9;
 	color:white;
 }
+.gudok{
+	padding-left:155px;
+	position:relative;
+	z-index: 9;
+}
+#likeit, #lasttime{
+	/* color: gray; */
+	cursor: pointer;
+	
+}
+#likeit:hover, #lasttime:hover{
+	color: gold;
+	cursor: pointer;
+}
+
+
+#lasttime.ch_color{
+	color:red;
+}
+
 
 .highlight { 
 	background: red! important;
