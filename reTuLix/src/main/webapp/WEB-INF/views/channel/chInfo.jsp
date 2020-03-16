@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <div class="infoAndPoint">
@@ -7,7 +8,12 @@
 		<form name="infoEdit" id="infoEdit" role="form" action="${pageContext.request.contextPath}/user/chInfo" method="post">
 		<table>
 			<tr><td rowspan="4">
-				<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png" style="width:120px; height:120px; border-radius:0.2em"><br>
+				<c:if test="${loginUser.icon eq 'noicon.png'}">
+					<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png" style="width:120px; height:120px; border-radius:0.2em"><br>
+				</c:if>
+				<c:if test="${loginUser.icon ne 'noicon.png'}">
+					<img src="${pageContext.request.contextPath}/resources/images/${loginUser.icon}" style="width:120px; height:120px; border-radius:0.2em"><br>
+				</c:if>
 			</td></tr>
 			<tr>
 				<td>이메일</td>
@@ -78,7 +84,7 @@
 			<i class="fa fa-times" id="btIconEditModalClose"></i>
 		</p>
 		
-		<input type="file" name="btUpUserIcon" id="btUpUserIcon"><br>
+		<input type="file" name="iconFile" id="iconFile"><br>
 		
 		<button type="button" class="button-active" id="userIconEdit" name="userIconEdit">적용</button>
 		<button type="button" class="button-inactive" onclick="iconEditModalClose()">취소</button>

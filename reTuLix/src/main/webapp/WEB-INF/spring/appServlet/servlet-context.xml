@@ -37,4 +37,16 @@
 		</interceptor>
 	</interceptors>
 	
+	<!-- 파일업로드 빈 등록==================================================== -->
+	<!-- 1)디렉토리 등록 -->
+	<beans:bean id="upDir" class="java.lang.String">
+		<beans:constructor-arg value="C:\Users\2class-004\Desktop\userIcon\"/>
+	</beans:bean>
+	<!-- 2)fileupload를 위한 multipartResolver빈 등록
+	     [주의]id는 반드시 multipartResolver로 등록 => 다른 아이디를 주면 DispatcherServlet이 MultipartResolver로 인식하지 않음 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	 <beans:property name="maxUploadSize" value="-1"/>	<!-- 최대 업로드 용량: -1을 주면 무제한 가능함 -->
+	 <beans:property name="defaultEncoding" value="UTF-8"/>
+	</beans:bean> 
+	
 </beans:beans>

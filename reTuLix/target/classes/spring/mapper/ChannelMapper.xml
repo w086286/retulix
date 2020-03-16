@@ -34,5 +34,8 @@
 	<delete id="deleteUserInfo" parameterType="string">
 		delete from member where email=#{value}
 	</delete>
+	<update id="updateUserIcon" parameterType="string">
+		update member set icon=#{userIcon} where email=#{email}
+	</update>
 
 </mapper>

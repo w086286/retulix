@@ -1,9 +1,12 @@
 package com.tis.retulix;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tis.channel.service.ChannelService;
 import com.tis.common.CommonUtil;
@@ -35,6 +39,9 @@ public class ChannelController {
 	
 	@Inject
 	private ChannelService channelService;
+	
+	@Resource(name="upDir")
+	private String upDir;	//C:\Users\2class-004\git\reTuLix\reTuLix\
 	
 	/**세션 정보 가져오기 모듈화하여 사용: chInfo 제외*/
 	private String LoginUser(HttpSession ses, Model m) {
@@ -174,8 +181,39 @@ public class ChannelController {
 	}
 	
 	/**[내 정보 관리]회원 아이콘 변경*/
-	//@PostMapping("/iconEdit")
-	
+	@PostMapping("/iconEdit")
+	public String iconEdit(Model m, HttpSession ses,
+			@RequestParam("iconFile") MultipartFile iconFile,
+			@ModelAttribute MemberVO vo) {
+		//0)로그인 회원 정보 받아오기
+		String email=LoginUser(ses, m);
+		
+		//1)업로드 파일 받기
+		String fname=iconFile.getOriginalFilename();
+		String ext=fname.substring(fname.indexOf("."));
+		
+		//2)회원 이메일로 파일명 변경
+		String emailArr[]=email.split("@");
+		String rename=emailArr[0]+ext;
+		
+		if(!iconFile.isEmpty()) {	//파일 첨부했을 경우
+			try {
+				//5)파일 업로드				
+				iconFile.transferTo(new File(upDir+"/"+rename));
+				//log.info("아이콘 저장 경로="+upDir);
+
+				vo.setIcon(rename);
+				int n=channelService.updateUserIcon(email, rename);
+				//m.addAttribute("editedUserIcon", fname);
+				
+				return "channel/chInfo";
+			} catch (Exception err) {
+				log.error("회원 아이콘 변경 중 에러 발생: "+err.getMessage());
+			}
+		}
+		return util.addMsgBack(m, "변경할 이미지 파일을 첨부하세요.");
+	}
+
 	//CommonUtil 사용하여 유효성 체크시 반환값 주의
 	/*if(!originPwd.equals(loginUser.getPwd())) {
 		return util.addMsgBack(m, "현재 비밀번호와 일치하지 않습니다.");	//util값 자체를 반환

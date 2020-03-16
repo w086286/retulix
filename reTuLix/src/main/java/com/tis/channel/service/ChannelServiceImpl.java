@@ -57,4 +57,9 @@ public class ChannelServiceImpl implements ChannelService {
 	public int deleteUserInfo(String email) {
 		return this.channelMapper.deleteUserInfo(email);
 	}
+	
+	@Override
+	public int updateUserIcon(String email, String userIcon) {
+		return this.channelMapper.updateUserIcon(email, userIcon);
+	}
 }
