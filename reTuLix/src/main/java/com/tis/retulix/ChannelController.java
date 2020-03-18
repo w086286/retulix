@@ -202,8 +202,9 @@ public class ChannelController {
 				iconFile.transferTo(new File(upDir+"/"+rename));
 				//log.info("아이콘 저장 경로="+upDir);
 
+				vo.setEmail(email);
 				vo.setIcon(rename);
-				int n=channelService.updateUserIcon(email, rename);
+				int n=channelService.updateUserIcon(vo);
 				//m.addAttribute("editedUserIcon", fname);
 				
 				return "channel/chInfo";

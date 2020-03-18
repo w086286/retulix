@@ -214,7 +214,26 @@ $(function(){
 	
 	//[아이콘변경]적용 버튼 클릭시
 	$("#userIconEdit").click(function(){
-		$("#iconEdit").submit();
+		var formData=$("#iconEdit").serialize();
+		$.ajax({
+            url : "${pageContext.request.contextPath}/user/iconEdit",	//이 url로 데이터 전송함
+            type : 'POST',
+            data : formData,
+            dataType:"json",
+			cache : false,
+            success:function(res) {
+               	alert("아이콘이 성공적으로 변경되었습니다.");
+/*                if(res=="iconEditTrue"){
+               		var url="${pageContext.request.contextPath}/user/chInfo";
+               		chInfo(url);
+                }else{
+                	alert("다시 시도해주세요.");
+                } */
+            }, 
+            error:function(err) {
+                alert(err.status);
+            }
+		});
 	})
 	
 });

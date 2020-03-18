@@ -59,7 +59,7 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 	
 	@Override
-	public int updateUserIcon(String email, String userIcon) {
-		return this.channelMapper.updateUserIcon(email, userIcon);
+	public int updateUserIcon(MemberVO vo) {
+		return this.channelMapper.updateUserIcon(vo);
 	}
 }
