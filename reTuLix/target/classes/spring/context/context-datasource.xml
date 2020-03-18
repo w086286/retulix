@@ -41,6 +41,9 @@
 	</bean>
 	
 	<!-- mybatis-spring에 맵퍼 등록 -->
-	<mybatis-spring:scan base-package="com.tis.retulix.mapper,com.tis.channel.mapper,com.tis.retulix.trailer.mapper, com.tis.admin.mapper"/>
+	<mybatis-spring:scan base-package="com.tis.retulix.mapper"/>
+	<mybatis-spring:scan base-package="com.tis.channel.mapper"/>
+	<mybatis-spring:scan base-package="com.tis.retulix.trailer.mapper"/>
+	<mybatis-spring:scan base-package="com.tis.admin.mapper"/>
 	
 </beans>
