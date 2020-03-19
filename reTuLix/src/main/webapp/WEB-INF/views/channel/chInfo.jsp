@@ -12,7 +12,7 @@
 					<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png" style="width:120px; height:120px; border-radius:0.2em"><br>
 				</c:if>
 				<c:if test="${loginUser.icon ne 'noicon.png'}">
-					<img src="${pageContext.request.contextPath}/resources/images/${loginUser.icon}" style="width:120px; height:120px; border-radius:0.2em"><br>
+					<img src="${pageContext.request.contextPath}/resources/images/userIcon/${loginUser.icon}" style="width:120px; height:120px; border-radius:0.2em"><br>
 				</c:if>
 			</td></tr>
 			<tr>
@@ -214,7 +214,8 @@ $(function(){
 	
 	//[아이콘변경]적용 버튼 클릭시
 	$("#userIconEdit").click(function(){
-		var formData=$("#iconEdit").serialize();
+		iconEdit.submit();
+		/*var formData=$("#iconEdit").serialize();
 		$.ajax({
             url : "${pageContext.request.contextPath}/user/iconEdit",	//이 url로 데이터 전송함
             type : 'POST',
@@ -223,17 +224,18 @@ $(function(){
 			cache : false,
             success:function(res) {
                	alert("아이콘이 성공적으로 변경되었습니다.");
-/*                if(res=="iconEditTrue"){
-               		var url="${pageContext.request.contextPath}/user/chInfo";
-               		chInfo(url);
-                }else{
-                	alert("다시 시도해주세요.");
-                } */
+        //        if(res=="iconEditTrue"){
+//               		var url="${pageContext.request.contextPath}/user/chInfo";
+  //             		chInfo(url);
+    //            }else{
+      //          	alert("다시 시도해주세요.");
+        //        }
             }, 
             error:function(err) {
                 alert(err.status);
             }
 		});
+		*/
 	})
 	
 });

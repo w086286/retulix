@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -40,8 +41,8 @@ public class ChannelController {
 	@Inject
 	private ChannelService channelService;
 	
-	@Resource(name="upDir")
-	private String upDir;	//C:\Users\2class-004\git\reTuLix\reTuLix\
+	//@Resource(name="upDir")
+	//private String upDir;	//C:\Users\2class-004\git\reTuLix\reTuLix\
 	
 	/**세션 정보 가져오기 모듈화하여 사용: chInfo 제외*/
 	private String LoginUser(HttpSession ses, Model m) {
@@ -182,17 +183,23 @@ public class ChannelController {
 	
 	/**[내 정보 관리]회원 아이콘 변경*/
 	@PostMapping("/iconEdit")
-	public String iconEdit(Model m, HttpSession ses,
+	public String iconEdit(Model m, HttpSession ses, HttpServletRequest req,
 			@RequestParam("iconFile") MultipartFile iconFile,
 			@ModelAttribute MemberVO vo) {
-		//0)로그인 회원 정보 받아오기
+		//1)로그인 회원 정보 받아오기
 		String email=LoginUser(ses, m);
 		
-		//1)업로드 파일 받기
+		//2)디렉토리 생성
+		String upDir=req.getServletContext().getRealPath("/resources/images/userIcon");	//C:\\reTuLix\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\reTuLix\\resources\\images\\userIcon
+		//log.info(upDir);
+		File dir=new File(upDir);
+		if(!dir.exists())	dir.mkdirs();
+		
+		//3)업로드 파일 받기
 		String fname=iconFile.getOriginalFilename();
 		String ext=fname.substring(fname.indexOf("."));
 		
-		//2)회원 이메일로 파일명 변경
+		//4)회원 이메일로 파일명 변경
 		String emailArr[]=email.split("@");
 		String rename=emailArr[0]+ext;
 		
