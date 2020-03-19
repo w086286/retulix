@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -28,7 +27,6 @@
 	$(function(){
 		 $('#play_movie').click(function(){
 	            $('.iframe').slideDown(500,playYoutube());
-	         
 	        });
 		 
 	        var iframe = $('#players')[0];
@@ -41,6 +39,20 @@
 	        
 	});
 	
+	
+	function point_discount(){
+		$.ajax({
+			type:'POST',
+			url:'',
+			cache:'false',
+			success:function(res){
+				
+			},
+			error:function(e){
+				alert("e: "+e.status)
+			}
+		})
+	}
 
  //////////////////////////////////////////////////////////////////////////////////////////////
  
@@ -298,14 +310,15 @@ $('body').removeClass("stop-scrolling");
 	var tmp=obj
 			var tr = $(obj)
 			var td = tr.children();
+			var arr= new Array();
 		    td.each(function(i){
 		        if(i==td.length-1)
 		        	str+="tdArr="+td.eq(i).text();
 		        else
 		       		 str+="tdArr="+td.eq(i).text()+"&";
-		      
+		      arr[i]=td.eq(i).text();
 		    });   
-		  
+		  alert(arr[0]+'    '+arr[1]+'   '+arr[2]);
 		        var selected = $(obj).hasClass("highlight");
 		        $(obj).removeClass("highlight");
 		        if(!selected)
@@ -366,6 +379,13 @@ $('body').removeClass("stop-scrolling");
 			}
 		})
 	}
+	
+	function Enter_Check(){
+        // 엔터키의 코드는 13입니다.
+    if(event.keyCode == 13){
+    	send_ajax();  // 실행할 이벤트
+    }
+}
 </script>
 
 
@@ -383,7 +403,7 @@ $('body').removeClass("stop-scrolling");
 		id="change_info_tab">
 		<p>정보 수정 인터넷 검색</p>
 		<i style="color: white" class="fas fa-search"></i>&nbsp;<input
-			class="find_api" type="text">
+			class="find_api" type="text" onkeydown="JavaScript:Enter_Check()">
 		<button onclick="send_ajax()">검색</button>
 		<br>
 		<div>
@@ -415,7 +435,8 @@ $('body').removeClass("stop-scrolling");
 
 	<div class='backgr' >
 			<div class='fix_but' style="z-index:9;color:white"><i  onclick="change_info_show('${mvo.title}')" class="fas fa-wrench"></i></div>
-		 	<div class="iframe" style="position:relative; display:none" >
+		 	<div class="iframe" style="position:relative; display:none">
+		 	
 			<iframe id ='players'src="${mvo.url}?controls=0&enablejsapi=1" width = "100%" height="600px"></iframe>
 			
 			<i id ='imbt3' class="fas fa-times"></i>
@@ -427,7 +448,10 @@ $('body').removeClass("stop-scrolling");
 			<div class='item1'>
 				<img class='poster_img'>
 				
-			 <i id="play_movie" class="fas fa-play"></i>
+			 <i id="play_movie" class="fas fa-play"></i> <!-- 걍 포인트 감소
+			 
+			 리뷰는흠.. pass
+			 -->
 			 	<div class="gudok"><!-- 구독 나중에 보기 -->
 				<i id="likeit" style="padding-right: 25px; font-size:2em" class="fas fa-plus"></i>
 				<i id="lasttime" onclick="change_last()" style="font-size:2em"  class="fas fa-heart"></i>		

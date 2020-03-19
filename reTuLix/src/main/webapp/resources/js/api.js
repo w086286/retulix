@@ -47,7 +47,7 @@
                 	 result[2]=TV.created_by[0].name;	 
                  }
                  else{
-                	 result[2]='null';
+                	 result[2]='';
                  }
                	result[3]=base_url+TV.poster_path;
                  result[4]="url("+base_url+TV.backdrop_path+")";

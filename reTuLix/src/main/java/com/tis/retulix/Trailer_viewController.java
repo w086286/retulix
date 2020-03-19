@@ -35,7 +35,11 @@ public class Trailer_viewController {
 	@Inject
 	private Trailer_Service trailer_Service;
 	
-
+	
+//	@PostMapping("/disPoint")
+//	public int disPoint(HttpSession ses) {
+//		
+//	}
 	@RequestMapping(value="/showMovie",method=RequestMethod.GET)
 	public String showMovie(@RequestParam("idx") String idx,Model m,HttpSession ses) {
 		
@@ -63,7 +67,10 @@ public class Trailer_viewController {
 	
 	
 	@RequestMapping("/randomMovie")
-	public String randomMovie(Model m) {
+	public String randomMovie(Model m ,HttpSession ses) {
+		MemberVO mvo = (MemberVO)ses.getAttribute("loginUser"); ///////////////////////////////////////////////////수정요망
+		
+		if(mvo==null) {return"redirect:/";}
 		Trailer_ViewVO vo=trailer_Service.select_Random_One();
 		List<ReviewVO> rarr = trailer_Service.selectReview(vo.getIdx());
 		List<Trailer_ViewVO> tarr = trailer_Service.selectPoster(vo.getIdx());
