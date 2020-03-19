@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.tis.channel.mapper.ChannelMapper;
@@ -28,8 +29,8 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 	
 	@Override
-	public Stat_ViewVO showStatMax(String email) {
-		return this.channelMapper.showStatMax(email);
+	public Stat_ViewVO showStatMax(Map<String, String> statMap) {
+		return this.channelMapper.showStatMax(statMap);
 	}
 	
 	@Override

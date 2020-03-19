@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- 통계 차트 -->
+<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath}/resources/css/channel.css'>
+<script src="${pageContext.request.contextPath}/resources/js/Nwagon.js"></script>
+
 <c:import url="/top" />
 
 <style>
-.chUpload{
+.chUpload, .chUploadNext{
 	display:none;
 	position: absolute;
     z-index: 10009;
@@ -15,22 +19,40 @@
     height: 100%;
     overflow: none;
     background-color: rgba(0,0,0,0.7);
+    text-align: center;
 }
 .findTrailer{
 	width: 700px;
 	height: 250px;
-	display: flex-direction:row;
-	position: absolute;
-	top:130px;
-    text-align: center;
+	top:150px;
+    display: inline-block;
+}
+.findTrailer input{
+	width: 35%;
+}
+
+.uploadReview table{
+	width: 700px;
+	height: 250px;
+	top:150px;
+    display: inline-block;
+}
+.uploadReview input{
+	width: 566px;
+}
+.uploadReview textarea{
+	width: 566px;
+    height: 141px;
 }
 </style>
 
+<!-- 채널 이미지 ============================================== -->
 <div class="channelImage">
 	<img src="${pageContext.request.contextPath}/resources/images/channel/noChImg.png" alt="channelImage">
 	<button class="button-active" id="changeChImg">이미지 변경</button>
 </div>
 
+<!-- 내비게이션 메뉴 버튼======================================== -->
 <div class="channelMenu">
 	<button class="button-active" onclick="chHome('${pageContext.request.contextPath}/user/chHome')" id="btChHome">홈</button>
 	<button onclick="chStat('${pageContext.request.contextPath}/user/chStat')" id="btChStat">내 채널 및 영상</button>
@@ -38,6 +60,7 @@
 	<button class="button-active" id="btChUpload">영상 업로드</button>
 </div>
 
+<!-- 화면 전환부============================================== -->
 <div id="chArticle"></div>
 
 <!-- 채널 이미지 변경 모달======================================== -->
@@ -64,31 +87,61 @@
 </div>
 
 <!-- 영상 업로드 모달=========================================== -->
+<!-- 트레일러 검색 -->
 <div class="chUpload" id="chUpload">
 <div class="findTrailer" id="findTrailer">
 	<p>영상 업로드</p>
 	<i class="fas fa-search"></i>&nbsp;
-	<input type="text" id="inputFindApi" placeholder="업로드 영화 또는 드라마를 검색하세요.">
-	<button onclick="findApi()">검색</button><br>
+	<input type="text" id="inputFindApi" placeholder="리뷰한 영화 또는 드라마를 검색하세요.">
+	<button onclick="findApi()">검색</button><br><br>
 	
 	<div>
 		<table class='tables' id='tables' >
-		<thead><tr class='success'>
-			<th style='width: 15%'>제목</th>
-			<th style='width: 55%'>요약</th>
-			<th style='width: 20%'>개봉일</th>
-			<th style='width: 15%'>원제목</th>
-			<th style="display:none">api키</th>
-			<th style="display:none">idx</th>
-		</tr></thead>
-		<tbody>
-		
-		</tbody>
+			<thead><tr class='success'>
+				<th style='width: 15%'>트레일러 포스터</th>
+				<th style='width: 20%'>트레일러 제목</th>
+				<th style='width: 15%'>감독</th>
+				<th style='width: 15%'>개봉일</th>
+				<th style="display:none">api키</th>
+				<th style="display:none">idx</th>
+			</tr></thead>
+			<tbody></tbody>
 		</table>
 	</div>
 	
-	<button id="" onclick="submit_idx_change()">확인</button>
-	<button id="chUploadClose" onclick="change_info_close()">취소</button>
+	<button id="btUploadNext">다음</button>
+	<button id="chUploadClose" onclick="chUploadModalClose()">취소</button>
+</div>
+</div>
+
+<!-- 트레일러 검색 후 파일 업로드 -->
+<div class="chUploadNext" id="chUploadNext">
+<div class="uploadReview" id="uploadReview">
+	<p>영상 업로드</p>
+	<img alt="" src="">
+	
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<td>영상 제목</td>
+					<td><input type="text" id="" name="" placeholder="업로드 할 리뷰 영상의 제목을 입력하세요."></td>
+				</tr>
+				<tr>
+					<td>영상 주소</td>
+					<td><input type="text" id="" name="" placeholder="업로드 할 리뷰 영상의 주소을 입력하세요."></td>
+				</tr>
+				<tr>
+					<td>영화 소개</td>
+					<td><textarea rows="" cols="" type="text" id="" name="" placeholder="업로드 할 리뷰 영상의 제목을 입력하세요."></textarea></td>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+	
+	<button id="" onclick="submit_idx_change()">업로드</button>
+	<button id="chUploadClose" onclick="chUploadModalClose()">취소</button>
 </div>
 </div>
 
@@ -99,12 +152,13 @@
 $(function(){
 	$("#btChUpload").on("click", function(){	//모달 켜기
 		$("#chUpload").css("display", "block");
+		$("#inputFindApi").focus();
 	})
 	$("#chUploadClose").on("click", function(){	//모달 끄기
 		$("#chUpload").css("display", "none");
 	})
 })
-//검색
+//검색 버튼 이벤트 처리
 function findApi() {
 	const key="f6ef5ee7d41f7b86d5ea2c50796a6dfc";
 	var keyword=$('#inputFindApi').val();
@@ -124,81 +178,161 @@ function findApi() {
 		}
 	});
 }
+//엔터키로 검색 처리
+$(function(){
+	$("#inputFindApi").keydown(function(key){
+		if(key.keyCode==13) findApi();
+	})
+})
+
 //검색값 출력
 function showList(arr) {
 	var str=""
-		$.each(arr, function(i, list){
-			//드라마 장르일 때
-			if(list.media_type=='tv'){
-				str += "<tr onclick='row_click(this)'><td style='width:15%'>" + list.name + "</td>";
-				str += "<td style='width:55%'>" + list.overview + "</td>";
-				str += "<td style='width:20%'>" + list.first_air_date + "</td>";
-				str += "<td style='width:15%'>" + list.original_name + "</td>";
-				str += "<td style='display:none'>" + list.id + "</td>";
-				str += "<td style='display:none'>" + '${mvo.idx}' + "</td>";
-				str += "</tr>";	
-			}
-			//영화 장르일 때
-			else{
-				str += "<tr onclick='row_click(this)'><td style='width:15%'>" + list.title + "</td>";
-				str += "<td style='width:55%'>" + list.overview + "</td>";
-				str += "<td style='width:20%'>" + list.release_date + "</td>";
-				str += "<td style='width:15%'>" + list.original_title + "</td>";
-				str += "<td style='display:none'>" + list.id + "</td>";
-				str += "<td style='display:none'>" + '${mvo.idx}' + "</td>";
-				str += "</tr>";	
-			}
-		})
-	
+	$.each(arr, function(i, list){
+		//드라마 장르일 때
+		if(list.media_type=='tv'){
+			str += "<tr onclick='row_click(this)'><td style='width:15%'>" + list.name + "</td>";
+			str += "<td style='width:15%'>" + list.original_name + "</td>";
+			str += "<td style='width:20%'>" + list.first_air_date + "</td>";
+			str += "<td style='width:20%'>" + list.first_air_date + "</td>";
+			str += "<td style='display:none'>" + list.id + "</td>";
+			str += "<td style='display:none'>" + '${mvo.idx}' + "</td>";
+			str += "</tr>";	
+		}
+		//영화 장르일 때
+		else{
+			str += "<tr onclick='row_click(this)'><td style='width:15%'>" + list.title + "</td>";
+			str += "<td style='width:15%'>" + list.original_title + "</td>";
+			str += "<td style='width:20%'>" + list.release_date + "</td>";
+			str += "<td style='width:20%'>" + list.release_date + "</td>";
+			str += "<td style='display:none'>" + list.id + "</td>";
+			str += "<td style='display:none'>" + '${mvo.idx}' + "</td>";
+			str += "</tr>";	
+		}
+	})
 	$('#tables>tbody').html(str);
 	table_paging($('#tables'));
 }
-	
+
+//페이징 처리
+function table_paging(arr) {
+	$('#nav').remove();
+	var $products = arr;
+	$products.after('<div id="nav">');
+	var $tr = $($products).find('tbody tr');
+	var rowTotals = $tr.length;
+	var rowPerPage = 5; //보여줄 갯수
+	var pageTotal = Math.ceil(rowTotals / rowPerPage);
+	var i = 0;
+	for (; i < pageTotal; i++) {
+		$('<a href="#"></a>').attr('rel', i).html(i + 1).appendTo('#nav');
+	}
+	$tr.addClass('off-screen').slice(0, rowPerPage).removeClass(
+			'off-screen');
+	var $pagingLink = $('#nav a');
+	$pagingLink.on('click', function(evt) {
+		evt.preventDefault();
+		var $this = $(this);
+		if ($this.hasClass('active')) {
+			return;
+		}
+		$pagingLink.removeClass('active');
+		$this.addClass('active');
+		// 0 => 0(0*4), 4(0*4+4)
+		// 1 => 4(1*4), 8(1*4+4)
+		// 2 => 8(2*4), 12(2*4+4)
+		// 시작 행 = 페이지 번호 * 페이지당 행수
+		// 끝 행 = 시작 행 + 페이지당 행수
+		var currPage = $this.attr('rel');
+		var startItem = currPage * rowPerPage;
+		var endItem = startItem + rowPerPage;
+		$tr.css('opacity', '0.0').addClass('off-screen').slice(startItem,
+				endItem).removeClass('off-screen').animate({
+			opacity : 1
+		}, 300);
+	});
+	$pagingLink.filter(':first').addClass('active');
+}
+
+//검색 후 다음 버튼 클릭시
+function submit_idx_change(){
+		 
+			//alert(str);
+		$.ajax({
+			type : 'POST',
+			url : 'movie_changeInfo',
+			data: str,
+			dataType : 'json',
+			cache : 'false',
+			/* async: false, */
+			success : function(res) {
+					alert('정보 변경 성공')
+					change_info_close()
+					refresh_page('${mvo.idx}')
+			},
+			error : function(e) {
+				alert("e : " + e.status)
+			}
+		})
+	}
+
+//다음 버튼 클릭시 다음 화면 출력
+$(function(){
+	$("#btUploadNext").on("click", function(){	//모달 켜기
+		$("#chUploadNext").css("display", "block");
+		$("#chUpload").css("display", "none");
+		$("#inputFindApi").focus();
+	})
+	$("#chUploadClose").on("click", function(){	//모달 끄기
+		$("#chUploadNext").css("display", "none");
+	})
+})
+
 //메뉴 버튼 처리===================================
 //홈
-function chHome(url){	//url을 click이벤트 파라미터로 넘겨받아 처리
+function chHome(url) { //url을 click이벤트 파라미터로 넘겨받아 처리
 	$.ajax({
-		type:"post",
-		url:url,
-		dataType:"text",
-		cache:false,
-		success: function(res){
+		type : "post",
+		url : url,
+		dataType : "text",
+		cache : false,
+		success : function(res) {
 			$("#chArticle").html(res);
 		},
-		error:function(err){
-			console.log("error @chDoor.jsp/chInfo(): "+err.status);
+		error : function(err) {
+			console.log("error @chDoor.jsp/chInfo(): " + err.status);
 		}
 	});
 }
 
 //내 채널 및 영상
-function chStat(url){
+function chStat(url) {
 	$.ajax({
-		type:"get",
-		url:url,
-		dataType:"text",
-		cache:false,
-		success: function(res){
+		type : "get",
+		url : url,
+		dataType : "text",
+		cache : false,
+		success : function(res) {
 			$("#chArticle").html(res);
 		},
-		error:function(err){
-			console.log("error @chDoor.jsp/chInfo(): "+err.status);
+		error : function(err) {
+			console.log("error @chDoor.jsp/chInfo(): " + err.status);
 		}
 	});
 }
 
 //내 정보 및 포인트
-function chInfo(url){
+function chInfo(url) {
 	$.ajax({
-		type:"get",
-		url:url,
-		dataType:"text",
-		cache:false,
-		success: function(res){
+		type : "get",
+		url : url,
+		dataType : "text",
+		cache : false,
+		success : function(res) {
 			$("#chArticle").html(res);
 		},
-		error:function(err){
-			console.log("error @chDoor.jsp/chInfo(): "+err.status);
+		error : function(err) {
+			console.log("error @chDoor.jsp/chInfo(): " + err.status);
 		}
 	});
 }
@@ -206,29 +340,32 @@ function chInfo(url){
 //이미지 변경 모달 처리=============================
 $(function() {
 	//"내 채널 및 영상" 진입시만 <이미지 변경> 버튼 보임
-	$("#btChStat").on("click", function(){
+	$("#btChStat").on("click", function() {
 		$("#changeChImg").css("display", "block");
 	})
-	$("#btChHome").on("click", function(){
+	$("#btChHome").on("click", function() {
 		$("#changeChImg").css("display", "none");
 	})
-	$("#btChInfo").on("click", function(){
+	$("#btChInfo").on("click", function() {
 		$("#changeChImg").css("display", "none");
 	})
-	$("#btChUpload").on("click", function(){
+	$("#btChUpload").on("click", function() {
 		$("#changeChImg").css("display", "none");
 	})
 
 	//이미지 변경 버튼 클릭시 모달 팝업
-	$("#changeChImg").on("click", function(){
-		$("#chImgModal").css("display","block");
+	$("#changeChImg").on("click", function() {
+		$("#chImgModal").css("display", "block");
 	})
-	
-	$("#chImgModalClose").click(function(){
-		$("#chImgModal").css("display","none");
+
+	$("#chImgModalClose").click(function() {
+		$("#chImgModal").css("display", "none");
 	})
 })
-function chImgModalClose(){
-	chImgModal.style.display="none";
+function chImgModalClose() {
+	chImgModal.style.display = "none";
+}
+function chUploadModalClose(){
+	chUploadNext.style.display = "none";
 }
 </script>

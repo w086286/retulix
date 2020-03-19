@@ -10,16 +10,29 @@
 		select sum(good) good, sum(click) click, sum(zzim) zzim, count(subs) subs
 		from stat_view where email=#{value}
 	</select>
-	<select id="showStatMax" resultType="Stat_View" parameterType="string">
-		select title, url, wdate from(
-			select row_number() over(order by click desc) row_num, stat_view.* 
-			from stat_view where email=#{value})
-		where row_num=1;
+	
+	<sql id="isClickOrGood">
+		<if test="clickOrGood!=null">
+			<where><choose>
+				<when test='clickOrGood=="true")'>order by click asc</when>
+				<when test='clickOrGood=="false")'>order by good asc</when>
+			</choose></where>
+		</if>
+	</sql>
+	<select id="showStatMax" resultType="Stat_View" parameterType="map">
+		select A.* from (
+			select row_number() over(
+				<include refid="isClickOrGood" />
+			) rn, title, url, click, good, wdate, t_idx 
+			from stat_view where email=#{email}
+	    ) A where A.rn=1;
 	</select>
+	
 	<select id="showUserReview" resultType="Stat_View" parameterType="string">
 		select row_number() over(order by wdate desc) row_num, stat_view.*
 		from stat_view where email=#{value}
 	</select>
+	
 	<select id="getTotalPage" resultType="int" parameterType="Paging">
 		select count(idx) from review_view
 	</select>
@@ -28,12 +41,15 @@
 	<select id="showUserInfo" resultType="Member" parameterType="string">
 		select * from member where email=#{value}
 	</select>
+	
 	<insert id="updateUserInfo" parameterType="Member">
 		update member set pwd=#{pwd:VARCHAR}, age=#{age:VARCHAR} where email=#{email}
 	</insert>
+	
 	<delete id="deleteUserInfo" parameterType="string">
 		delete from member where email=#{value}
 	</delete>
+	
 	<update id="updateUserIcon" parameterType="string">
 		update member set icon=#{icon:VARCHAR} where email=#{email}
 	</update>

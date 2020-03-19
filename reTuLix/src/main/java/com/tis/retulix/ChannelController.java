@@ -41,9 +41,6 @@ public class ChannelController {
 	@Inject
 	private ChannelService channelService;
 	
-	//@Resource(name="upDir")
-	//private String upDir;	//C:\Users\2class-004\git\reTuLix\reTuLix\
-	
 	/**세션 정보 가져오기 모듈화하여 사용: chInfo 제외*/
 	private String LoginUser(HttpSession ses, Model m) {
 		//1)세션에서 로그인 회원 정보 추출
@@ -73,8 +70,15 @@ public class ChannelController {
 	public String chStat(HttpSession ses, Model m, @ModelAttribute("paging") PagingVO paging) {
 		String email=LoginUser(ses, m);
 		
-		Stat_ViewVO stat=channelService.showUserStat(email);	//total 조회수, 찜 수등..
-		//Stat_ViewVO statMax=channelService.showStatMax(email);//가장 조회수가 높은 영상
+		Stat_ViewVO stat=channelService.showUserStat(email);				//전체 조회수, 찜 수등..
+		Map<String, String> statMap=new HashMap<>();
+		statMap.put("email", email);
+		statMap.put("clickOrGood", "true");
+		Stat_ViewVO statMaxClick=channelService.showStatMax(statMap);	//가장 조회수가 높은 영상
+		statMap.put("clickOrGood", "false");
+		Stat_ViewVO statMaxGood=channelService.showStatMax(statMap);	//가장 좋아요가 높은 영상
+		//log.info("최대 좋아요=>"+statMaxClick);
+		//log.info("최대 조회수=>"+statMaxGood);
 		
 		//업로드한 영상 테이블 출력+페이징 처리
 		List<Stat_ViewVO> reviewList=channelService.showUserReview(email);
@@ -90,13 +94,15 @@ public class ChannelController {
 		String pageStr=paging.getPageNavi(ctx, loc);//페이징 처리값 문자열로 변환
 	*/	
 		m.addAttribute("stat", stat);
-		//m.addAttribute("statMax", statMax);	//맵퍼 syntax 해결하고 주석 풀기
+		m.addAttribute("statMaxClick", statMaxClick);
+		m.addAttribute("statMaxGood", statMaxGood);
 		m.addAttribute("reviewList", reviewList);
 	/*
 		m.addAttribute("totalPage", totalPage);
 		m.addAttribute("pageNavi", pageStr);
 		m.addAttribute("paging", paging);
 	*/
+		
 		return "/channel/chStat";
 	}
 

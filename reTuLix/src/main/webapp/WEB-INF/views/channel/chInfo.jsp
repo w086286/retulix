@@ -8,6 +8,7 @@
 		<form name="infoEdit" id="infoEdit" role="form" action="${pageContext.request.contextPath}/user/chInfo" method="post">
 		<table>
 			<tr><td rowspan="4">
+			<!-- 이미지 적용 안 될 경우 images 폴더 내 userIcon 폴더 생성했는지 확인 -->
 				<c:if test="${loginUser.icon eq 'noicon.png'}">
 					<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png" style="width:120px; height:120px; border-radius:0.2em"><br>
 				</c:if>
