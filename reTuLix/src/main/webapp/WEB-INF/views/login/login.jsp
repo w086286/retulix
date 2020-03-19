@@ -8,6 +8,8 @@
 	for(int i=0; i<ck.length; i++){
 		if(ck[i].getName().equals("saveId")){
 			ckEmail=ck[i].getValue();
+		}else{
+			ckEmail="";
 		}
 	}
 %>
