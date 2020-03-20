@@ -70,39 +70,38 @@ public class ChannelController {
 	public String chStat(HttpSession ses, Model m, @ModelAttribute("paging") PagingVO paging) {
 		String email=LoginUser(ses, m);
 		
-		Stat_ViewVO stat=channelService.showUserStat(email);				//전체 조회수, 찜 수등..
-		Map<String, String> statMap=new HashMap<>();
-		statMap.put("email", email);
-		statMap.put("clickOrGood", "true");
-		Stat_ViewVO statMaxClick=channelService.showStatMax(statMap);	//가장 조회수가 높은 영상
-		statMap.put("clickOrGood", "false");
-		Stat_ViewVO statMaxGood=channelService.showStatMax(statMap);	//가장 좋아요가 높은 영상
-		//log.info("최대 좋아요=>"+statMaxClick);
-		//log.info("최대 조회수=>"+statMaxGood);
+		log.info(paging);
 		
-		//업로드한 영상 테이블 출력+페이징 처리
-		List<Stat_ViewVO> reviewList=channelService.showUserReview(email);
-	/*
+		//[1]채널 추이
+		Stat_ViewVO stat=channelService.showUserStat(email);				//전체 조회수, 찜 수등..
+		Stat_ViewVO statMaxClick=channelService.showStatMax(email, "click");//가장 조회수가 높은 영상
+		Stat_ViewVO statMaxGood=channelService.showStatMax(email, "good");	//가장 좋아요가 높은 영상
+		
+		//[2]영상목록
+		//1)페이징 처리
 		int totalPage=channelService.getTotalPage(paging);	//총 업로드 영상 갯수 추출
-		paging.setTotalCount(totalPage);//총 게시글 수 전달
-		paging.setPageSize(15);			//한 페이지당 보여줄 글 수
-		paging.setPagingBlock(5);		//네이게이션 블록 단위
-		paging.init();					//페이징 연산
-		List<Stat_ViewVO> reviewList=channelService.showUserReview(email);	//게시목록 출력
+		paging.setTotalCount(totalPage);					//총 게시글 수 전달
+		paging.setPageSize(10);								//한 페이지당 보여줄 글 수
+		paging.setPagingBlock(5);							//네이게이션 블록 단위
+		//paging.setSelectBox(paging.getSelectBox());
+		//paging.setSearchInput(paging.getSearchInput());
+		paging.init();										//페이징 연산
+		
+		//2)업로드한 영상 목록 출력
+		List<Stat_ViewVO> reviewList=channelService.showUserReview(email);
+		
 		String ctx="/retulix";
 		String loc="channel/chStat";
-		String pageStr=paging.getPageNavi(ctx, loc);//페이징 처리값 문자열로 변환
-	*/	
+		String pageStr=paging.getPageNavi(ctx, loc, false);	//페이징 처리값 문자열로 변환
+		
 		m.addAttribute("stat", stat);
 		m.addAttribute("statMaxClick", statMaxClick);
 		m.addAttribute("statMaxGood", statMaxGood);
 		m.addAttribute("reviewList", reviewList);
-	/*
 		m.addAttribute("totalPage", totalPage);
 		m.addAttribute("pageNavi", pageStr);
 		m.addAttribute("paging", paging);
-	*/
-		
+
 		return "/channel/chStat";
 	}
 

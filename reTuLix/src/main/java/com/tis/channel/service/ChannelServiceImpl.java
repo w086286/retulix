@@ -29,8 +29,9 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 	
 	@Override
-	public Stat_ViewVO showStatMax(Map<String, String> statMap) {
-		return this.channelMapper.showStatMax(statMap);
+	public Stat_ViewVO showStatMax(@Param("email") String email,
+			@Param("clickOrGood") String clickOrGood) {
+		return this.channelMapper.showStatMax(email, clickOrGood);
 	}
 	
 	@Override

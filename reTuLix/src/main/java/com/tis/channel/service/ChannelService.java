@@ -13,7 +13,8 @@ public interface ChannelService {
 	
 	/**chStat*/
 	Stat_ViewVO showUserStat(String email);			//채널 추이 통계
-	Stat_ViewVO showStatMax(Map<String, String> statMap);//채널 추이 통계:최다 조회수, 최다 좋아요
+	Stat_ViewVO showStatMax(@Param("email") String email,
+			@Param("clickOrGood") String clickOrGood);//채널 추이 통계:최다 조회수, 최다 좋아요
 	//업로드한 리뷰 목록
 	int getTotalPage(PagingVO paging);				//총 업로드 영상 수 추출
 	List<Stat_ViewVO> showUserReview(String email);	//리뷰 목록 출력

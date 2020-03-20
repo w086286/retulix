@@ -47,15 +47,15 @@
 			
 			<th colspan="4">가장 조회수가 많은 영상</th>
 			<tr><td rowspan="4"><img src="${pageContext.request.contextPath}/resources/images/userIcon/${loginUser.icon}" alt="mostView"></td></tr>
-			<tr><td colspan="3"><c:out value="${statMaxClick.title}" />제목</td></tr>
-			<tr><td colspan="3"><fmt:formatDate value="${statMaxClick.wdate}" pattern="yyyy년 MM월 DD일"/>업로드일</td></tr>
-			<tr><td colspan="3"><c:out value="${statMaxClick.title}" />리뷰 영화</td></tr>
+			<tr><td colspan="3"><c:out value="${statMaxClick.title}" /></td></tr>
+			<tr><td colspan="3"><fmt:formatDate value="${statMaxClick.wdate}" pattern="yyyy년 MM월 DD일"/></td></tr>
+			<tr><td colspan="3"><c:out value="${statMaxClick.t_title}" /></td></tr>
 
 			<th colspan="4">가장 좋아요가 많은 영상</th>
 			<tr><td rowspan="4"><img src="${pageContext.request.contextPath}/resources/images/userIcon/${loginUser.icon}" alt="mostView"></td></tr>
-			<tr><td colspan="3"><c:out value="${statMaxClick.title}" />제목</td></tr>
-			<tr><td colspan="3"><fmt:formatDate value="${statMaxClick.wdate}" pattern="yyyy년 MM월 DD일"/>업로드일</td></tr>
-			<tr><td colspan="3"><c:out value="${statMaxClick.title}" />리뷰 영화</td></tr>
+			<tr><td colspan="3"><c:out value="${statMaxGood.title}" /></td></tr>
+			<tr><td colspan="3"><fmt:formatDate value="${statMaxGood.wdate}" pattern="yyyy년 MM월 DD일"/></td></tr>
+			<tr><td colspan="3"><c:out value="${statMaxGood.t_title}" /></td></tr>
 		</table>
 	</div>
 </div>
@@ -126,22 +126,28 @@
 </div>
 
 <script>
-	/*$(function(){
-	$("#btSearch").click(function(){
-		if($("#search").val()==""){
-			alert('검색어를 입력하세요');
+	//[검색]리뷰 영상 목록 검색 폼 처리:ajax
+	function statReviewSearch(){
+		if(!statSearch.statKeyword.value){
+			alert("검색어를 입력하세요");
+			stat.Search.statKeyword.focus();
 			return;
 		}
-		$("#statSearch").submit;
-	})
-	})
-	*/
-	function statReviewSearch(){
-	if(!statSearch.statKeyword.value){
-		alert("검색어를 입력하세요");
-		stat.Search.statKeyword.focus();
-		return false;
-	}
-	statSearch.submit;
+		//statSearch.submit;
+		
+		var selectBox=$("statType").val();
+		var searchInput=$("#statKeyword").val();
+		$.ajax({
+			url:"%{pageContext.request.contextPath}/user/chStat?selectBox="+selectBox+"&searchInput"+searchInput,
+			type:"get",
+			dataType:"text",
+			cache:false,
+			success:function(res){
+				alert(res);
+			},
+			error:function(err){
+				alert(err);
+			}
+		});
 	}
 </script>

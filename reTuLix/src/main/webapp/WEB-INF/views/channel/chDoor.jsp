@@ -39,11 +39,38 @@
 }
 .uploadReview input{
 	width: 566px;
+	height: 3em;
 }
 .uploadReview textarea{
 	width: 566px;
     height: 141px;
 }
+
+
+/* ~~~~~~~~~~~ */
+.off-screen {
+	display: none;
+}
+#nav {
+	width: 100%;
+	text-align: center;
+}
+#nav a {
+	display: inline-block;
+	padding: 3px 5px;
+	margin-right: 10px;
+	font-family:Tahoma;
+	background: #ccc;
+	color: #000;
+	text-decoration: none;
+}
+#nav a.active {
+	background: #333;
+	color: #fff;
+}
+.highlight { 
+	background: red! important;
+	}
 </style>
 
 <!-- 채널 이미지 ============================================== -->
@@ -124,15 +151,18 @@
 		<table>
 			<thead>
 				<tr>
-					<td>영상 제목</td>
+					<td>리뷰 제목</td>
 					<td><input type="text" id="" name="" placeholder="업로드 할 리뷰 영상의 제목을 입력하세요."></td>
 				</tr>
 				<tr>
-					<td>영상 주소</td>
-					<td><input type="text" id="" name="" placeholder="업로드 할 리뷰 영상의 주소을 입력하세요."></td>
+					<td>업로드</td>
+					<td>
+						<input type="text" id="chUploadUrl" name="chUploadUrl" placeholder="업로드 할 리뷰 영상의 주소을 입력하세요." style="float:left; width:60%">
+						<input type="file" id="chUploadFile" name="chUploadFile" style="float:right; width:38%">
+					</td>
 				</tr>
 				<tr>
-					<td>영화 소개</td>
+					<td>리뷰 소개</td>
 					<td><textarea rows="" cols="" type="text" id="" name="" placeholder="업로드 할 리뷰 영상의 제목을 입력하세요."></textarea></td>
 				</tr>
 			</thead>
@@ -140,7 +170,8 @@
 		</table>
 	</div>
 	
-	<button id="" onclick="submit_idx_change()">업로드</button>
+	<!-- <button id="" onclick="submit_idx_change()">업로드</button> -->
+	<button id="chReviewUpload" onclick="chReviewUpload()">업로드</button>
 	<button id="chUploadClose" onclick="chUploadModalClose()">취소</button>
 </div>
 </div>
@@ -149,7 +180,8 @@
 
 <script type="text/javascript">
 //영상 업로드=====================================
-$(function(){
+
+$(function(){//==window.onload
 	$("#btChUpload").on("click", function(){	//모달 켜기
 		$("#chUpload").css("display", "block");
 		$("#inputFindApi").focus();
@@ -159,6 +191,8 @@ $(function(){
 	})
 })
 //검색 버튼 이벤트 처리
+var str="";	//선택한 행 str
+
 function findApi() {
 	const key="f6ef5ee7d41f7b86d5ea2c50796a6dfc";
 	var keyword=$('#inputFindApi').val();
@@ -179,21 +213,23 @@ function findApi() {
 	});
 }
 //엔터키로 검색 처리
-$(function(){
-	$("#inputFindApi").keydown(function(key){
-		if(key.keyCode==13) findApi();
-	})
+$("#inputFindApi").keydown(function(key){
+	if(key.keyCode==13) findApi();
 })
 
 //검색값 출력
 function showList(arr) {
 	var str=""
 	$.each(arr, function(i, list){
+		var posterUrl="https://image.tmdb.org/t/p/w500"+list.poster_path;
+		if(list.poster_path==null || list.poster_path=="null" || list.poster_path=="" || list.poster_path=="NULL"){
+			posterUrl="${pageContext.request.contextPath}/resources/images/noUserIcon.png";
+		}
 		//드라마 장르일 때
 		if(list.media_type=='tv'){
-			str += "<tr onclick='row_click(this)'><td style='width:15%'>" + list.name + "</td>";
+			str += "<tr onclick='row_click(this)'><td style='width:15%'>" + list.title + "</td>";
+			str += "<td style='width:20%'><img src='" + posterUrl + "' style='height:8em'></td>";
 			str += "<td style='width:15%'>" + list.original_name + "</td>";
-			str += "<td style='width:20%'>" + list.first_air_date + "</td>";
 			str += "<td style='width:20%'>" + list.first_air_date + "</td>";
 			str += "<td style='display:none'>" + list.id + "</td>";
 			str += "<td style='display:none'>" + '${mvo.idx}' + "</td>";
@@ -202,8 +238,8 @@ function showList(arr) {
 		//영화 장르일 때
 		else{
 			str += "<tr onclick='row_click(this)'><td style='width:15%'>" + list.title + "</td>";
+			str += "<td style='width:20%'><img src='" + posterUrl + "' style='height:8em'></td>";
 			str += "<td style='width:15%'>" + list.original_title + "</td>";
-			str += "<td style='width:20%'>" + list.release_date + "</td>";
 			str += "<td style='width:20%'>" + list.release_date + "</td>";
 			str += "<td style='display:none'>" + list.id + "</td>";
 			str += "<td style='display:none'>" + '${mvo.idx}' + "</td>";
@@ -254,39 +290,84 @@ function table_paging(arr) {
 	$pagingLink.filter(':first').addClass('active');
 }
 
-//검색 후 다음 버튼 클릭시
-function submit_idx_change(){
-		 
-			//alert(str);
-		$.ajax({
-			type : 'POST',
-			url : 'movie_changeInfo',
-			data: str,
-			dataType : 'json',
-			cache : 'false',
-			/* async: false, */
-			success : function(res) {
-					alert('정보 변경 성공')
-					change_info_close()
-					refresh_page('${mvo.idx}')
-			},
-			error : function(e) {
-				alert("e : " + e.status)
-			}
-		})
+//
+function row_click(obj){ //1개만 선택되게하기
+	$('tbody > tr').removeClass("highlight");
+	var tmp=obj
+			var tr = $(obj)
+			var td = tr.children();
+			var arr= new Array();
+		    td.each(function(i){
+		        if(i==td.length-1)
+		        	str+="tdArr="+td.eq(i).text();	//i번 째 
+		        else
+		       		 str+="tdArr="+td.eq(i).text()+"&";
+		    });   
+		        var selected = $(obj).hasClass("highlight");
+		        $(obj).removeClass("highlight");
+		        if(!selected)
+		        $(obj).addClass("highlight");
+		    
+	
 	}
 
+//검색 후 다음 버튼 클릭시
+function submit_idx_change(){
+	//alert(str);
+	$.ajax({
+		type : 'POST',
+		url : 'movie_changeInfo',
+		data: str,
+		dataType : 'json',
+		cache : 'false',
+		/* async: false, */
+		success : function(res) {
+				alert('정보 변경 성공')
+				change_info_close()
+				refresh_page('${mvo.idx}')
+		},
+		error : function(e) {
+			alert("e : " + e.status)
+		}
+	})
+}
+
 //다음 버튼 클릭시 다음 화면 출력
-$(function(){
-	$("#btUploadNext").on("click", function(){	//모달 켜기
-		$("#chUploadNext").css("display", "block");
-		$("#chUpload").css("display", "none");
-		$("#inputFindApi").focus();
-	})
-	$("#chUploadClose").on("click", function(){	//모달 끄기
-		$("#chUploadNext").css("display", "none");
-	})
+$("#btUploadNext").on("click", function(){	//모달 켜기
+	$("#chUploadNext").css("display", "block");
+	$("#chUpload").css("display", "none");
+	$("#inputFindApi").focus();
 })
+$("#chUploadClose").on("click", function(){	//모달 끄기
+	$("#chUploadNext").css("display", "none");
+})
+
+//리뷰 영상 주소 or 첨부 둘 중 하나만 가능하도록 처리
+$("#chUploadFile").on("click", function(){
+	if($("#chUploadUrl").val()!=""){
+		alert("URL 또는 파일 첨부 중 한 방법으로만 업로드 가능합니다.");
+		$("#chUploadFile").prop("disabled", true);
+		$("#chUploadUrl").focus();
+	}
+})
+$("#chUploadUrl").blur(function(){
+	if($("#chUploadFile").val()!=""){
+		alert("URL 또는 파일 첨부 중 한 방법으로만 업로드 가능합니다.");
+		$("#chUploadFile").prop("disabled", false);
+		$("#chUploadUrl").val("");
+	}else if($("#chUploadUrl").val()==""){
+		$("#chUploadFile").prop("disabled", false);
+	}
+})
+
+//업로드 버튼 클릭시
+function chReviewUpload(){
+	$("#chReviewUpload").on("click", function(){
+		var upUrl=$("#chUploadUrl").val();
+		var upFile=$("#chUploadFile").val();
+	})
+	
+}
 
 //메뉴 버튼 처리===================================
 //홈

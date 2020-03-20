@@ -6,46 +6,69 @@
    	namespace="com.tis.channel.mapper.ChannelMapper">
 	
 	<!-- chStat====================================================== -->
+	<!-- [채널 추이]총 수치값 -->
 	<select id="showUserStat" resultType="Stat_View" parameterType="string">
 		select sum(good) good, sum(click) click, sum(zzim) zzim, count(subs) subs
 		from stat_view where email=#{value}
 	</select>
 	
+	<!-- [채널 추이]최다 조회,좋아요 영상 -->
 	<sql id="isClickOrGood">
-		<if test="clickOrGood!=null">
-			<where><choose>
-				<when test='clickOrGood=="true")'>order by click asc</when>
-				<when test='clickOrGood=="false")'>order by good asc</when>
-			</choose></where>
+		<if test="clickOrGood!=null"><choose>
+			<when test="clickOrGood eq 'click'">(order by click desc)</when>
+			<when test="clickOrGood eq 'good'">(order by good desc)</when>
+		</choose></if>
+	</sql>
+	<select id="showStatMax" resultType="Stat_View" parameterType="string">
+		select A.* from (
+			select row_number() over
+				<include refid="isClickOrGood" />
+			rn, title, url, click, good, wdate, t_title 
+			from stat_view where email=#{email}
+	    ) A where A.rn=1
+	</select>
+	
+	<!-- [영상 목록]리스트 추출 -->
+	<sql id="searchOf">
+		<if test="selectBox != null and searchInput != ''">
+			and
+			<choose>
+				<when test="selectBox==2">	<!-- 날짜로 검색 -->
+					release like '%'||#{searchInput}||'%'
+				</when>
+				<otherwise>					<!-- 제목으로 검색 -->
+					title like '%'||#{searchInput}||'%'
+				</otherwise>
+			</choose>
 		</if>
 	</sql>
-	<select id="showStatMax" resultType="Stat_View" parameterType="map">
-		select A.* from (
-			select row_number() over(
-				<include refid="isClickOrGood" />
-			) rn, title, url, click, good, wdate, t_idx 
-			from stat_view where email=#{email}
-	    ) A where A.rn=1;
+	<select id="showUserReview" resultType="Stat_View" parameterType="map">
+		select * from(    
+			select row_number() over(order by wdate desc) row_num,
+			stat_view.* from stat_view where email=#{email}
+			<include refid="searchOf" />
+		)where row_num between #{start} and #{end}
 	</select>
 	
-	<select id="showUserReview" resultType="Stat_View" parameterType="string">
-		select row_number() over(order by wdate desc) row_num, stat_view.*
-		from stat_view where email=#{value}
-	</select>
-	
+	<!-- [영상 목록]페이징 처리 -->
 	<select id="getTotalPage" resultType="int" parameterType="Paging">
-		select count(idx) from review_view
+		select count(idx) from stat_view
 	</select>
+	
+	
 	
 	<!-- chInfo====================================================== -->
+	<!-- [정보 관리]정보 추출 -->
 	<select id="showUserInfo" resultType="Member" parameterType="string">
 		select * from member where email=#{value}
 	</select>
 	
+	<!-- [정보 관리]정보 수정 -->
 	<insert id="updateUserInfo" parameterType="Member">
 		update member set pwd=#{pwd:VARCHAR}, age=#{age:VARCHAR} where email=#{email}
 	</insert>
 	
+	<!-- [정보 관리]탈퇴 -->
 	<delete id="deleteUserInfo" parameterType="string">
 		delete from member where email=#{value}
 	</delete>
