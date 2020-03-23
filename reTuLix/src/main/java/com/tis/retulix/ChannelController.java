@@ -106,7 +106,7 @@ public class ChannelController {
 		paging.init();										//페이징 연산
 		
 		//2)업로드한 영상 목록 출력
-		List<Stat_ViewVO> reviewList=channelService.showUserReview(paging, email);
+		List<Stat_ViewVO> reviewList=channelService.showUserReview(email);
 		
 		String ctx="/retulix";
 		String loc="channel/chStat";

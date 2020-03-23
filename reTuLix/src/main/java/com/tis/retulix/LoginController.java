@@ -44,41 +44,41 @@ public class LoginController {
 		return "login/login";
 	}
 	
-	/**로그인 처리*/ 
-	/**[1]매개변수로 파라미터 전달받기*/
+	/**로그인 정보 체크*/
 	@RequestMapping("/login")
 	public String loginCheck(
 			@RequestParam(name="email", defaultValue="") String email,
 			@RequestParam(defaultValue="") String pwd,
 			@RequestParam(defaultValue="false") boolean saveId,
-			Model model,
-			HttpSession ses,
-			HttpServletResponse res
+			@RequestParam(defaultValue="false") boolean saveLogin,
+			Model model, HttpSession ses, HttpServletResponse res
 			) throws NotUserException {
+		//log.info(email+"/"+pwd+"/"+saveId+"/"+saveLogin);
 		
-		/**[2]유효성 체크*/
+		//[2]유효성 체크
 		if(email.trim().isEmpty()||pwd.isEmpty()) {
 			return "redirect:/";	//로그인 페이지로 이동
 		}
 		
-		/**[3]로직처리: 로그인 인증처리 메소드 호출*/
+		//[3]로직처리: 로그인 인증처리 메소드 호출
 		MemberVO loginUser=userService.isLoginOk(email, pwd);
 		if(loginUser!=null) {
+			//1)세션에 key-value 저장
 			ses.setAttribute("email", email);
 			ses.setAttribute("loginUser", loginUser);
 			ses.setAttribute("userMode", loginUser.getState());
+			//log.info(loginUser);
 			
-			/**유저가 아이디 저장에 체크했을 경우: html에서 전달받은 쿠키 키값 "uid"사용*/
-			Cookie ck=new Cookie("uid", loginUser.getEmail());
-			if(saveId) ck.setMaxAge(7*24*60*60);//아이디 저장 7일간 유효
-			/**유저가 아이디 저장에 체크하지 않았을 경우*/
-			else ck.setMaxAge(0);	//아이디 저장 안했을 경우 유효기간 삭제하여 저장 안되게 처리
-			ck.setPath("/");		//어디서든 쿠키에 접근할 수 있도록 "/"로 경로 처리
-			res.addCookie(ck);		//response에 쿠키 추가
+			//2)아이디 저장 처리
+			Cookie ckEmail=new Cookie("uid", loginUser.getEmail());	
+			if(saveId) ckEmail.setMaxAge(7*24*60*60);					//아이디 저장 7일간 유효
+			else ckEmail.setMaxAge(0);									//아이디 저장 안했을 경우(F) 쿠키 유효기간 삭제
+			
+			ckEmail.setPath("/");		//어디서든 쿠키에 접근할 수 있도록 "/"로 경로 처리
+			res.addCookie(ckEmail);		//response에 쿠키 추가
 		}
 		
-		
-		// 구독자 리스트
+		//구독자 리스트
 		List<MemberVO> email_subs = mainservice.subscribeList(email);
 		if (email_subs != null) {
 
@@ -86,7 +86,7 @@ public class LoginController {
 		}
 		return "redirect:main";
 
-		/**[4]UserServiceImpl가서 나머지 구현:findUserByUserid()*/
+		//[4]UserServiceImpl가서 나머지 구현:findUserByUserid()
 	}
 	
 	/**로그아웃 처리*/

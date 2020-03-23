@@ -12,6 +12,7 @@
 	</resultMap>
 	<resultMap type="Review" id="reviewJoinMap">
 		<id property="idx" column="idx"/>
+		<result property="divi" column="divi"/>
 		<result property="title" column="title"/>
 		<result property="url" column="url"/>
 		<result property="click" column="click"/>
@@ -21,7 +22,7 @@
 	</resultMap>
 	<select id="showReviewList" resultMap="reviewJoinMap" parameterType="string">
 		select
-			r.divi as divi, r.genre as genre, r.num as num, r.idx as idx, r.title as title, r.url as url, r.click as click, r.wdate as wdate, 
+			r.divi as divi, r.idx as idx, r.title as title, r.url as url, r.click as click, r.wdate as wdate, 
 			r.email as email, r.t_idx as t_idx, t.api_idx as api_idx
 		from review r join trailer t on r.t_idx=t.idx
 		where r.email=#{email} order by wdate desc
@@ -65,11 +66,13 @@
 		</if>
 	</sql>
 	<select id="showUserReview" resultType="Stat_View" parameterType="map">
-		select * from(    
+		<!-- select * from(    
 			select row_number() over(order by wdate desc) row_num,
 			stat_view.* from stat_view where email=#{email}
 			<include refid="searchOf" />
-		)where row_num between #{start} and #{end}
+		)where row_num between #{start} and #{end} -->
+		select row_number() over(order by wdate desc) row_num,
+		stat_view.* from stat_view where email=#{email}
 	</select>
 	
 	<!-- [영상 목록]페이징 처리 -->

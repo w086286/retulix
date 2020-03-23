@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<typeAlias type="com.tis.retulix.domain.TrailerVO" alias="Trailer" />
 			<typeAlias type="com.tis.retulix.domain.Trailer_ViewVO" alias="TrailerView" />
 			<typeAlias type="com.tis.retulix.domain.ReviewVO" alias="Review" />
+			<typeAlias type="com.tis.retulix.domain.Review_ViewVO" alias="ReviewView" />
 			<typeAlias type="com.tis.retulix.domain.MemberVO" alias="Member" />
 			<typeAlias type="com.tis.retulix.domain.NoticeVO" alias="Notice" />
 			<typeAlias type="com.tis.retulix.domain.SubsVO" alias="Subs" />
@@ -30,8 +31,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<mapper resource="spring/mapper/MemberMapper.xml"/>
 			<mapper resource="spring/mapper/NoticeMapper.xml"/>
 			<mapper resource="spring/mapper/searchMapper.xml"/>
-			<mapper resource="spring/mapper/Trailer_Mapper.xml" />
-			<mapper resource="spring/mapper/TrailerMapper.xml"/>
+			<mapper resource="spring/mapper/TrailerView_Mapper.xml" />	<!-- trailer 상영 페이지에서 사용 -->
+			<mapper resource="spring/mapper/TrailerMapper.xml"/>	<!-- admin에서 사용 -->
 			<mapper resource="spring/mapper/UserMapper.xml" />
 			<mapper resource="spring/mapper/userRegMapper.xml"/>
 			<mapper resource="spring/mapper/ContentMapper.xml"/>

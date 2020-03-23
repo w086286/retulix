@@ -16,9 +16,7 @@
 			<header> reTuLix에서 제공하는 최신 리뷰를 만나보세요 </header>
 
 			<footer>
-
-				<a href="showMovie?idx=${url.idx}" class="button scrolly">지금 영상
-					보러가기</a>
+				<a href="showMovie?idx=${url.idx}" class="button scrolly">지금 영상 보러가기</a>
 			</footer>
 
 		</div>

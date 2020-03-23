@@ -20,7 +20,6 @@ public class TrailerVO {
 	public TrailerVO() {
 		
 	}
-	
 	public TrailerVO(String divi, String genre, String num, String idx, String api_idx, String url, String title,
 			int good, int click, int zzim, String email) {
 		super();

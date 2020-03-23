@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% String ctx=request.getContextPath(); %>
 
 <!DOCTYPE html>
@@ -27,28 +28,30 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
 
 <title>reTuLix</title>
-<!-- 상단바====================================================================== -->
+<!-- 상단바=========================================================== -->
 <div id="wrap">
 	<ul class="topNav">
 		<li class="topNavLeft" id="menuToggle"><i class="fa fa-bars"></i></li>
-		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/user/main"><img src="${pageContext.request.contextPath}/resources/images/logo-row.png" alt="logo" class="retulix_logo"></a></li>
-
-		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/user/onlyMovie">영화</a></li>
-		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/user/onlyDrama">TV프로그램</a></li>
+		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/main">
+			<img src="${pageContext.request.contextPath}/resources/images/logo-row.png" alt="logo" class="retulix_logo"></a>
+		</li>
+		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/onlyMovie">영화</a></li>
+		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/onlyDrama">TV프로그램</a></li>
 		<li class="topNavSearch">
-			<form action="">
-				<input id="searchbar" type="text" name="search"
-					placeholder="검색어를 입력하세요"> <i class="fa fa-search"></i>
+			<form action="${pageContext.request.contextPath}/search" method='get' >
+				<input id="searchbar" type="text" name="findKeyWord" placeholder="검색어를 입력하세요">
+				<input type="hidden" value="${findType }">	
+				<button><i class="fa fa-search"></i></button>
 			</form>
 		</li>
 
 		<li class="topNavRight"><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
-		<li class="topNavRight"><a href="${pageContext.request.contextPath}/user/channel"><i class="fa fa-cog"></i></a></li>
+		<li class="topNavRight"><a href="${pageContext.request.contextPath}/user/channel?mode=1"><i class="fa fa-cog"></i></a></li>
 		<li class="topNavRight"><a href="${pageContext.request.contextPath}/admin/main"><i class="fa fa-star"></i></a></li>
 	</ul>
 </div>
 
-<!-- 좌측바====================================================================== -->
+<!-- 좌측바=========================================================== -->
 <div id="wrap">
 	<!-- topNav에 가려지는 부분 -->
 	<div class="topNavFloor"></div>
@@ -57,7 +60,13 @@
 		<!-- .sideNav============== -->
 		<!-- 상단 로그인 회원 정보 -->
 		<div class="sideNavInfo">
-			<span> <img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png" alt="회원 이미지" />
+			<span>
+				<c:if test="${loginUser.icon eq 'noicon.png'}">
+					<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png"><br>
+				</c:if>
+				<c:if test="${loginUser.icon ne 'noicon.png'}">
+					<img src="${pageContext.request.contextPath}/resources/images/userIcon/${loginUser.icon}"><br>
+				</c:if>
 			</span>
 			<h1>${loginUser.name}</h1>
 			<p>일반회원</p>
@@ -66,22 +75,21 @@
 		<!-- 중앙 메뉴 -->
 		<div class="sideNavMenu">
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/user/main"> <span class=""><i
-								class="fa fa-home"></i>홈</span>
+					<li><a href="${pageContext.request.contextPath}/user/main">
+						<span class=""><i class="fa fa-home"></i>홈</span>
 					</a></li>
 					
-					<li><a href="${pageContext.request.contextPath}/user/main#zzim"> <span class=""><i
-								class="fa fa-heart" ></i>누구누구가 찜한 영상</span>
+					<li><a href="${pageContext.request.contextPath}/user/main#zzim">
+						<span class=""><i class="fa fa-heart" ></i>누구누구가 찜한 영상</span>
 					</a></li>
 					
-					<li><a href="${pageContext.request.contextPath}/user/main#history"> <span class=""><i
-								class="fa fa-reply"></i>최근에 본 영상</span>
+					<li><a href="${pageContext.request.contextPath}/user/main#history">
+						<span class=""><i class="fa fa-reply"></i>최근에 본 영상</span>
 					</a></li>
 					
-					<li><a href="${pageContext.request.contextPath}/user/main#click"> <span class=""><i
-								class="fa fa-star"></i>최근 인기 영상</span>
+					<li><a href="${pageContext.request.contextPath}/user/main#click">
+						<span class=""><i class="fa fa-star"></i>최근 인기 영상</span>
 					</a></li>
-					
 				</ul>
 			<hr>
 
@@ -91,15 +99,23 @@
 				<c:forEach var="sub" items="${email_subs}">
 				<div class="moreSub">
 				
-				<li><a href="#"> <span class="">
-					<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png"></img>${sub.email_subs}</span>
+				<li><a href="${pageContext.request.contextPath}/user/channel?mode=2&subsEmail=${sub.email}"> <span class="">
+					<%-- <img src="${pageContext.request.contextPath}/resources/images/${sub.icon}"></img>${sub.name}</span> --%>
+					<c:if test="${sub.icon eq 'noicon.png'}">
+						<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png"></img>
+						${sub.name}</span>
+					</c:if>
+					<c:if test="${sub.icon ne 'noicon.png'}">
+						<img src="${pageContext.request.contextPath}/resources/images/userIcon/${sub.icon}"></img>
+						${sub.name}</span>
+					</c:if> 
 				</a></li>
 				
 				</div>
 				</c:forEach>
 			
-				<li><a href="#"> <span class="more"><i
-							class="fa fa-plus"></i>더보기</span>
+				<li><a href="#">
+					<span class="more"><i class="fa fa-plus"></i>더보기</span>
 				</a></li>
 			</ul>
 
@@ -112,10 +128,11 @@
 					<li><a href="${pageContext.request.contextPath}/user/channel">
 						<span class=""><i class="fa fa-cog"></i>내 채널</span> 
 					</a></li>
-					<li><a href="${pageContext.request.contextPath}/logout"> <span class=""><i class="fa fa-times"></i>로그아웃</span>
+					<li><a href="${pageContext.request.contextPath}/logout"> 
+						<span class=""><i class="fa fa-times"></i>로그아웃</span>
 					</a></li>
 					<hr>
-					<button type="button">
+					<button type="button" id="alertNotYet">
 						<i class="fab fa-product-hunt"></i> 포인트 충전하기
 					</button>
 				</ul>

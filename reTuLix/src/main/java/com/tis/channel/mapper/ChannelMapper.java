@@ -21,9 +21,7 @@ public interface ChannelMapper {
 			@Param("clickOrGood") String clickOrGood);//채널 추이 통계:최다 조회수, 최다 좋아요
 	//업로드한 리뷰 목록
 	int getTotalPage(PagingVO paging);				//총 업로드 영상 수 추출
-	List<Stat_ViewVO> showUserReview(
-			@Param("paging") PagingVO paging, 
-			@Param("email") String email);			//리뷰 목록 출력
+	List<Stat_ViewVO> showUserReview(String email);	//리뷰 목록 출력
 	
 	/**chInfo*/
 	MemberVO showUserInfo(String email);			//회원정보 출력 메소드

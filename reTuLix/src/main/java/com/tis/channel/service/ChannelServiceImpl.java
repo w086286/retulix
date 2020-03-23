@@ -47,10 +47,8 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 	
 	@Override
-	public List<Stat_ViewVO> showUserReview(
-			@Param("paging") PagingVO paging, 
-			@Param("email") String email) {
-		return this.channelMapper.showUserReview(paging, email);
+	public List<Stat_ViewVO> showUserReview(String email) {
+		return this.channelMapper.showUserReview(email);
 	}
 	
 	/**chInfo*/

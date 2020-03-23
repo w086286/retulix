@@ -17,16 +17,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tis.common.CommonUtil;
 import com.tis.retulix.domain.MemberVO;
-import com.tis.retulix.domain.ReviewVO;
+
+import com.tis.retulix.domain.Review_ViewVO;
 import com.tis.retulix.domain.Trailer_ViewVO;
 import com.tis.retulix.domain.Zzim_TrailerVO;
-import com.tis.retulix.trailer.service.Trailer_Service;
+import com.tis.trailer.service.Trailer_Service;
 
 import lombok.extern.log4j.Log4j;
 
 
 @Controller
 @Log4j
+@RequestMapping("/user")
 public class Trailer_viewController {
 
 	@Inject
@@ -35,12 +37,25 @@ public class Trailer_viewController {
 	@Inject
 	private Trailer_Service trailer_Service;
 	
-
+	@RequestMapping(value="/showReview",method=RequestMethod.GET)
+	public String showReview(@RequestParam("idx") String idx,Model m,HttpSession ses) {
+		Review_ViewVO RevVO= trailer_Service.selectOneReview(idx);
+		String tmp=RevVO.change(RevVO.getInfo());
+		Trailer_ViewVO vo = trailer_Service.selectOne(RevVO.getT_idx());
+		MemberVO memberVo = trailer_Service.select_who_upload(RevVO.getEmail());
+		//log.info("테스트리뷰"+vo);
+		RevVO.setInfo(tmp);
+		m.addAttribute("member",memberVo);
+		m.addAttribute("review",RevVO);
+		m.addAttribute("trailer",vo);
+		return "mList/review_repage";
+	}
 	@RequestMapping(value="/showMovie",method=RequestMethod.GET)
 	public String showMovie(@RequestParam("idx") String idx,Model m,HttpSession ses) {
 		
 		Trailer_ViewVO vo = trailer_Service.selectOne(idx);
-		List<ReviewVO> rarr = trailer_Service.selectReview(vo.getIdx()); 
+		List<Review_ViewVO> rarr = trailer_Service.selectReview(vo.getIdx()); 
+		//log.info("테스트리뷰"+rarr);
 		List<Trailer_ViewVO> tarr = trailer_Service.selectPoster(vo.getIdx());
 		
 		MemberVO mvo = (MemberVO)ses.getAttribute("loginUser");
@@ -65,7 +80,7 @@ public class Trailer_viewController {
 	@RequestMapping("/randomMovie")
 	public String randomMovie(Model m) {
 		Trailer_ViewVO vo=trailer_Service.select_Random_One();
-		List<ReviewVO> rarr = trailer_Service.selectReview(vo.getIdx());
+		List<Review_ViewVO> rarr = trailer_Service.selectReview(vo.getIdx());
 		List<Trailer_ViewVO> tarr = trailer_Service.selectPoster(vo.getIdx());
 		
 		m.addAttribute("mvo",vo);
@@ -78,19 +93,7 @@ public class Trailer_viewController {
 	@PostMapping("/ck_zzim")
 	@ResponseBody
 	public Map<String,Integer> zzim_chking(String [] idx,HttpSession ses) {
-		/*
-		 * ajax요청
-		 * 세션x
-		 * 걍리턴
-		 * 
-		 * 세션0
-		 * 
-		 * email값과 idx값 가지고  zzim테이블가서 있는지 확인
-		 * 있다 ->삭제
-		 * 없다 ->추가
-		 * 
-		 * 
-		 */
+	
 		MemberVO mvo = (MemberVO)ses.getAttribute("loginUser");
 		Map<String,Integer>map = new HashMap<>();
 		String id=idx[0];

@@ -46,7 +46,7 @@
        	<input type="checkbox" name="saveId" id="saveId" class="form-check-input"> 아이디 저장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="checkbox" name="saveLogin" id="saveLogin" class="form-check-input"> 자동 로그인<p></p>
         <button type="button" onclick="loginCheck()" id="btLogin" name="btLogin" class="button-active">로그인</button>
-        <button type="button" onclick="join()" id="btJoin" name="btJoin">회원가입</button><br><br>
+        <button type="button" onclick="location.href='signup'" id="btLogin2" name="btLogin2">회원가입</button><br><br>
         
         <a href="${pageContext.request.contextPath}/findUser">아이디/비밀번호를 분실하셨습니까?</a>
     </form>
@@ -86,9 +86,4 @@
 			if(key.keyCode==13) loginCheck();
 		})
 	})
-	
-	//회원가입===========================================
-	function join(){
-		
-	}
 </script>

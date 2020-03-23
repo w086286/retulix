@@ -19,5 +19,10 @@ public class Review_ViewVO {
 	private Date wdate;
 	private String t_title;
 	private String t_idx;
+	
+	public String change(String info) {
+		info = info.replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		return info.replaceAll("\\'", "");
+	}
 
 }

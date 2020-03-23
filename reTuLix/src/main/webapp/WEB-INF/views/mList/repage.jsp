@@ -123,11 +123,14 @@
 
          }
          function review_poster(furl,surl,index_num){
+        	 //alert(info);
         	   var str='<a id = review'+index_num +' '+'onclick=overlay_show(this) title="'+furl+'">'
 	              str+='<img src=https://img.youtube.com/vi/'+surl+'/mqdefault.jpg width = "300px" height="100%">'
 	              str+='</a>'; 
-	      	
+	      		
+	      		
 	          $('.botom_reviews').append(str);
+	         
 	   
 	        
          }
@@ -137,6 +140,7 @@
              $('body').addClass("stop-scrolling");
         	var str= '<iframe id = "Overlay_players" src="'+tmp+'?controls=0&enablejsapi=1" width = "700px" height="450px"></iframe>'
         	$('.overtube').html(str);
+        	
          }
 
 
@@ -375,6 +379,9 @@ $('body').removeClass("stop-scrolling");
 	<div class="overtube"></div>
 	<div class='close'>
 		<i onclick=overlay_close() class="far fa-times-circle"></i>
+	</div>
+	<div id="rev_mun">
+		 
 	</div>
 </div>
 <!-- api_idx재검색 -->

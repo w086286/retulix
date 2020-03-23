@@ -46,5 +46,6 @@
 	<mybatis-spring:scan base-package="com.tis.retulix.trailer.mapper"/>
 	<mybatis-spring:scan base-package="com.tis.admin.mapper"/>
 	<mybatis-spring:scan base-package="com.tis.main.mapper"/>
+	<mybatis-spring:scan base-package="com.tis.trailer.mapper"/>
 	
 </beans>
