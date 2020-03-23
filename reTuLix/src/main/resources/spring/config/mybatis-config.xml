@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<typeAlias type="com.tis.retulix.domain.Zzim_ReviewVO" alias="Zzim_Review" />
 			<typeAlias type="com.tis.retulix.domain.Stat_ViewVO" alias="Stat_View" />
 			<typeAlias type="com.tis.common.model.PagingVO" alias="Paging" />
+			<typeAlias type="com.tis.admin.domain.ContentVO" alias="Content" />
 		</typeAliases>
 		
 		<!-- 맵퍼 등록 -->
@@ -33,5 +34,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<mapper resource="spring/mapper/TrailerMapper.xml"/>
 			<mapper resource="spring/mapper/UserMapper.xml" />
 			<mapper resource="spring/mapper/userRegMapper.xml"/>
+			<mapper resource="spring/mapper/ContentMapper.xml"/>
 		</mappers>
 </configuration>

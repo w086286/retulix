@@ -10,16 +10,16 @@
 			<where><!-- if를 통과하면 where절 삽입 -->
 				<choose><!-- switch와 비슷 -->
 					<when test="selectBox=='idx'">
-						idx like upper('%'||#{searchInput}||'%')
+						idx like '%'||#{searchInput}||'%' 
 					</when>
 					<when test="selectBox=='title'">
 						title like '%'||#{searchInput}||'%'
 					</when>
 					<otherwise><!-- 디폴트 -->
-						idx like upper('%'||#{searchInput}||'%')
+						idx like '%'||#{searchInput}||'%'
 					</otherwise>
 				</choose>
-			</where>"C:/Users/2class-005/git/tis_retulix/src/admin/persistence/adminMapper.xml"
+			</where>
 		</if>
 	</sql>
 	<!-- //whereClause 조각sql -->

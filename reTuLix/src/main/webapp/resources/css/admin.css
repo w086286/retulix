@@ -27,6 +27,17 @@ input.label:not:hover, input.label:focus {
 
 .head {
 	color: white;
+	margin-left:1em;
+}
+.adm-title{
+	/* padding: 0 2em; */
+	border-bottom: 2px solid #999;
+}
+.adm-bg-035{
+	background-color:rgba(0,33,55,0.7);
+}
+.adm-table{
+	border:0.5px solid #bbb;
 }
 .left>table, .right>table {
 	overflow-x:hidden;
@@ -36,8 +47,9 @@ input.label:not:hover, input.label:focus {
 }
 .box {
 	overflow-x:auto;
-	margin:0.5em;
-	/*border:1px solid red;*/
+	margin:1em;
+	
+	/* border:1px solid red; */
 }
 .outer {
 	overflow-x:auto;
@@ -48,11 +60,12 @@ input.label:not:hover, input.label:focus {
 }
 .left {
 	display:inline-block;
-
+	margin-left:1em;
 }
 .right {
-	display:inline-block;
+	display:inline-block; 
 	float: right;
+	margin-right:1em;
 }
 .tableContainer {
 	margin: 1em;
@@ -63,6 +76,7 @@ input.label:not:hover, input.label:focus {
 	display: inline-block;
 	overflow-x: hidden;
 	/* border: 1px solid green; */
+	table-layout: auto;
 }
 .tableContainer table tbody tr td{
 	overflow-y: hidden;
@@ -91,6 +105,6 @@ input.label:not:hover, input.label:focus {
 	background-color:#008000;
 	opacity:0.5;
 }
-.test-outline{
+/* .test-outline{
 	border:1px solid red;
-}
+} */

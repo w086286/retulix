@@ -6,7 +6,7 @@
 <c:import url="/admin/adminTop"/>
 
 <!-- ------------------------------------------- -->
-<div class='box'>
+<div class='box adm-title adm-bg-035'>
 	<h1 class='head'>공지사항 작성</h1>
 </div>
 
@@ -14,16 +14,16 @@
 
 <!-- 전송폼 -------------------------- -->
 <form action='noticeInsert' name='noticeInsertForm' method='POST'>
-	<div class='box'>
+	<div class='box adm-title'>
 		<label for='title'>제  목</label>
 		<input type='text' name='title' id='title' required>
 	</div>
-	<div class='box'>
+	<div class='box adm-title'>
 		<label for='info'>내  용</label>
 		<textarea name='info' required style='resize: none; width: 95%; height: 15em; margin:0em 1em; overflow-x:auto;' ></textarea>
 	</div>
 	<!-- 히든인풋으로 작성자도 같이 폼에 보낼거임 -->
-	<input type='text' name='name' id='name' value=${name } required placeholder='히든으로 작성자 보낼거임'>
+	<input type='hidden' name='name' id='name' value=${name } required placeholder='히든으로 작성자 보낼거임'>
 </form>
 <!-- //전송폼 -------------------------- -->
 

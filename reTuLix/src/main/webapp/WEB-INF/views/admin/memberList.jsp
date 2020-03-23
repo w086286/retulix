@@ -6,10 +6,11 @@
 <c:import url="/admin/adminTop"/>
 
 <!-- ------------------------------------------------------- -->
-<div class='box'>
-		<h2 class='head'>회원 목록</h2>
+<div class='box adm-title adm-bg-035'>
+		<h2 class='head'><i class="fas fa-user" style='margin-right:0.5em;'></i>회원 목록</h2>
 </div>
-<div class="outer">
+<div class='outer'>
+<div class="tableContainer">
 <form action="memberSearch" name="searchForm" method="GET">
 	<div class='box right'>
 		<select class='' name="selectBox">
@@ -22,8 +23,7 @@
 	</div>
 </form>
 <!-- ----------------------------------------------------- -->
-<div class="tableContainer">
-	<table class="table">
+	<table class="adm-table">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -52,7 +52,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<div class='box'>
+	<div class='box' align='center'>
 		${pageNavi}
 	</div>
 </div>

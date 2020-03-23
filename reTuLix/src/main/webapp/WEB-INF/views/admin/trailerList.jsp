@@ -5,60 +5,61 @@
 
 <c:import url="/admin/adminTop" />
 <!-- ------------------------------------------------------- -->
-
-
+<script src='${pageContext.request.contextPath}/resources/js/api.js'></script>
 <!-- -------- -->
 
-<div class='box'>
-	<h2 class='head'>컨텐츠 목록</h2>
+<div class='box adm-title adm-bg-035'>
+	<h2 class='head'><i class="fas fa-bullhorn" style='margin-right:0.5em;'></i>트레일러 목록</h2>
 </div>
-<form action="trailerSearch" name="searchForm" method="POST">
-	<div class='box'>
-		<select class='' name="selectBox">
-			<option value='idx'>번호</option>
-			<option value='title'>제목</option>
-		</select> <input type='text' name="searchInput" class=''>
-		<button type='button' onclick='goSearch()'>검색</button>
-	</div>
-</form>
+<div class='outer'>
+<div class='tableContainer'>
+	<form action="trailerSearch" name="searchForm" method="GET">
+		<div class='box right'>
+			<select class='' name="selectBox">
+				<option value='idx'>번호</option>
+				<option value='title'>제목</option>
+			</select> <input type='text' name="searchInput" class=''>
+			<button type='button' onclick='goSearch()'>검색</button>
+		</div>
+	</form>
 <!-- ----------------------------------------------------- -->
-<div class="outer">
-	<div class='tableContainer'>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>인덱스</th>
-					<th>제 목</th>
-					<th>감 독</th>
-					<th>개봉일</th>
-					<th>소 개</th>
-					<th>삭제</th>
-				</tr>
-			</thead>
+	<table class="adm-table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>인덱스</th>
+				<th>제 목</th>
+				<th>감 독</th>
+				<th>개봉일</th>
+				<th>소 개</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
 
-			<tbody id='tbody'>
-				<%--<c:forEach var="list" items="${listTrailer}">
-					<tr>
-						<td><a href='trailerEdit.do?idx=${list.idx}'><i class="fa fa-edit"></i></a></td>
-						<!-- 컨텐츠 세부내용 보기는 저쪽으로 링크 이어줄거 -->
-						<td><a href='movieView.do?idx=${list.idx}'>${list.idx}</a></td>
-						<td>${list.title}</td>
-						<td>감독</td>
-						<td>개봉일</td>
-				<c:if test='${function:length(list.title)<=40}'>	<!-- 너무길면 줄이기 -->
-						<td title='${list.title}'>영화소개</td>
-				</c:if>
-				<c:if test='${function:length(list.title)>40}'>
-						<td title='${list.title}'>${function:substring(list.title,0,40)}...</td>
-				</c:if>
-						<td><a href='javascript:goDel("${list.idx}")'><i class="fa fa-trash"></i></a></td>
-					</tr>
-				</c:forEach>--%>
-			</tbody>
-		</table>
-		<div class='box'>${pageNavi}</div>
+		<tbody id='tbody'>
+			<%--<c:forEach var="list" items="${listTrailer}">
+				<tr>
+					<td><a href='trailerEdit.do?idx=${list.idx}'><i class="fa fa-edit"></i></a></td>
+					<!-- 컨텐츠 세부내용 보기는 저쪽으로 링크 이어줄거 -->
+					<td><a href='movieView.do?idx=${list.idx}'>${list.idx}</a></td>
+					<td>${list.title}</td>
+					<td>감독</td>
+					<td>개봉일</td>
+			<c:if test='${function:length(list.title)<=40}'>	<!-- 너무길면 줄이기 -->
+					<td title='${list.title}'>영화소개</td>
+			</c:if>
+			<c:if test='${function:length(list.title)>40}'>
+					<td title='${list.title}'>${function:substring(list.title,0,40)}...</td>
+			</c:if>
+					<td><a href='javascript:goDel("${list.idx}")'><i class="fa fa-trash"></i></a></td>
+				</tr>
+			</c:forEach>--%>
+		</tbody>
+	</table>
+	<div class='box' align='center'>
+		${pageNavi}
 	</div>
+</div>
 </div>
 
 <script>
@@ -69,7 +70,7 @@ function goSearch() {
 function goDel(idx){
 	var check= confirm("["+idx+"] 항목을 정말로 삭제하시겠습니까?");
 	if(check){
-		location.href="trailerDelete.do?idx="+idx;		
+		location.href="trailerDelete?idx="+idx;		
 	}
 	else {
 		alert("삭제가 취소되었습니다");
@@ -96,14 +97,14 @@ function getDirector(api_idx,divi){
 
 
 function drawTable(){
-	//alert('${jsonData}');			//string 형태
+	console.log('${jsonData}');			//string 형태
 	var trData=JSON.parse('${jsonData}');	//json으로 파싱
 	//alert(trData);
 	var str="";
  	$.each(trData,function(i, list){
 		str+="<tr>";
-		str+="<td><a href='trailerEdit.do?idx="+list.idx+"'><i class='fa fa-edit'></i></a></td>";
-		str+="<td><a href='movieView.do?idx="+list.idx+"'>"+list.idx+"</a></td>";
+		str+="<td><a href='trailerEdit?idx="+list.idx+"'><i class='fa fa-edit'></i></a></td>";
+		str+="<td><a href='../user/showMovie?idx="+list.idx+"'>"+list.idx+"</a></td>";
 		str+="<td style='max-width:18%;'>"+list.title+"</td>";
 		str+="<td id='director"+i+"' style='width:15%;'></td>";
 		str+="<td id='release"+i+"' style='width:10%;'></td>";
@@ -131,9 +132,9 @@ function drawTable(){
 drawTable();
 
 <%-- api함수 테스트 --%>
-fetchMovie(94680,'D',function(result){
-	console.log(result[2]);
-})
+fetchMovie(371492,'D',function(result){
+	console.log("test"+result[2]);
+}) 
 </script>
 
 

@@ -3,7 +3,7 @@
         	const base_url = "https://image.tmdb.org/t/p/original";
         	if(cking=='M')
         		{
-                const url = "https://api.themoviedb.org/3/movie/"+qu+"?api_key="+key+"&language=ko-KR&append_to_response=casts"
+                const url = "https://api.themoviedb.org/3/movie/"+qu+"?api_key="+key+"&language=ko-KR&append_to_response=casts";
                 fetch(url) 
                 .then(res => res.json())
                 .then(function(res){
