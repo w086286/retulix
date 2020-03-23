@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tis.channel.service.ChannelService;
 import com.tis.common.CommonUtil;
 import com.tis.common.model.PagingVO;
 import com.tis.retulix.domain.MemberVO;
+import com.tis.retulix.domain.ReviewVO;
 import com.tis.retulix.domain.Stat_ViewVO;
 
 import lombok.extern.log4j.Log4j;
@@ -61,7 +63,23 @@ public class ChannelController {
 
 	/**[내 채널 메인]진입*/
 	@RequestMapping("/chHome")
-	public String chHome() {
+	public String chHome(HttpSession ses, Model m, @ModelAttribute("review") ReviewVO review) {
+		String email=LoginUser(ses, m);
+		
+		List<ReviewVO> vo=channelService.showReviewList(email);
+		
+		//받아온 리스트를 json으로 변환한다(외부라이브러리 jackson 사용)
+		String jsonArr=null;
+		ObjectMapper jacksonMapper= new ObjectMapper();
+		try {
+			jsonArr= jacksonMapper.writeValueAsString(vo);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		m.addAttribute("reviewList", vo);
+		m.addAttribute("reviewListJson", jsonArr);
+		
 		return "/channel/chHome";
 	}
 	
@@ -88,7 +106,7 @@ public class ChannelController {
 		paging.init();										//페이징 연산
 		
 		//2)업로드한 영상 목록 출력
-		List<Stat_ViewVO> reviewList=channelService.showUserReview(email);
+		List<Stat_ViewVO> reviewList=channelService.showUserReview(paging, email);
 		
 		String ctx="/retulix";
 		String loc="channel/chStat";

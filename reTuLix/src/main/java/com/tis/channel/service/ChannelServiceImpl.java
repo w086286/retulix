@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.tis.channel.mapper.ChannelMapper;
 import com.tis.common.model.PagingVO;
 import com.tis.retulix.domain.MemberVO;
+import com.tis.retulix.domain.ReviewVO;
 import com.tis.retulix.domain.Stat_ViewVO;
 
 import lombok.extern.log4j.Log4j;
@@ -21,6 +22,12 @@ public class ChannelServiceImpl implements ChannelService {
 	
 	@Inject
 	private ChannelMapper channelMapper;
+	
+	/**chHome*/
+	@Override
+	public List<ReviewVO> showReviewList(String email) {
+		return this.channelMapper.showReviewList(email);
+	}
 
 	/**chStat*/
 	@Override
@@ -40,8 +47,10 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 	
 	@Override
-	public List<Stat_ViewVO> showUserReview(String email) {
-		return this.channelMapper.showUserReview(email);
+	public List<Stat_ViewVO> showUserReview(
+			@Param("paging") PagingVO paging, 
+			@Param("email") String email) {
+		return this.channelMapper.showUserReview(paging, email);
 	}
 	
 	/**chInfo*/

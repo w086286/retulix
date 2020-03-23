@@ -5,6 +5,28 @@
 <mapper 
    	namespace="com.tis.channel.mapper.ChannelMapper">
 	
+	<!-- chHome====================================================== -->
+	<resultMap type="Trailer" id="Trailer">
+		<result property="idx" column="idx" />
+		<result property="api_idx" column="api_idx"/>
+	</resultMap>
+	<resultMap type="Review" id="reviewJoinMap">
+		<id property="idx" column="idx"/>
+		<result property="title" column="title"/>
+		<result property="url" column="url"/>
+		<result property="click" column="click"/>
+		<result property="wdate" column="wdate"/>
+		<result property="email" column="email"/>
+		<collection property="trailer" resultMap="Trailer" />	<!-- property는 ReviewVO에 등록한 변수 이름 -->
+	</resultMap>
+	<select id="showReviewList" resultMap="reviewJoinMap" parameterType="string">
+		select
+			r.divi as divi, r.genre as genre, r.num as num, r.idx as idx, r.title as title, r.url as url, r.click as click, r.wdate as wdate, 
+			r.email as email, r.t_idx as t_idx, t.api_idx as api_idx
+		from review r join trailer t on r.t_idx=t.idx
+		where r.email=#{email} order by wdate desc
+	</select>
+	
 	<!-- chStat====================================================== -->
 	<!-- [채널 추이]총 수치값 -->
 	<select id="showUserStat" resultType="Stat_View" parameterType="string">

@@ -7,9 +7,13 @@ import org.apache.ibatis.annotations.Param;
 
 import com.tis.common.model.PagingVO;
 import com.tis.retulix.domain.MemberVO;
+import com.tis.retulix.domain.ReviewVO;
 import com.tis.retulix.domain.Stat_ViewVO;
 
 public interface ChannelService {
+	
+	/**chHome*/
+	List<ReviewVO> showReviewList(String email);	//리뷰 리스트
 	
 	/**chStat*/
 	Stat_ViewVO showUserStat(String email);			//채널 추이 통계
@@ -17,7 +21,9 @@ public interface ChannelService {
 			@Param("clickOrGood") String clickOrGood);//채널 추이 통계:최다 조회수, 최다 좋아요
 	//업로드한 리뷰 목록
 	int getTotalPage(PagingVO paging);				//총 업로드 영상 수 추출
-	List<Stat_ViewVO> showUserReview(String email);	//리뷰 목록 출력
+	List<Stat_ViewVO> showUserReview(
+			@Param("paging") PagingVO paging, 
+			@Param("email") String email);			//리뷰 목록 출력
 	
 	/**chInfo*/
 	MemberVO showUserInfo(String email);	//회원정보 출력 메소드

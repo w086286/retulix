@@ -386,6 +386,29 @@ function chHome(url) { //url을 click이벤트 파라미터로 넘겨받아 처�
 	});
 }
 
+function findThumbs(){
+	//1)string 형태로 파싱
+	var reviewData=JSON.parse('${reviewListJson}');
+	
+	var str="";
+	//2)반복문 돌려서 div에 리스트 출력하기
+	$.each(reviewData, function(index, review){	//index=반복문 i, review=reviewData의 별칭
+		str+="<img id='reviewThumbs'"+index+">";	//id가 중복되서 반복문이 중복으로 돌지 않도록 index값 붙여서 id 선언해줌
+		str+="<span>"+review.title+"<br>"+review.wdate+"<br>"+review.click+"<br></span>";
+		
+		fetchMovie('api_idx', idx.substring(0,1), function(result){
+			//result[0] 제목
+			//result[1] 개요
+			//result[2] 감독
+			//result[3] 포스터
+			//result[4] 배경
+			//result[5] 개봉일
+			$("#reviewThumbs"+index).attr("src", "https://image.tmdb.org/t/p/w500"+result[3]);
+		}) 
+	});
+	$("#reviewList").append(str);
+}
+
 //내 채널 및 영상
 function chStat(url) {
 	$.ajax({
