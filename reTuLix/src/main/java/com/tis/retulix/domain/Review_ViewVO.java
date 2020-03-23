@@ -5,7 +5,7 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class Review_VIewVO {
+public class Review_ViewVO {
 	
 	private String idx;
 	private String title;
@@ -18,5 +18,12 @@ public class Review_VIewVO {
 	private Date wdate;
 	private String t_title;
 	private String t_idx;
+	
+	public String change(String info) {
+		
+		info = info.replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		return info.replaceAll("\\'", "");
+		
+	}
 
 }

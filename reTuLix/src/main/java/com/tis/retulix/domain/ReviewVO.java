@@ -20,7 +20,7 @@ public class ReviewVO {
 	private String email;
 	private String t_idx;
 	private Date wdate;
-	
+	public ReviewVO() {};
 	public ReviewVO(String divi, String genre, String num, String idx, String title, String url, String info, int good,
 			int click, int zzim, String email, String t_idx, Date wdate) {
 		super();

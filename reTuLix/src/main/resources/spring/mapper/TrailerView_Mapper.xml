@@ -2,24 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.tis.retulix.trailer.mapper.Trailer_Mapper">
+<mapper namespace="com.tis.trailer.mapper.TrailerView_Mapper">
 
 	<!-- id는 UserMapper인터페이스의 메소드명과 동일하게 준다 -->
 	<!-- [1]mybatis-config.xml에서 별칭 및 맵퍼 등록하고 와서 insert문 작성 -->
-	<select id="selectReview" resultType="Review" parameterType="string">
-	select  url, substr(url,(instr(url,'/',4,4))+1) as title from REVIEW_VIEW where t_idx =#{value}
+	
+	<select id="select_who_upload" resultType="Member" parameterType="string">
+		select name from member where email=#{value}
+	</select>
+	
+	<select id="selectOneReview" resultType="ReviewView" parameterType="string">
+		select idx,t_idx, substr(url,(instr(url,'/',4,4))+1) as t_title, title,url,info,good,click,zzim,email,wdate from REVIEW_VIEW where idx=#{value}
+	</select>
+	
+	<select id="selectReview" resultType="ReviewView" parameterType="string">
+	select  url, substr(url,(instr(url,'/',4,4))+1) as title , info from REVIEW_VIEW where t_idx =#{value}
  
 	</select>
 	
-	<select id = "selectPoster" resultType="Trailer" parameterType="map">
+	<select id = "selectPoster" resultType="TrailerView" parameterType="map">
 
 	select * from  ( select * from TRAILER_VIEW where idx != #{not} and idx like #{end}
 	 	 order by dbms_random.value) where rownum  <![CDATA[ <= 5 ]]>
 </select>
-<select id="select_Random_One" resultType="Trailer">
+<select id="select_Random_One" resultType="TrailerView">
 	select * from  (select * from TRAILER_VIEW order by dbms_random.value) where rownum <![CDATA[<= 1	]]>
 </select>
- <select id ="selectOne" resultType="Trailer" parameterType="string">
+ <select id ="selectOne" resultType="TrailerView" parameterType="string">
   	select * from TRAILER_VIEW where idx=#{value}
 </select> 
 

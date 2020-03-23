@@ -1,0 +1,271 @@
+
+
+.container {
+	display: grid;
+	
+	grid-auto-rows: minmax(100px, auto);
+	width:60em;
+	z-index: 9;
+}  
+
+.text_head{
+	z-index:9;
+	color:white;
+}
+.gudok{
+	padding-left:155px;
+	position:relative;
+	z-index: 9;
+}
+#likeit, #lasttime{
+	/* color: gray; */
+	cursor: pointer;
+	
+}
+#likeit:hover, #lasttime:hover{
+	color: gold;
+	cursor: pointer;
+}
+
+
+#lasttime.ch_color{
+	color:red;
+}
+
+
+.highlight { 
+	background: red! important;
+	}
+
+
+.item1 {
+	grid-row-start: 1;
+	grid-row-end: 2;
+	float: left;
+	position: relative;
+	z-index: 9;
+}
+
+.botom_reviews, .rev {
+	display: grid;
+	max-width:1000px;
+	z-index: 9;
+	grid-template-columns: repeat(5, 1fr);
+	grid-auto-rows: minmax(150px, 150px);
+	position: relative;
+	grid-column-gap: 40px;
+	overflow: hidden;
+	
+	
+}
+
+
+.poster_img {
+	width: 100%;
+	height:375.9px;
+	
+}
+.item1>i{
+	position: absolute;
+	color:white;
+	top: 190px;
+	left: 120px;
+	font-size:30px;
+	cursor: pointer;
+}
+
+
+.imgDiv {
+	grid-row-start: 1;
+	grid-row-end: 2;
+	float: left;
+	position: relative;
+}
+
+.imgDiv>img {
+	position: absolute;
+	top: 45%;
+	left: 40%;
+	height: 60px;
+	width: 60px;
+}
+
+.imbt1:hover {
+	opacity: 0;
+	transition: opacity 0.4s;
+}
+
+.ma {
+	padding:10px;
+	width:60em;
+	overflow: hidden;
+	z-index: 9;
+	text-overflow:clip;
+}
+
+iframe {
+	position: relative;
+	z-index: 6;
+}
+
+#imbt3 {
+	color:white;
+
+	position: absolute;
+	top: 0.5%;
+	left: 49%;
+	height: 25px;
+	width: 25px;
+	z-index: 9;
+	
+
+	font-size:30px;
+}
+
+
+.z_container{
+	position : releatve;
+	display:flex;
+	width:100%;
+	height:100%;
+}
+
+
+.backgr { 
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:30px; 
+	}
+
+
+.backgr:after{
+   /*  ///////////////////////////////////////////////////////////////////////////이미지 */
+    
+    background-image: var(--main_bg);
+	top:0;
+    left:0;
+    position:absolute;
+    background-size:cover;
+    opacity:0.3!important;
+	background-repeat:no-repeat;
+    content:"";
+    width:100%;
+    height:100%;
+    min-width: 300px;
+ 	min-height: 100%;
+    z-index: 1!important;
+    overflow: hidden;
+	
+
+}
+/* //////////////////////////////////////////////////////// */
+
+.off-screen {
+	display: none;
+}
+#nav {
+	width: 100%;
+	text-align: center;
+}
+#nav a {
+	display: inline-block;
+	padding: 3px 5px;
+	margin-right: 10px;
+	font-family:Tahoma;
+	background: #ccc;
+	color: #000;
+	text-decoration: none;
+}
+#nav a.active {
+	background: #333;
+	color: #fff;
+}
+
+
+
+ .success{
+	overflow: hidden;
+	 text-overflow: clip;
+	 white-space: nowrap;
+	  text-overflow: ellipsis;
+} 
+
+
+/* 검색 오버레이 */
+ .tables{
+	width :100%;
+	height :100%;
+	table-layout: fixed;
+	overflow: hidden;
+	
+}
+
+.tables td{
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+	 white-space: nowrap;
+	table-layout: fixed;
+	
+	
+}
+ th{
+	border:1px solid black;
+}  
+/* /////////////////////////////////////////////////////////// */
+#change_info_tab {
+	width: 700px;
+	height: 250px;
+	display: flex-direction:row;
+	
+	position: absolute;
+	top:130px;
+}
+/* 오버레이 설정 */
+#overlay,#change_info{
+            position: fixed;
+            top:0; left:0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            /* 시작시 보이지 않게 처리 */
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.5s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+ 
+
+        /* 오버레이를 보여 줄때 사용 */
+        #overlay.show,#change_info.show {
+            visibility: visible;
+            opacity: 1;
+        }
+	/*오버레이시 스크롤링 금지*/
+  .stop-scrolling {
+            /* height: 100%; */
+            overflow: hidden;
+        }
+        /*
+        오버레이 버튼 css
+        */
+        .close, .fix_but {
+        	font-size:30px;
+            position:absolute;
+            top:50px; right: 30px;
+            width: 36px;
+            margin:0; padding: 0;
+            cursor: pointer;
+            margin: 8px auto;
+            
+        }
+
+
+
+/* css 변수로 사용 */
+:root{
+	--main_bg:url('');
+}

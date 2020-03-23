@@ -1,4 +1,4 @@
-package com.tis.retulix.trailer.service;
+package com.tis.trailer.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +8,11 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.tis.retulix.domain.ReviewVO;
+import com.tis.retulix.domain.MemberVO;
+import com.tis.retulix.domain.Review_ViewVO;
 import com.tis.retulix.domain.Trailer_ViewVO;
 import com.tis.retulix.domain.Zzim_TrailerVO;
-import com.tis.retulix.trailer.mapper.Trailer_Mapper;
+import com.tis.trailer.mapper.TrailerView_Mapper;
 
 import lombok.extern.log4j.Log4j;
 
@@ -20,7 +21,7 @@ import lombok.extern.log4j.Log4j;
 public class Trailer_ServiceImpl implements Trailer_Service {
 
 	@Inject
-	private Trailer_Mapper trailer_Mapper;
+	private TrailerView_Mapper trailer_Mapper;
 	
 	@Override
 	public Trailer_ViewVO selectOne(String pp) {
@@ -45,7 +46,7 @@ public class Trailer_ServiceImpl implements Trailer_Service {
 	}
 
 	@Override
-	public List<ReviewVO> selectReview(String idx) {
+	public List<Review_ViewVO > selectReview(String idx) {
 		
 		return trailer_Mapper.selectReview(idx);
 	}
@@ -82,6 +83,24 @@ public class Trailer_ServiceImpl implements Trailer_Service {
 		map.put("email", email);
 		map.put("idx", idx);
 		return trailer_Mapper.del_Zzim(map);
+	}
+
+	@Override
+	public Review_ViewVO selectOneReview(String pp) {
+		
+		return trailer_Mapper.selectOneReview(pp);
+	}
+
+	@Override
+	public List<Review_ViewVO> selectMultiReview(String idx) {
+		// TODO 자동 생성된 메소드 스텁
+		return null;
+	}
+
+	@Override
+	public MemberVO select_who_upload(String email) {
+		// TODO 자동 생성된 메소드 스텁
+		return trailer_Mapper.select_who_upload(email);
 	}
 
 }
