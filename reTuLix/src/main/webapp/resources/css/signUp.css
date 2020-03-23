@@ -1,0 +1,36 @@
+/*signup--------------------------------------------*/
+.head {
+	margin-top: 70px;
+	font-size: 60px;
+	text-align: center;
+}
+
+.form-control {
+	width: 450px;
+	height: 35px;
+	
+}
+.form-group{
+	margin-bottom: 30px;
+}
+
+.signup {
+	width: 470px;
+	margin: 0 auto;
+	text-align: left;
+}
+
+.control-label {
+	font-size: 20px;
+	/*     padding-bottom: 10px; */
+}
+
+.signUpButton {
+	width: 465px;
+	height: 60px;
+	margin-top: 20px;
+}
+
+#footer {
+	text-align: center;
+}

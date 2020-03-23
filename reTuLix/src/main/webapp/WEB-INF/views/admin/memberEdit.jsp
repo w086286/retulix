@@ -13,13 +13,13 @@ input {
 }
 </style>
 
-<div class='box'>
-	<h1 class='head'>회원정보 수정</h1>
+<div class='box adm-title adm-bg-035'>
+	<h1 class='head'><i class="fas fa-user" style='margin-right:0.5em;'></i>회원정보 수정</h1>
 </div>
 <div class='outer test-outline'>
 <div class=tableContainer>
 	<form name='memberInfoForm' action='memberEdit' method='POST'>
-	<table class='table' style='max-width:700px;'>
+	<table class='adm-table' style='max-width:700px;'>
 		<tr>
 			<td><label for="email">Email</label></td>
 			<td width='300px' align='left'><label name="email">${member.email}</label></td>

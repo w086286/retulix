@@ -18,7 +18,7 @@
 	white-space:nowrap;
 	
 	/* 너비 */		width: 100%;
-	/* 배경색 */	background: black;
+	/* 배경색 */	background: #222;
 	/* 그림자 */	box-shadow: inset -0.25em 0 1em 0 rgba(0, 0, 0, 0.1);
 	/* 폰트색 */	color: #fff;
 	/* 글자정렬 */	text-align: center;

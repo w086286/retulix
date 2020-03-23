@@ -3,70 +3,95 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.tis.retulix.mapper.MainMapper">
+<mapper namespace="com.tis.main.mapper.MainMapper">
 
-	<select id="subscribeList" resultType="Subs">
-	
-	select email_subs from subs where email='eyesonme@naver.com'
-		
-	</select> 
-	
-	<select id="mainTrailer" resultType="TrailerView">
-	select * from(
-	select url from trailer_view where click is not null order by click desc
-	)where rownum<![CDATA[ <= ]]> 10
+	<select id="subscribeList" resultType="Member"
+		parameterType="string">
+
+		select m.* from member m, subs s
+		where s.email=#{email}
+		and s.email_subs=m.email
+
 	</select>
-	
+
+	<select id="mainTrailer" resultType="TrailerView">
+		select * from(
+		select url,idx from trailer_view where click is not null order by click desc
+		)where rownum<![CDATA[ <= ]]>
+		10
+	</select>
+
 	<select id="SF_Movie" resultType="TrailerView">
-		select title,idx from trailer_view where idx like '%MS%'
+		select title,idx from
+		trailer_view where idx like '%MS%'
 	</select>
 
 	<select id="CO_Movie" resultType="TrailerView">
-		select title,idx from trailer_view where idx like '%MC%'
+		select title,idx from
+		trailer_view where idx like '%MC%'
 	</select>
-	
+
 	<select id="AC_Movie" resultType="TrailerView">
-		select title,idx from trailer_view where idx like '%MA%'
+		select title,idx from
+		trailer_view where idx like '%MA%'
 	</select>
-	
+
 	<select id="HO_Movie" resultType="TrailerView">
-		select title,idx from trailer_view where idx like '%MH%'
+		select title,idx from
+		trailer_view where idx like '%MH%'
 	</select>
-	
+
 	<select id="RO_Movie" resultType="TrailerView">
-		select title,idx from trailer_view where idx like '%MR%'
+		select title,idx from
+		trailer_view where idx like '%MR%'
 	</select>
-	
+
 	<select id="onlyMovie" resultType="TrailerView">
 		select*from(select title,idx from trailer_view where idx like '%M%')
-		where ROWNUM <![CDATA[ <= ]]> 50
+		where ROWNUM <![CDATA[ <= ]]>
+		50
 	</select>
-	
+
 	<select id="Drama" resultType="TrailerView">
-		select title,idx from trailer_view where idx like '%D%'
+		select title,idx from trailer_view
+		where idx like '%D%'
 	</select>
 
 	<select id="clickAlign" resultType="TrailerView">
-		select title,idx from trailer_view where click is not null order by click desc
-	</select>
-	
-	<select id="goodAlign" resultType="TrailerView">
-		select title,idx from trailer_view where good is not null order by good desc
-	</select>
-	
-	<select id="recommendList" resultType="TrailerView">
-	 	select*from(select title,idx from trailer_view order by dbms_random.random)
-		where ROWNUM <![CDATA[ <= ]]> 20
+		select title,idx from
+		trailer_view where click is not null order by click desc
 	</select>
 
-	<select id="zzimList" resultType="TrailerView">
+	<select id="goodAlign" resultType="TrailerView">
+		select title,idx from
+		trailer_view where good is not null order by good desc
+	</select>
+
+	<select id="recommendList" resultType="TrailerView">
+		select*from(select title,idx from trailer_view order by
+		dbms_random.random)
+		where ROWNUM <![CDATA[ <= ]]>
+		20
+	</select>
+
+	<select id="zzimList" resultType="TrailerView"
+		parameterType="string">
 		select t.title,t.idx from trailer_view t, zzim_trailer z
 		where t.idx=z.idx
+		and z.email=#{email}
 	</select>
-	
-	<select id="historyList" resultType="TrailerView">
+
+	<select id="historyList" resultType="TrailerView"
+		parameterType="string">
 		select t.title,t.idx from trailer_view t, history h
 		where t.idx=h.idx
+		and h.email=#{email}
+	</select>
+
+	<select id="searchList" resultType="TrailerView"
+		parameterType="string">
+		select title,idx from trailer_view where title like
+		'%'||#{keyword}||'%'
 	</select>
 
 </mapper>

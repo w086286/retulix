@@ -1,4 +1,4 @@
-package com.tis.retulix.service;
+package com.tis.main.service;
 
 import java.util.List;
 
@@ -6,18 +6,18 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.tis.retulix.domain.SubsVO;
+import com.tis.main.mapper.MainMapper;
+import com.tis.retulix.domain.MemberVO;
 import com.tis.retulix.domain.Trailer_ViewVO;
-import com.tis.retulix.mapper.MainMapper;
 
-@Service(value="mainSvc")
+@Service(value = "mainSvc")
 public class MainServiceImpl implements MainService {
-	
-	@Resource(name="mainMapper")	
+
+	@Resource(name = "mainMapper")
 	private MainMapper mainMapper;
 
 	@Override
-	public List<SubsVO> subscribeList(String email) {
+	public List<MemberVO> subscribeList(String email) {
 		// TODO Auto-generated method stub
 		return this.mainMapper.subscribeList(email);
 	}
@@ -70,11 +70,6 @@ public class MainServiceImpl implements MainService {
 		return this.mainMapper.clickAlign();
 	}
 
-	/*
-	 * @Override public List<Trailer_ViewVO> clickAlignSlider() { // TODO
-	 * Auto-generated method stub return this.mainMapper.clickAlignSlider(); }
-	 */
-
 	@Override
 	public List<Trailer_ViewVO> goodAlign() {
 		// TODO Auto-generated method stub
@@ -88,15 +83,15 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<Trailer_ViewVO> zzimList() {
+	public List<Trailer_ViewVO> zzimList(String email) {
 		// TODO Auto-generated method stub
-		return this.mainMapper.zzimList();
+		return this.mainMapper.zzimList(email);
 	}
 
 	@Override
-	public List<Trailer_ViewVO> historyList() {
+	public List<Trailer_ViewVO> historyList(String email) {
 		// TODO Auto-generated method stub
-		return this.mainMapper.historyList();
+		return this.mainMapper.historyList(email);
 	}
 
 	@Override
@@ -105,11 +100,6 @@ public class MainServiceImpl implements MainService {
 		return this.mainMapper.onlyMovie();
 	}
 
-	/*
-	 * @Override public List<Trailer_ViewVO> onlyDrama() { // TODO Auto-generated
-	 * method stub return this.mainMapper.onlyDrama(); }
-	 */
-	
 	@Override
 	public List<Trailer_ViewVO> searchList(String keyword) {
 		// TODO Auto-generated method stub

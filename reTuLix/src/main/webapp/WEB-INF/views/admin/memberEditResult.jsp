@@ -8,13 +8,13 @@
 
 <!-- -------------------------------------------------------- -->
 
-<div class='box'>
-	<h1 class='head'>회원정보 수정 - 결과</h1>
+<div class='box adm-title adm-bg-035'>
+	<h1 class='head'><i class="fas fa-user" style='margin-right:0.5em;'></i>회원정보 수정 - 결과</h1>
 </div>
 
 <div class='outer'>
 	<div class='tableContainer'>
-		<table class='table'>
+		<table class='adm-table'>
 			<tr>
 				<th>#</th>
 				<th>기존</th>
@@ -52,7 +52,7 @@
 <script>
 
 function goMemberList() {
-	location.href="memberList";
+	location.href="member";
 }
 function goBack(){
 	history.back();

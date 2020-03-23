@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix = "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<jsp:include page="/top.jsp"/>
+<c:import url="/top"/>
 
 <style>
 .container {
@@ -161,16 +161,16 @@ iframe {
 			<div class="ma" style = "color : white" class='item2' > <!--  본문-->
 				<label class='button'>${trailer.idx }</label>
 				<h3><c:out value="${trailer.title}"/></h3><p>
-				감독  <c:out value="${trailer.director}"/><br>
-				줄거리<br><pre><c:out value="${trailer.info}"/></pre><br>
-				개봉일 <c:out value="${trailer.release}"/><br>
+				감독  <c:out value="감독"/><br>
+				줄거리<br><pre><c:out value="소개"/></pre><br>
+				개봉일 <c:out value="개봉일"/><br>
 			</div>
 			<!-- 폼 전송용 히든인풋 -->
 				<input type="hidden" name='idx' value='${trailer.idx}'readonly>
 				<input type="hidden" name='title' value='${trailer.title}' readonly>
-				<input type="hidden" name='director' value='${trailer.director}'  readonly>
-				<input type="hidden" name='info' value='${trailer.info}'  readonly>
-				<input type="hidden" name='release' value='${trailer.release}' readonly>
+				<input type="hidden" name='director' value=''  readonly>
+				<input type="hidden" name='info' value=''  readonly>
+				<input type="hidden" name='release' value='' readonly>
 			<!-- /////폼 전송용 히든인풋 -->
 		</div>
 
@@ -218,6 +218,6 @@ iframe {
 	
 </script>
 	
-<jsp:include page="/foot.jsp" />
+<c:import url="/foot" />
 
 

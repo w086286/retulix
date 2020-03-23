@@ -1,3 +1,4 @@
+
 package com.tis.retulix.domain;
 
 import java.sql.Date;
@@ -5,7 +6,7 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class Review_VIewVO {
+public class Review_ViewVO {
 	
 	private String idx;
 	private String title;

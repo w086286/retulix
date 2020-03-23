@@ -1,15 +1,15 @@
-package com.tis.retulix.service;
+package com.tis.main.service;
 
 
 
 import java.util.List;
 
-import com.tis.retulix.domain.SubsVO;
+import com.tis.retulix.domain.MemberVO;
 import com.tis.retulix.domain.Trailer_ViewVO;
 
 public interface MainService {
 
-	public List<SubsVO> subscribeList(String email);
+	public List<MemberVO> subscribeList(String email);
 	
 	public List<Trailer_ViewVO> mainTrailer();
 	
@@ -27,19 +27,15 @@ public interface MainService {
 	
 	public List<Trailer_ViewVO> clickAlign();
 	
-	/* public List<Trailer_ViewVO> clickAlignSlider(); */
-	
 	public List<Trailer_ViewVO> goodAlign();
 	
 	public List<Trailer_ViewVO> recommendList();
 	
-	public List<Trailer_ViewVO> zzimList();
+	public List<Trailer_ViewVO> zzimList(String email);
 	
-	public List<Trailer_ViewVO> historyList();
+	public List<Trailer_ViewVO> historyList(String email);
 	
 	public List<Trailer_ViewVO> onlyMovie();
-	
-	/* public List<Trailer_ViewVO> onlyDrama(); */
-	
+		
 	public List<Trailer_ViewVO> searchList(String keyword);
 }

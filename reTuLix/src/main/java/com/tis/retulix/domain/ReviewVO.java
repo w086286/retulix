@@ -1,6 +1,7 @@
 package com.tis.retulix.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -21,9 +22,16 @@ public class ReviewVO {
 	private String t_idx;
 	private Date wdate;
 	
+	private List<TrailerVO> trailer;
+	
+	
+	public ReviewVO() {
+		
+	}
+	
 	public ReviewVO(String divi, String genre, String num, String idx, String title, String url, String info, int good,
 			int click, int zzim, String email, String t_idx, Date wdate) {
-		super();
+		//super();
 		this.divi = divi;
 		this.genre = genre;
 		this.num = num;

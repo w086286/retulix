@@ -4,20 +4,22 @@
 
 <c:import url="/top"/>
 <!-- admintop-------------------------------------------------------- -->
-<% String myctx= request.getContextPath(); %>
-<div class="box">
-	<div class="head"><h1>- Admin Page -</h1></div>
-</div>
-<div id="" class="box">
-	<div class="" style='display:inline-block; float:left'>
-		<a href="<%=myctx %>/admin/member" class='button'>회원정보</a> 
-		<a href="<%=myctx %>/admin/trailer" class='button'>컨텐츠목록</a> 
-		<a href="<%=myctx %>/memberAllContent.do" class="button">회원컨텐츠</a> 
-		<!-- <a type="button" class="">결제내역</a> -->
+<div class='adm-title adm-bg-035' style='padding-bottom:0.3em;'>
+	<div class="box">
+		<div class="head" style='font-size:1.5em;'><h1><i class='fas fa-cogs'>&nbsp;&nbsp;Admin Page</i> </h1></div>
 	</div>
-	<div class='' style='display:inline-block; float:right;'>
-		<a href='trailerInsert.do' class='button' style='margin-left:2em;'>등록</a>
+	<div id="" class="box">
+		<div class="left">
+			<a href="${pageContext.request.contextPath}/admin/member" class='button'>회원정보</a> 
+			<a href="${pageContext.request.contextPath}/admin/trailer" class='button'>트레일러</a> 
+			<a href="${pageContext.request.contextPath}/admin/contents" class="button">회원업로드</a> 
+			<a href="${pageContext.request.contextPath}/admin/notice" class="button">공지사항</a> 
+			<!-- <a type="button" class="">결제내역</a> -->
+		</div>
+		<div class='right'>
+			<a href='trailerInsert' id='trailerInsert' class='button' 
+			style='margin-left:2em; background-color:#d00; font-weight:bolder;'>트레일러 등록</a>
+		</div>
 	</div>
 </div>
 
-<hr color='gray'>

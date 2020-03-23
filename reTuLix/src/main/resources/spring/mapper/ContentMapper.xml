@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tis.admin.mapper.ContentMapper">
+	<!-- 총 컨텐츠 수 -->
+	<select id="getTotalContent" resultType="int">
+		select count(idx) from memberAllReview_view
+	</select>
+	<!-- 검색한 컨텐츠 수 -->
+	<select id="getTotalSearchContent" resultType="int" parameterType="Paging">
+		select count(idx) from memberAllReview_view
+		<include refid="whereClause"/>
+	</select>
+	<!-- email 회원의 컨텐츠 수 -->
+	<select id="getTotalContentByEmail" resultType="int" parameterType="string">
+		select count(idx) from memberAllReview_view where email=#{email}
+	</select>
+	
+	<!-- 모든회원의 컨텐츠 -->
+	<select id="getContent" resultType="Content" parameterType="Paging">
+		select * from (
+		select rownum rn, memberContent.* from
+		(select
+		<include refid="content_col"/>
+		from memberAllReview_view order by idx) memberContent)
+		where rn between #{start} and #{end}
+	</select>
+	<!-- 검색한 회원의 컨텐츠 -->
+	<select id="getSearchContent" resultType="Content" parameterType="Paging">
+		select * from (
+		select rownum rn, mContent.* from
+		(select
+		<include refid="content_col"/>
+		from memberAllReview_view
+		<include refid="whereClause"/> order by idx) mContent)
+		where rn between #{start} and #{end}
+	</select>
+	<!-- email로 특정회원의 컨텐츠 -->
+	<select id="getContentByEmail" resultType="Content" parameterType="Paging">
+		select * from (
+		select rownum rn, mContent.* from
+		(select
+		<include refid="content_col"/>
+		from memberAllReview_view
+		where email=#{email} order by idx) mContent)
+		where rn between #{paging.start} and #{paging.end}
+	</select>
+	<!-- idx로 리뷰 가져오기 -->
+	<select id="getContentByIdx" resultType="Content" parameterType="string">
+		select
+		<include refid="content_col"/>
+		from memberAllReview_view
+		where idx=#{idx}
+	</select>
+	
+	<!-- 회원컨텐츠 수정 -->
+	<update id="updateContent" parameterType="Review">
+	</update>
+	<!-- 회원컨텐츠 삭제 -->
+	<delete id="deleteContent" parameterType="string">
+	</delete>
+
+	<!-- 모든컬럼 조각 sql -->
+	<sql id="content_col">
+		idx, email, name, trailerTitle, reviewTitle, info, url, wdate
+	</sql>
+	<!-- 검색조건 sql -->
+	<sql id="whereClause">
+		<if test="selectBox != null and searchInput != ''">
+			<where>
+				<choose>
+					<when test="selectBox=='idx'">
+						idx like upper('%'||#{searchInput}||'%')
+					</when>
+					<when test="selectBox=='email'">
+						email like '%'||#{searchInput}||'%'
+					</when>
+					<when test="selectBox=='name'">
+						name like '%'||#{searchInput}||'%'
+					</when>
+					<when test="selectBox=='title'">
+						trailerTitle like '%'||#{searchInput}||'%'
+					</when>
+					<otherwise>
+						idx like upper('%'||#{searchInput}||'%')
+					</otherwise>
+				</choose>
+			</where>
+		</if>
+	</sql>
+
+</mapper>

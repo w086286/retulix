@@ -21,6 +21,46 @@
 		from trailer order by idx) trailer)
 		where rn between #{start} and #{end}
 	</select>
+	<!-- 검색한 트레일러 목록 -->
+	<select id="getSearchTrailer" resultType="Trailer" parameterType="Map">
+		select * from (
+		select rownum rn, trailer.* from
+		(select 
+		<include refid="trailer_col"/>
+		from trailer
+		<include refid="whereClause"/> order by idx) trailer)
+		where rn between #{start} and #{end}
+	</select>
+	<!-- IDX로 트레일러 가져오기 -->
+	<select id="getTrailerByIdx" resultType="Trailer" parameterType="string">
+		select
+		<include refid="trailer_col"></include>
+		from trailer where idx=#{idx}
+	</select>
+	
+	<!-- 트레일러 작성 -->
+	<select id="increaseSeq" resultType='string'>
+		select lpad(trailer_ma_seq.nextval,3,'0') from dual
+	</select>
+	<insert id="insertTrailer" parameterType="Trailer">
+		<!-- 시퀀스 selectKey 
+		<selectKey keyProperty="num" order="BEFORE" resultType="int">
+			select trailer_ma_seq.nextval from dual
+		</selectKey>
+		-->
+		insert into trailer
+		values(#{divi}, #{genre}, #{num}, #{idx}, #{api_idx}, #{url}, #{title}
+		, #{good:NUMERIC}, #{click:NUMERIC}, #{zzim:NUMERIC}, 'admin@admin.com')
+	</insert>
+	<!-- 트레일러 수정 -->
+	<update id="updateTrailer" parameterType="Trailer">
+		update trailer set title=#{title}, api_idx=#{api_idx}
+		where idx=#{idx}
+	</update>
+	<!-- 트레일러 삭제 -->
+	<delete id="deleteTrailer" parameterType="string">
+		delete trailer where idx=#{idx}
+	</delete>
 
 	<!-- trailer의 모든 컬럼 조각 sql -->
 	<sql id="trailer_col">

@@ -3,12 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="function" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:import url="/admin/adminTop"/>
-<div class='box'>
-	<h1 class='head'>공지사항 [검색어 - ${paging.searchInput}]</h1>
+<c:import url="/top"/>
+
+<div class='box adm-title adm-bg-035' >
+	<h1 class='head'>공지사항</h1>
 </div>
 <div class='outer'>
-
 	<div class='tableContainer'>
 	<form action="noticeSearch" name="searchForm" method="GET">
 		<div class='box right'>
@@ -18,7 +18,6 @@
 			</select>
 			<input type='text' name="searchInput" class=''>
 			<button type='button' onclick='goSearch()'>검색</button>
-			<a href='noticeInsert' class='button' style='margin-left:10px; background:#111;'>등 록</a>
 		</div>
 	</form>
 		<table class='adm-table' style='margin-bottom:0.5em;'>
@@ -27,30 +26,25 @@
 					<th>글번호</th>
 					<th>제목</th>
 					<th>작성자</th>
-					<th>작성일</th>	
-					<th>조회수</th>	
-					<th>수정</th>
-					<th>삭제</th>		
+					<th>작성일</th>
+					<th>조회수</th>
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var='list' items='${selectNotice}'>
+			<c:forEach var='list' items='${noticeList}'>
 				<tr>
 					<td>${list.idx }</td>
-					<td><a href='noticeView?idx=${list.idx}'>${list.title} &nbsp;<i class="fa fa-edit"></i></a></td>
+					<td><a href='noticeView?idx=${list.idx}'>${list.title}</a></td>
 					<td>${list.name}</td>
 					<td>${list.wdate }</td>
 					<td>${list.click }</td>
-					<td><a href='noticeEdit?idx=${list.idx}'><i class="fa fa-edit"></i></a></td>
-					<td><a href='noticeDelete.do?idx=${list.idx}'><i class="fa fa-trash"></i></a></td>
 				</tr>
 			</c:forEach>
 			</tbody>
 		</table>
-		<div class='box'>
+		<div class='box'><!-- 페이지 -->
 			${pageNavi}
 		</div>
-		
 	</div>
 </div>
 
@@ -58,5 +52,7 @@
 function goSearch(){
 	searchForm.submit();
 }
+
+
 </script>
 <c:import url="/foot"/>

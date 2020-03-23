@@ -7,24 +7,24 @@
 <c:import url="/admin/adminTop"/>
 
 <!-- ------------------------------------------------------- -->
-<div class='box'>
-		<h2 class='head'>회원 목록 [검색어 : ${paging.searchInput}]</h2>
+<div class='box adm-title adm-bg-035'>
+		<h2 class='head'><i class="fas fa-user" style='margin-right:0.5em;'></i>회원 목록 [검색어 : ${paging.searchInput}]</h2>
 </div>
 <div class="outer">
-<form action="memberSearch" name="searchForm" method="GET">
-	<div class='box right'>
-		<select class='' name="selectBox">
-			<option value='email'>이메일</option>
-			<option value='name'>이름</option>
-			<option value='stateStr'>회원상태</option>
-		</select>
-		<input type='text' name="searchInput" class=''>
-		<button type='button' onclick='goSearch()'>검색</button>
-	</div>
-</form>
-<!-- ----------------------------------------------------- -->
 <div class="tableContainer">
-	<table class="table">
+	<form action="memberSearch" name="searchForm" method="GET">
+		<div class='box right'>
+			<select class='' name="selectBox">
+				<option value='email'>이메일</option>
+				<option value='name'>이름</option>
+				<option value='stateStr'>회원상태</option>
+			</select>
+			<input type='text' name="searchInput" class=''>
+			<button type='button' onclick='goSearch()'>검색</button>
+		</div>
+	</form>
+<!-- ----------------------------------------------------- -->
+	<table class="adm-table">
 		<thead>
 			<tr>
 				<th>#</th>

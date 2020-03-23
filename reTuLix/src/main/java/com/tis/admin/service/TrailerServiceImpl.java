@@ -56,13 +56,23 @@ public class TrailerServiceImpl implements TrailerService {
 	}
 
 	@Override
-	public int updateTrailer(String idx) {
-		return trailerMapper.updateTrailer(idx);
+	public int updateTrailer(TrailerVO trailer) {
+		return trailerMapper.updateTrailer(trailer);
 	}
 
 	@Override
 	public int deleteTrailer(String idx) {
 		return trailerMapper.deleteTrailer(idx);
+	}
+
+	@Override
+	public int insertTrailer(TrailerVO trailer) {
+		return trailerMapper.insertTrailer(trailer);
+	}
+
+	@Override
+	public String increaseSeq() {
+		return trailerMapper.increaseSeq();
 	}
 
 }

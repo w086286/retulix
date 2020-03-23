@@ -1,25 +1,28 @@
-package com.tis.retulix.service;
+package com.tis.main.service;
 
 import javax.inject.Inject;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import com.tis.main.mapper.UserRegMapper;
 import com.tis.retulix.domain.MemberVO;
-import com.tis.retulix.mapper.UserRegMapper;
 
-@Service(value="UserReg")
+@Service(value = "UserReg")
 public class UserRegServiceImpl implements UserRegService {
 
-	@Inject	
-	/* private SqlSessionTemplate userSqlSession; */
+	@Inject
 	private UserRegMapper userregmapper;
-	
+
 	@Override
 	public int userEmailCheck(String email) {
-		/* userregmapper=userSqlSession.getMapper(UserRegMapper.class); */
-		/* int cnt=this.userregmapper.userEmailCheck(email); */
+
 		return this.userregmapper.userEmailCheck(email);
+	}
+
+	@Override
+	public int userRegister(MemberVO user) {
+
+		return this.userregmapper.userRegister(user);
 	}
 
 }

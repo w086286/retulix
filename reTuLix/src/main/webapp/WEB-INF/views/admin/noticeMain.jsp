@@ -5,11 +5,13 @@
 
 <c:import url="/admin/adminTop"/>
 
-<div class='box' style='height:150px; background-color:lightgray;'>
-	<h1 class='head'>공지사항</h1>
+<div class='box adm-title adm-bg-035'>
+	<h1 class='head'>
+		<i class="fas fa-exclamation-circle" style='margin-right:0.5em;'></i>공지사항
+	</h1>
 </div>
 <div class='outer'>
-	<div class='tableContainer'>
+	<div class='tableContainer' >
 	<form action="noticeSearch" name="searchForm" method="GET">
 		<div class='box right'>
 			<select class='' name="selectBox">
@@ -22,7 +24,8 @@
 			<a href='noticeInsert' class='button' style='margin-left:20px; background-color:#d11;'>등 록</a>
 		</div>
 	</form>
-		<table style='margin-bottom:0.5em;'>
+		<div>
+		<table class='adm-table' style='margin-bottom:0.5em; table-layout:fixed;'>
 			<thead>
 				<tr>
 					<th>글번호</th>
@@ -48,6 +51,7 @@
 			</c:forEach>
 			</tbody>
 		</table>
+		</div>
 		<div class='box'><!-- 페이지 -->
 			${pageNavi}
 		</div>

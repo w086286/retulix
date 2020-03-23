@@ -5,11 +5,13 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.tis.channel.mapper.ChannelMapper;
 import com.tis.common.model.PagingVO;
 import com.tis.retulix.domain.MemberVO;
+import com.tis.retulix.domain.ReviewVO;
 import com.tis.retulix.domain.Stat_ViewVO;
 
 import lombok.extern.log4j.Log4j;
@@ -20,6 +22,12 @@ public class ChannelServiceImpl implements ChannelService {
 	
 	@Inject
 	private ChannelMapper channelMapper;
+	
+	/**chHome*/
+	@Override
+	public List<ReviewVO> showReviewList(String email) {
+		return this.channelMapper.showReviewList(email);
+	}
 
 	/**chStat*/
 	@Override
@@ -28,8 +36,9 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 	
 	@Override
-	public Stat_ViewVO showStatMax(String email) {
-		return this.channelMapper.showStatMax(email);
+	public Stat_ViewVO showStatMax(@Param("email") String email,
+			@Param("clickOrGood") String clickOrGood) {
+		return this.channelMapper.showStatMax(email, clickOrGood);
 	}
 	
 	@Override
@@ -38,8 +47,10 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 	
 	@Override
-	public List<Stat_ViewVO> showUserReview(String email) {
-		return this.channelMapper.showUserReview(email);
+	public List<Stat_ViewVO> showUserReview(
+			@Param("paging") PagingVO paging, 
+			@Param("email") String email) {
+		return this.channelMapper.showUserReview(paging, email);
 	}
 	
 	/**chInfo*/
@@ -56,5 +67,10 @@ public class ChannelServiceImpl implements ChannelService {
 	@Override
 	public int deleteUserInfo(String email) {
 		return this.channelMapper.deleteUserInfo(email);
+	}
+	
+	@Override
+	public int updateUserIcon(MemberVO vo) {
+		return this.channelMapper.updateUserIcon(vo);
 	}
 }

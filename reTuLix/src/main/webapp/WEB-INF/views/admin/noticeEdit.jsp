@@ -5,7 +5,7 @@
 <c:import url="/admin/adminTop" />
 
 <!-- ------------------------------------------- -->
-<div class='box'>
+<div class='box adm-title adm-bg-035'>
 	<h1 class='head'>공지사항 수정</h1>
 </div>
 
@@ -13,17 +13,13 @@
 
 <!-- 전송폼 -------------------------- -->
 <form action='noticeEdit?idx=${notice.idx }' name='noticeEditForm' method='POST'>
-<div class='box'>
+<div class='box adm-title'>
 	<div class='left'>
 		<label for='title'>제  목</label>
 		<input type='text' name='title' id='title' value='${notice.title}' required>
 	</div>
-	<div class='right' style='margin-right:100px;'>
-		<label class='label'>조회수 :</label>
-		<a href='#noticeEditForm'>${notice.click}</a>
-	</div>
 </div>
-	<div class='box'>
+	<div class='box adm-title'>
 		<label for='info'>내  용</label>
 		<textarea name='info' style='resize: none; width: 95%; height: 15em; margin:0em 1em; overflow-x:auto;' required>${notice.info}</textarea>
 	</div>

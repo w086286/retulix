@@ -1,10 +1,14 @@
 package com.tis.retulix;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -16,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tis.channel.service.ChannelService;
 import com.tis.common.CommonUtil;
 import com.tis.common.model.PagingVO;
 import com.tis.retulix.domain.MemberVO;
+import com.tis.retulix.domain.ReviewVO;
 import com.tis.retulix.domain.Stat_ViewVO;
 
 import lombok.extern.log4j.Log4j;
@@ -56,7 +63,23 @@ public class ChannelController {
 
 	/**[내 채널 메인]진입*/
 	@RequestMapping("/chHome")
-	public String chHome() {
+	public String chHome(HttpSession ses, Model m, @ModelAttribute("review") ReviewVO review) {
+		String email=LoginUser(ses, m);
+		
+		List<ReviewVO> vo=channelService.showReviewList(email);
+		
+		//받아온 리스트를 json으로 변환한다(외부라이브러리 jackson 사용)
+		String jsonArr=null;
+		ObjectMapper jacksonMapper= new ObjectMapper();
+		try {
+			jsonArr= jacksonMapper.writeValueAsString(vo);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		m.addAttribute("reviewList", vo);
+		m.addAttribute("reviewListJson", jsonArr);
+		
 		return "/channel/chHome";
 	}
 	
@@ -65,30 +88,38 @@ public class ChannelController {
 	public String chStat(HttpSession ses, Model m, @ModelAttribute("paging") PagingVO paging) {
 		String email=LoginUser(ses, m);
 		
-		Stat_ViewVO stat=channelService.showUserStat(email);	//total 조회수, 찜 수등..
-		//Stat_ViewVO statMax=channelService.showStatMax(email);//가장 조회수가 높은 영상
+		log.info(paging);
 		
-		//업로드한 영상 테이블 출력+페이징 처리
-		List<Stat_ViewVO> reviewList=channelService.showUserReview(email);
-	/*
+		//[1]채널 추이
+		Stat_ViewVO stat=channelService.showUserStat(email);				//전체 조회수, 찜 수등..
+		Stat_ViewVO statMaxClick=channelService.showStatMax(email, "click");//가장 조회수가 높은 영상
+		Stat_ViewVO statMaxGood=channelService.showStatMax(email, "good");	//가장 좋아요가 높은 영상
+		
+		//[2]영상목록
+		//1)페이징 처리
 		int totalPage=channelService.getTotalPage(paging);	//총 업로드 영상 갯수 추출
-		paging.setTotalCount(totalPage);//총 게시글 수 전달
-		paging.setPageSize(15);			//한 페이지당 보여줄 글 수
-		paging.setPagingBlock(5);		//네이게이션 블록 단위
-		paging.init();					//페이징 연산
-		List<Stat_ViewVO> reviewList=channelService.showUserReview(email);	//게시목록 출력
+		paging.setTotalCount(totalPage);					//총 게시글 수 전달
+		paging.setPageSize(10);								//한 페이지당 보여줄 글 수
+		paging.setPagingBlock(5);							//네이게이션 블록 단위
+		//paging.setSelectBox(paging.getSelectBox());
+		//paging.setSearchInput(paging.getSearchInput());
+		paging.init();										//페이징 연산
+		
+		//2)업로드한 영상 목록 출력
+		List<Stat_ViewVO> reviewList=channelService.showUserReview(paging, email);
+		
 		String ctx="/retulix";
 		String loc="channel/chStat";
-		String pageStr=paging.getPageNavi(ctx, loc);//페이징 처리값 문자열로 변환
-	*/	
+		String pageStr=paging.getPageNavi(ctx, loc, false);	//페이징 처리값 문자열로 변환
+		
 		m.addAttribute("stat", stat);
-		//m.addAttribute("statMax", statMax);	//맵퍼 syntax 해결하고 주석 풀기
+		m.addAttribute("statMaxClick", statMaxClick);
+		m.addAttribute("statMaxGood", statMaxGood);
 		m.addAttribute("reviewList", reviewList);
-	/*
 		m.addAttribute("totalPage", totalPage);
 		m.addAttribute("pageNavi", pageStr);
 		m.addAttribute("paging", paging);
-	*/
+
 		return "/channel/chStat";
 	}
 
@@ -174,8 +205,46 @@ public class ChannelController {
 	}
 	
 	/**[내 정보 관리]회원 아이콘 변경*/
-	//@PostMapping("/iconEdit")
-	
+	@PostMapping("/iconEdit")
+	public String iconEdit(Model m, HttpSession ses, HttpServletRequest req,
+			@RequestParam("iconFile") MultipartFile iconFile,
+			@ModelAttribute MemberVO vo) {
+		//1)로그인 회원 정보 받아오기
+		String email=LoginUser(ses, m);
+		
+		//2)디렉토리 생성
+		String upDir=req.getServletContext().getRealPath("/resources/images/userIcon");	//C:\\reTuLix\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\reTuLix\\resources\\images\\userIcon
+		//log.info(upDir);
+		File dir=new File(upDir);
+		if(!dir.exists())	dir.mkdirs();
+		
+		//3)업로드 파일 받기
+		String fname=iconFile.getOriginalFilename();
+		String ext=fname.substring(fname.indexOf("."));
+		
+		//4)회원 이메일로 파일명 변경
+		String emailArr[]=email.split("@");
+		String rename=emailArr[0]+ext;
+		
+		if(!iconFile.isEmpty()) {	//파일 첨부했을 경우
+			try {
+				//5)파일 업로드				
+				iconFile.transferTo(new File(upDir+"/"+rename));
+				//log.info("아이콘 저장 경로="+upDir);
+
+				vo.setEmail(email);
+				vo.setIcon(rename);
+				int n=channelService.updateUserIcon(vo);
+				//m.addAttribute("editedUserIcon", fname);
+				
+				return "channel/chInfo";
+			} catch (Exception err) {
+				log.error("회원 아이콘 변경 중 에러 발생: "+err.getMessage());
+			}
+		}
+		return util.addMsgBack(m, "변경할 이미지 파일을 첨부하세요.");
+	}
+
 	//CommonUtil 사용하여 유효성 체크시 반환값 주의
 	/*if(!originPwd.equals(loginUser.getPwd())) {
 		return util.addMsgBack(m, "현재 비밀번호와 일치하지 않습니다.");	//util값 자체를 반환

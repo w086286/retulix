@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <div class="infoAndPoint">
@@ -7,7 +8,13 @@
 		<form name="infoEdit" id="infoEdit" role="form" action="${pageContext.request.contextPath}/user/chInfo" method="post">
 		<table>
 			<tr><td rowspan="4">
-				<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png" style="width:120px; height:120px; border-radius:0.2em"><br>
+			<!-- 이미지 적용 안 될 경우 images 폴더 내 userIcon 폴더 생성했는지 확인 -->
+				<c:if test="${loginUser.icon eq 'noicon.png'}">
+					<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png" style="width:120px; height:120px; border-radius:0.2em"><br>
+				</c:if>
+				<c:if test="${loginUser.icon ne 'noicon.png'}">
+					<img src="${pageContext.request.contextPath}/resources/images/userIcon/${loginUser.icon}" style="width:120px; height:120px; border-radius:0.2em"><br>
+				</c:if>
 			</td></tr>
 			<tr>
 				<td>이메일</td>
@@ -78,7 +85,7 @@
 			<i class="fa fa-times" id="btIconEditModalClose"></i>
 		</p>
 		
-		<input type="file" name="btUpUserIcon" id="btUpUserIcon"><br>
+		<input type="file" name="iconFile" id="iconFile"><br>
 		
 		<button type="button" class="button-active" id="userIconEdit" name="userIconEdit">적용</button>
 		<button type="button" class="button-inactive" onclick="iconEditModalClose()">취소</button>
@@ -208,7 +215,28 @@ $(function(){
 	
 	//[아이콘변경]적용 버튼 클릭시
 	$("#userIconEdit").click(function(){
-		$("#iconEdit").submit();
+		iconEdit.submit();
+		/*var formData=$("#iconEdit").serialize();
+		$.ajax({
+            url : "${pageContext.request.contextPath}/user/iconEdit",	//이 url로 데이터 전송함
+            type : 'POST',
+            data : formData,
+            dataType:"json",
+			cache : false,
+            success:function(res) {
+               	alert("아이콘이 성공적으로 변경되었습니다.");
+        //        if(res=="iconEditTrue"){
+//               		var url="${pageContext.request.contextPath}/user/chInfo";
+  //             		chInfo(url);
+    //            }else{
+      //          	alert("다시 시도해주세요.");
+        //        }
+            }, 
+            error:function(err) {
+                alert(err.status);
+            }
+		});
+		*/
 	})
 	
 });
