@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
+    pageEncoding="UTF-8"%>
 
-<c:import url="/admin/adminTop" />
+<jsp:include page="/admin/adminTop.jsp"/>
 
 <!-- ------------------------------------------- -->
 <div class='box'>
@@ -10,31 +9,29 @@
 </div>
 
 <div class='box'>
-	<div class='box' style='background-color:#035; border-bottom: 2px solid #999'>
-		<label for='title' style='margin:0 0.5em;; font-size:1.5em; font-weight:bolder;'>${notice.title}</label>
-	</div>
-	<div class='box'>
-		<div class='box' style='border-bottom:2px solid #999;'>
-			<div class='left'>
-				<label for='wdate' style='margin-left:0px;'>작성일 : ${notice.wdate}</label>
-			</div>
-			<div class='right' style='margin-right:100px;'>
-				<label>조회수 : ${notice.click}</label>
-			</div>
-		</div>
-	</div>
-	<div class='box'>
-		<label for='info' style='font-size=2em;' >내     용</label>
-		<hr color='#999' style='margin:0em 1em;'>
-		<div class='box' style='padding:0 0.5em;'>
-			<pre><c:out value='${notice.info}'/></pre>
-		</div>
-		<hr color='#999' style='margin:0em 1em;'>
-	</div>
+
 <!-- 전송폼 -------------------------- -->
-<form action='noticeEdit' name='noticeEditForm' method='GET'>
+<form action='noticeEdit.do' name='noticeEditForm' method='POST'>
+	<div class='box'>
+		<div class='left'>
+			<label for='title'>제  목</label>
+			<input type='text' name='title' id='title' value='${notice.title}' readonly>
+			<label for='wdate' style='margin-left:70px;'>작성일</label>
+			<input type='text' name='wdate' id='wdate' value='${notice.wdate}' readonly>
+		</div>
+		<div class='right' style='margin-right:100px;'>
+			<label>조회수 : </label>
+			<a href='#'>${notice.click}</a>
+		</div>
+	</div>
+	<div class='box'>
+		<label for='info'>내  용</label>
+		<textarea name='info' readonly style='resize: none; width: 95%; height: 15em; margin:0em 1em; overflow-x:auto;' >${notice.info }</textarea>
+	</div>
 	<!-- 히든인풋 전송용-->
-	<input type='hidden' name='idx' id='idx' value='${notice.idx}' readonly placeholder='히든으로 idx 보낼거임'>
+	<input type='text' name='idx' id='idx' value='${notice.idx}' readonly placeholder='히든으로 idx 보낼거임'>
+	<input type='text' name='name' id='name' value='${notice.name}' readonly placeholder='히든으로 작성자 보낼거임'>
+	<input type='text' name='click' id='click' value='${notice.click}' readonly placeholder='히든으로 작성자 보낼거임'>
 	<!-- ////히든인풋 -->
 </form>
 <!-- //--전송폼 ------------------------ -->
@@ -52,14 +49,12 @@
 <script>
 //매개변수로 idx를 줘서 폼에 함께 보낸다
 function goEdit(idx){
-	noticeEditForm.action="noticeEdit";
 	noticeEditForm.submit();
-	
 }
 function goDel(idx) {
 	var check= confirm("정말로 삭제하시겠습니까?");
-	if(check==true){
-		noticeEditForm.action="noticeDelete";
+	if(confirm==true){
+		noticeEditForm.action="noticeDelete.do";
 		noticeEditForm.submit();		
 	}
 	else {
@@ -68,9 +63,9 @@ function goDel(idx) {
 	}
 }
 function goList(){
-	location.href="notice";
+	location.href="noticeMain.do";
 }
 </script>
 <!-- //script -->
 
-<c:import url="/foot"/>
+<jsp:include page="/foot.jsp"/>

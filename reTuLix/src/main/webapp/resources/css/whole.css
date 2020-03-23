@@ -3,7 +3,7 @@ html, body {
 	/* font-family: ; */
 	line-height: 1.75em;
 	color: #555;
-	background-color: black;
+	background-color: #111;
 
 	/* 글자 부드럽게 */
 	-webkit-text-stroke: 0.25px;
@@ -28,7 +28,7 @@ li {
     overflow-x: hidden;
 	overflow-y: auto;
     z-index: 0;
-	background-color: black;
+	background-color: #111;
 }
 
 /* 모든 Button 태그=================================== */

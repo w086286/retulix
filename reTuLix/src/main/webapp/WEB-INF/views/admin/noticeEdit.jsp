@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    pageEncoding="UTF-8"%>
 
-<c:import url="/admin/adminTop" />
+<jsp:include page="/admin/adminTop.jsp"/>
 
 <!-- ------------------------------------------- -->
 <div class='box'>
@@ -12,7 +11,7 @@
 <div class='box'>
 
 <!-- 전송폼 -------------------------- -->
-<form action='noticeEdit?idx=${notice.idx }' name='noticeEditForm' method='POST'>
+<form action='noticeEditEnd.do' name='noticeEditForm' method='POST'>
 <div class='box'>
 	<div class='left'>
 		<label for='title'>제  목</label>
@@ -28,9 +27,9 @@
 		<textarea name='info' style='resize: none; width: 95%; height: 15em; margin:0em 1em; overflow-x:auto;' required>${notice.info}</textarea>
 	</div>
 		<!-- 히든인풋으로 글번호,작성자도 같이 폼에 보낼거임 -->
-		<input type='hidden' name='idx' id='idx' value='${notice.idx}' readonly>
-		<input type='hidden' name='name' id='name' value='${notice.name}' readonly>
-		<input type='hidden' name='click' id='click' value='${notice.click}' readonly>
+		<input type='text' name='idx' id='idx' value='${notice.idx}' readonly>
+		<input type='text' name='name' id='name' value='${notice.name}' readonly>
+		<input type='text' name='click' id='click' value='${notice.click}' readonly>
 </form>
 <!-- //전송폼 -------------------------- -->
 
@@ -55,4 +54,4 @@ function goBack(){
 </script>
 <!-- //script -->
 
-<c:import url="/foot"/>
+<jsp:include page="/foot.jsp"/>

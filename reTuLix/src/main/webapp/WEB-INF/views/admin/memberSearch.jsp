@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="function" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
-<c:import url="/admin/adminTop"/>
+<jsp:include page="/admin/adminTop.jsp"/>
 
 <!-- ------------------------------------------------------- -->
 <div class='box'>
 		<h2 class='head'>회원 목록 [검색어 : ${paging.searchInput}]</h2>
 </div>
-<div class="outer">
-<form action="memberSearch" name="searchForm" method="GET">
-	<div class='box right'>
+<form action="memberSearch.do" name="searchForm" method="POST">
+	<div class='box'>
 		<select class='' name="selectBox">
 			<option value='email'>이메일</option>
 			<option value='name'>이름</option>
@@ -23,6 +22,7 @@
 	</div>
 </form>
 <!-- ----------------------------------------------------- -->
+<div class="outer">
 <div class="tableContainer">
 	<table class="table">
 		<thead>
@@ -38,7 +38,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="search" items="${searchMember}">
+			<core:forEach var="search" items="${searchMember}">
 				<tr>
 					<td><a href='memberEdit.do?email=${search.email}'><i class="fa fa-edit"></i></a></td>
 					<td>${search.email}</td>
@@ -49,7 +49,7 @@
 					<td>${search.stateStr}</td>
 					<td><a href='memberContent.do?email=${list.email}'><i class="fa fa-eye"></i></a></td>
 				</tr>
-			</c:forEach>
+			</core:forEach>
 		</tbody>
 	</table>
 	<div class='box'>
@@ -70,4 +70,4 @@ function goSearch() {
 <!-- -------------------------------------------------------------- -->
 
 
-<c:import url="/foot"/>
+<jsp:include page="/foot.jsp"/>

@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="function" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:import url="/admin/adminTop"/>
+<jsp:include page="/admin/adminTop.jsp"/>
 <div class='box'>
 	<h1 class='head'>공지사항 [검색어 - ${paging.searchInput}]</h1>
 </div>
 <div class='outer'>
 
 	<div class='tableContainer'>
-	<form action="noticeSearch" name="searchForm" method="GET">
+	<form action="noticeSearch.do" name="searchForm" method="POST">
 		<div class='box right'>
 			<select class='' name="selectBox">
 				<option value='idx'>글번호</option>
@@ -33,7 +33,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var='list' items='${selectNotice}'>
+			<core:forEach var='list' items='${selectNotice}'>
 				<tr>
 					<td>${list.idx }</td>
 					<td><a href='noticeView.do?idx=${list.idx}'>${list.title} &nbsp;<i class="fa fa-edit"></i></a></td>
@@ -42,7 +42,7 @@
 					<td><a href='noticeEdit.do?idx=${list.idx}'><i class="fa fa-edit"></i></a></td>
 					<td><a href='noticeDelete.do?idx=${list.idx}'><i class="fa fa-trash"></i></a></td>
 				</tr>
-			</c:forEach>
+			</core:forEach>
 			</tbody>
 		</table>
 		<div class='box'>
@@ -57,4 +57,4 @@ function goSearch(){
 	searchForm.submit();
 }
 </script>
-<c:import url="/foot"/>
+<jsp:include page="/foot.jsp"/>

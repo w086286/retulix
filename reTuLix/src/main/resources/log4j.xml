@@ -11,8 +11,8 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.tis">
-		<level value="debug" />
+	<logger name="com.tis.retulix">
+		<level value="info" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

@@ -18,11 +18,11 @@ public class AdminCheckInterceptor extends HandlerInterceptorAdapter{
 		HttpSession ses=request.getSession();
 		MemberVO member=(MemberVO)ses.getAttribute("loginUser");
 		if(member!=null) {
-			if(member.getState()==99) return true;
+			//if(member.getState()==99) return true;
 		}
 
-		request.setAttribute("msg", "관리자가 아닙니다.");
-		request.setAttribute("loc", request.getContextPath()+"/");
+		request.setAttribute("msg", "로그인 후 서비스 이용이 가능합니다.");
+		request.setAttribute("loc", request.getContextPath()+"/index");
 		
 		String viewName="/WEB-INF/views/message.jsp";
 		RequestDispatcher disp=request.getRequestDispatcher(viewName);

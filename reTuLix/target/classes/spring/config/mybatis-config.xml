@@ -18,20 +18,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<typeAlias type="com.tis.retulix.domain.Good_ReviewVO" alias="Good_Review" />
 			<typeAlias type="com.tis.retulix.domain.Zzim_TrailerVO" alias="Zzim_Trailer" />
 			<typeAlias type="com.tis.retulix.domain.Zzim_ReviewVO" alias="Zzim_Review" />
-			<typeAlias type="com.tis.retulix.domain.Stat_ViewVO" alias="Stat_View" />
-			<typeAlias type="com.tis.common.model.PagingVO" alias="Paging" />
 		</typeAliases>
 		
 		<!-- 맵퍼 등록 -->
 		<mappers>
-			<mapper resource="spring/mapper/ChannelMapper.xml"/>
-			<mapper resource="spring/mapper/mainMapper.xml"/>
-			<mapper resource="spring/mapper/MemberMapper.xml"/>
-			<mapper resource="spring/mapper/NoticeMapper.xml"/>
-			<mapper resource="spring/mapper/searchMapper.xml"/>
-			<mapper resource="spring/mapper/Trailer_Mapper.xml" />
-			<mapper resource="spring/mapper/TrailerMapper.xml"/>
+			<!-- <mapper resource="spring/mapper/SampleMapper.xml" /> -->
 			<mapper resource="spring/mapper/UserMapper.xml" />
+			<mapper resource="spring/mapper/mainMapper.xml"/>
 			<mapper resource="spring/mapper/userRegMapper.xml"/>
 		</mappers>
 </configuration>

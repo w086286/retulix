@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% String ctx=request.getContextPath(); %>
 
 <div class="myChannelHead">업로드한 영상</div>
 <div class="chHomeHead">
@@ -18,23 +19,6 @@
 
 <div class="chUploadList">
 	<div class="myChannelHead">최근 업로드</div>
-	<section id="about" class="two">
-	<div class="container-fluid" id="cslide">
-	<div class="demo">
-	<div class="row">
-		<ul id="mvs" class="content-slider">
-			<c:forEach var="MOVIE" begin="1" end="10">		
-			<div class="col-6 col-lg-2 animate-in-down">
-				<a href="'+[movies[i]]+'">
-				 <img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png" class="center-block img-fluid my-3" height="230px">
-				</a>
-			</div>
-			</c:forEach>
-		</ul>
-	</div>
-	</div>
-	</div>
-	</section>
 	
 	<div class="myChannelHead">업로드 영상</div>
 	

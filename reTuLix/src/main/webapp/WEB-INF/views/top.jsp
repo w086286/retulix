@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <% String ctx=request.getContextPath(); %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,20 +34,25 @@
 <div id="wrap">
 	<ul class="topNav">
 		<li class="topNavLeft" id="menuToggle"><i class="fa fa-bars"></i></li>
-		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/user/main"><img src="${pageContext.request.contextPath}/resources/images/logo-row.png" alt="logo" class="retulix_logo"></a></li>
+		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/main"><img src="${pageContext.request.contextPath}/resources/images/logo-row.png" alt="logo" class="retulix_logo"></a></li>
 
-		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/user/onlyMovie">영화</a></li>
-		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/user/onlyDrama">TV프로그램</a></li>
+		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/onlyMovie">영화</a></li>
+		<li class="topNavLeft"><a href="${pageContext.request.contextPath}/onlyDrama">TV프로그램</a></li>
 		<li class="topNavSearch">
-			<form action="">
-				<input id="searchbar" type="text" name="search"
-					placeholder="검색어를 입력하세요"> <i class="fa fa-search"></i>
-			</form>
+			<form action="${pageContext.request.contextPath}/search" method='get' >
+			
+					<input id="searchbar" type="text" name="findKeyWord" 
+						placeholder="검색어를 입력하세요">
+					<input type="hidden" value="${findType }">	
+						 <button><i class="fa fa-search"></i>
+						 </button>
+						 
+				</form>
 		</li>
 
 		<li class="topNavRight"><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
-		<li class="topNavRight"><a href="${pageContext.request.contextPath}/user/channel"><i class="fa fa-cog"></i></a></li>
-		<li class="topNavRight"><a href="${pageContext.request.contextPath}/admin/main"><i class="fa fa-star"></i></a></li>
+		<li class="topNavRight"><a href="${pageContext.request.contextPath}/chDoor"><i class="fa fa-cog"></i></a></li>
+		<li class="topNavRight"><a href="${pageContext.request.contextPath}/admin"><i class="fa fa-star"></i></a></li>
 	</ul>
 </div>
 
@@ -66,33 +74,42 @@
 		<!-- 중앙 메뉴 -->
 		<div class="sideNavMenu">
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/user/main"> <span class=""><i
+					<li><a href="${pageContext.request.contextPath}/main"> <span class=""><i
 								class="fa fa-home"></i>홈</span>
 					</a></li>
 					
-					<li><a href="${pageContext.request.contextPath}/user/main#zzim"> <span class=""><i
-								class="fa fa-heart" ></i>누구누구가 찜한 영상</span>
+					<li><a href="${pageContext.request.contextPath}/main#zzim"> <span class=""><i
+								class="fa fa-heart" ></i>${loginUser.name}님이 찜한 영상</span>
 					</a></li>
 					
-					<li><a href="${pageContext.request.contextPath}/user/main#history"> <span class=""><i
+					<li><a href="${pageContext.request.contextPath}/main#history"> <span class=""><i
 								class="fa fa-reply"></i>최근에 본 영상</span>
 					</a></li>
 					
-					<li><a href="${pageContext.request.contextPath}/user/main#click"> <span class=""><i
+					<li><a href="${pageContext.request.contextPath}/main#click"> <span class=""><i
 								class="fa fa-star"></i>최근 인기 영상</span>
 					</a></li>
 					
 				</ul>
 			<hr>
-
+			
 			<!-- 구독 리스트: 첫 로드시 최대 4행 -->
 			<ul class="subscribe">
 				<span class="subscribeHead">구독</span>
 				<c:forEach var="sub" items="${email_subs}">
 				<div class="moreSub">
 				
-				<li><a href="#"> <span class="">
-					<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png"></img>${sub.email_subs}</span>
+				<li><a href="${sub.email }"> <span class="">
+				<%-- <img src="${pageContext.request.contextPath}/resources/images/${sub.icon}"></img>${sub.name}</span> --%>
+				 <c:if test="${sub.icon eq 'noicon.png'}">
+					<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png"></img>
+					${sub.name}</span>
+				</c:if>
+				<c:if test="${sub.icon ne 'noicon.png'}">
+					<img src="${pageContext.request.contextPath}/resources/images/userIcon/${sub.icon}"></img>
+					${sub.name}</span>
+				</c:if> 
+				
 				</a></li>
 				
 				</div>
@@ -106,10 +123,10 @@
 			<hr>
 			<div class="sideNavFoot">
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/user/notice">
+					<li><a href="${pageContext.request.contextPath}/noticeMain">
 						<span class=""><i class="fa fa-exclamation-circle"></i>공지사항</span>
 					</a></li>
-					<li><a href="${pageContext.request.contextPath}/user/channel">
+					<li><a href="${pageContext.request.contextPath}/chDoor">
 						<span class=""><i class="fa fa-cog"></i>내 채널</span> 
 					</a></li>
 					<li><a href="${pageContext.request.contextPath}/logout"> <span class=""><i class="fa fa-times"></i>로그아웃</span>
