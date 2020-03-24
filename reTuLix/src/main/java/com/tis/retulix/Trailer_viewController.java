@@ -40,11 +40,18 @@ public class Trailer_viewController {
 	@RequestMapping(value="/showReview",method=RequestMethod.GET)
 	public String showReview(@RequestParam("idx") String idx,Model m,HttpSession ses) {
 		Review_ViewVO RevVO= trailer_Service.selectOneReview(idx);
+		List<Review_ViewVO> arr = trailer_Service.selectMultiReview(idx);
+		log.info("배열오냐"+arr);
 		String tmp=RevVO.change(RevVO.getInfo());
+		//관련 영상 랜덤 몆개?
+		
+		String tmp2 =RevVO.change_title(RevVO.getTitle());
 		Trailer_ViewVO vo = trailer_Service.selectOne(RevVO.getT_idx());
 		MemberVO memberVo = trailer_Service.select_who_upload(RevVO.getEmail());
 		//log.info("테스트리뷰"+vo);
 		RevVO.setInfo(tmp);
+		RevVO.setTitle(tmp2);
+		m.addAttribute("review_multi",arr);
 		m.addAttribute("member",memberVo);
 		m.addAttribute("review",RevVO);
 		m.addAttribute("trailer",vo);

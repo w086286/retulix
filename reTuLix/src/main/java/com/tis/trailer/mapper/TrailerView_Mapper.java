@@ -21,6 +21,7 @@ public interface TrailerView_Mapper {
 	int del_Zzim(Map map);//Zzim삭제
 	Review_ViewVO selectOneReview(String pp); //리뷰1개만 추출
 	MemberVO select_who_upload(String email);//사람추출
+	List<Review_ViewVO> selectMultiReview(Map idx);//리뷰1개 뺴고 랜덤 추출
 
 	
 }
