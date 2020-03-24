@@ -49,7 +49,7 @@
  //////////////////////////////////////////////////////////////////////////////////////////////
  
          $(document).ready(function() {
-        	 console.log("page on load")
+        	
         	 var substr='${review.t_idx}';
         	 substr= substr.substring(0,1)
      
