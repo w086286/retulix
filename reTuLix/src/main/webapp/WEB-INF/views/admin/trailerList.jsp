@@ -97,7 +97,7 @@ function getDirector(api_idx,divi){
 
 
 function drawTable(){
-	console.log('${jsonData}');			//string 형태
+	//console.log('${jsonData}');			//string 형태
 	var trData=JSON.parse('${jsonData}');	//json으로 파싱
 	//alert(trData);
 	var str="";
@@ -133,7 +133,7 @@ drawTable();
 
 <%-- api함수 테스트 --%>
 fetchMovie(371492,'D',function(result){
-	console.log("test"+result[2]);
+	//console.log("test"+result[2]);
 }) 
 </script>
 

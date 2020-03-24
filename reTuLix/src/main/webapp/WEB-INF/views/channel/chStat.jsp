@@ -2,35 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<script>
-	var options = {
-		'legend':{
-			names: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15',]
-				},
-		'dataset':{
-			title:'Playing time per day', 
-			values: [[56,76], [58,66], [60,62], [58,70], [85, 76], [86,83], [82, 73], [77,66], [87,66], [49,56], [58,76], [85, 76], [56,83], [56, 83], [45, 34]],
-			colorset: ['#0072b2', '#cc79a7'],
-			fields:['Company A', 'Company B']
-		},
-		'chartDiv' : 'Nwagon',
-		'chartType' : 'line',
-		'leftOffsetValue': 40,
-		'bottomOffsetValue': 60,
-		'chartSize' : {width:700, height:300},
-		'minValue' :0,
-		'maxValue' : 100,
-		'increment' : 20,
-		'isGuideLineNeeded' : true //default set to false
-	};
-
-	Nwagon.chart(options);
-</script>
-
+<div style="display:inline-block; width:100%">
 <div class="chEdit" style="position: relative; float: left; width:34%;">
 <div class="myChannelHead">채널 추이</div>
 	<div class="chTotal">
-		<div id="Nwagon"></div>		
 		<table>
 			<tr>
 				<td>총 조회수</td>
@@ -76,40 +51,47 @@
 		</div>
 	</div>
 </form>
-<c:if test="${reviewList==null || empty reviewList}">
-	<b>업로드한 영상이 없습니다.</b>
-</c:if>
 
-<table>
+<table style="width:100%">
+	<tr>
+		<th>영상 제목</th>
+		<th>업로드 날짜</th>
+		<th>조회수</th>
+		<th>좋아요</th>
+		<th>찜</th>
+		<th>리뷰 영화</th>
+		<th>수정 | 삭제</th>
+	</tr>
+	
+	<c:if test="${reviewList==null || empty reviewList}">
+	<tr><td colspan="8">
+		업로드한 영상이 없습니다.<br><br>
+		<button type="button" class="button-active">리뷰 영상 업로드하러 가기</button>
+	</td></tr>
+	</c:if>
+	
 	<c:if test="${reviewList!=null && not empty reviewList}">
-		<tr>
-			<th>영상 제목</th>
-			<th>업로드 날짜</th>
-			<th>조회수</th>
-			<th>좋아요</th>
-			<th>찜</th>
-			<th>리뷰 영화</th>
-			<th>수정 | 삭제</th>
-		</tr>
-		<c:forEach var="reviewList" items="${reviewList}">
-		<tr>
-			<td><a href="${reviewList.url}">
-				<c:out value="${reviewList.title}" />
-			</a></td>
-			<td><fmt:formatDate value="${reviewList.wdate}" pattern="yyyy년 MM월 DD일"/></td>
-			<td><c:out value="${reviewList.click}" /></td>
-			<td><c:out value="${reviewList.good}" /></td>
-			<td><c:out value="${reviewList.zzim}" /></td>
-			<td><c:out value="${reviewList.t_title}" /></td>
-			<td>
-				<a href="#"><i class="fas fa-pen"></i></a>&nbsp; | &nbsp;
-				<a href="#"><i class="fas fa-trash"></i></a> 
-			</td>
-		</tr>
+	<c:forEach var="reviewList" items="${reviewList}">
+	<tr>
+		<td><a href="showReview?idx=${reviewList.idx}">
+			<c:out value="${reviewList.title}" />
+		</a></td>
+		<td><fmt:formatDate value="${reviewList.wdate}" pattern="yyyy년 MM월 DD일"/></td>
+		<td><c:out value="${reviewList.click}" /></td>
+		<td><c:out value="${reviewList.good}" /></td>
+		<td><c:out value="${reviewList.zzim}" /></td>
+		<td><c:out value="${reviewList.t_title}" /></td>
+		<td>
+			<a href="#"><i class="fas fa-pen"></i></a>&nbsp; | &nbsp;
+			<a href="#"><i class="fas fa-trash"></i></a> 
+		</td>
+	</tr>
 	</c:forEach>
+	</c:if>
 </table>
 	
-<ul style="text-align:center">
+<%-- 페이징 처리 부분 
+	<ul style="text-align:center">
 	<c:set var="query" value="type=${type}&search=${search}" />
 	<c:forEach var="page" begin="1" end="${pageCount}" step="1">
 		<li style="display:inline">
@@ -121,8 +103,8 @@
 			</c:if>
 		</li>
 	</c:forEach>		
-</ul>
-</c:if>
+</ul> --%>
+</div>
 </div>
 
 <script>

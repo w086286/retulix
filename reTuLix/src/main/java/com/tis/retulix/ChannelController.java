@@ -237,7 +237,7 @@ public class ChannelController {
 				int n=channelService.updateUserIcon(vo);
 				//m.addAttribute("editedUserIcon", fname);
 				
-				return "channel/chInfo";
+				return "/channel/chDoor";
 			} catch (Exception err) {
 				log.error("회원 아이콘 변경 중 에러 발생: "+err.getMessage());
 			}

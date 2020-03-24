@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 	<!-- Footer -->
-		<div id="footer">
+		<div id="footer" style="text-align:center">
 			<ul class="copyright">
-				<li>&copy; Untitled. All rights reserved.</li>
-				<li>reTuLix</li>
+				<li style="color:#888">ⓒ copyright; reTulix. All rights reserved.</li>
+				<li style="text-shadow:none"><a href="${pageContext.request.contextPath}/admin/main"><b>reTuLix</b></a></li>
 			</ul>
 		</div>
 	</div>

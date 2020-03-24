@@ -40,7 +40,7 @@
 		<tbody>
 			<c:forEach var="all" items="${listContent}">
 				<tr>
-					<td>${all.idx}</td>
+					<td><a href="showReview?idx=${all.idx}">${all.idx}</a></td>
 					<td>${all.email}</td>
 					<td>${all.name}</td>
 					<td>${all.trailerTitle}</td>

@@ -68,7 +68,7 @@
 		<tbody>
 			<c:forEach var="member" items="${memberContent}">
 				<tr>
-					<td><a href="contentView?idx=${member.idx }">${member.idx}</a></td>
+					<td><a href="showReview?idx=${member.idx}">${member.idx}</a></td>
 					<td>${member.email}</td>
 					<td>${member.name}</td>
 					<td>${member.trailerTitle}</td>

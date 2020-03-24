@@ -594,6 +594,12 @@ public class AdminController {
 		
 		return "admin/memberContentSearch";
 	}
-/*////회원업로드 관리 -----------------------------------------------------*/
 	
+	/*  리뷰idx정보 보여주기 */
+	@RequestMapping("showReview")
+	public String goShowReview(@RequestParam("idx")String idx) {
+		return "redirect:../user/showReview?idx="+idx;
+	}
+
+/*////회원업로드 관리 -----------------------------------------------------*/	
 }

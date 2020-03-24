@@ -2,8 +2,8 @@ html, body {
 	background: #fff;
 	/* font-family: ; */
 	line-height: 1.75em;
-	color: #555;
-	background-color: #111;
+	color: #666;
+	background-color: black;
 
 	/* 글자 부드럽게 */
 	-webkit-text-stroke: 0.25px;

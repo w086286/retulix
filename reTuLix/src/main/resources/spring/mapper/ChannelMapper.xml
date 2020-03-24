@@ -20,12 +20,15 @@
 		<result property="email" column="email"/>
 		<collection property="trailer" resultMap="Trailer" />	<!-- property는 ReviewVO에 등록한 변수 이름 -->
 	</resultMap>
-	<select id="showReviewList" resultMap="reviewJoinMap" parameterType="string">
+	<select id="showReviewList_old" resultMap="reviewJoinMap" parameterType="string">
 		select
 			r.divi as divi, r.idx as idx, r.title as title, r.url as url, r.click as click, r.wdate as wdate, 
 			r.email as email, r.t_idx as t_idx, t.api_idx as api_idx
 		from review r join trailer t on r.t_idx=t.idx
 		where r.email=#{email} order by wdate desc
+	</select>
+	<select id="showReviewList" resultMap="reviewJoinMap" parameterType="string">
+		select * from stat_view where email=#{email}
 	</select>
 	
 	<!-- chStat====================================================== -->

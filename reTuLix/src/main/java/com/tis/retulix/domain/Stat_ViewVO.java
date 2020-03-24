@@ -20,5 +20,6 @@ public class Stat_ViewVO {
 	private Date wdate;
 	private String t_title;
 	private String t_idx;
+	private String api_idx;
 	
 }

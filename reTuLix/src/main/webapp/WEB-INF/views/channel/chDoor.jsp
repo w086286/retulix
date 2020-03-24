@@ -1,77 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<!-- 통계 차트 -->
-<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath}/resources/css/channel.css'>
-<script src="${pageContext.request.contextPath}/resources/js/Nwagon.js"></script>
+<script src='${pageContext.request.contextPath}/resources/js/api.js'></script>
 
 <c:import url="/top" />
-
-<style>
-.chUpload, .chUploadNext{
-	display:none;
-	position: absolute;
-    z-index: 10009;
-    padding-top: 100px;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: none;
-    background-color: rgba(0,0,0,0.7);
-    text-align: center;
-}
-.findTrailer{
-	width: 700px;
-	height: 250px;
-	top:150px;
-    display: inline-block;
-}
-.findTrailer input{
-	width: 35%;
-}
-
-.uploadReview table{
-	width: 700px;
-	height: 250px;
-	top:150px;
-    display: inline-block;
-}
-.uploadReview input{
-	width: 566px;
-	height: 3em;
-}
-.uploadReview textarea{
-	width: 566px;
-    height: 141px;
-}
-
-
-/* ~~~~~~~~~~~ */
-.off-screen {
-	display: none;
-}
-#nav {
-	width: 100%;
-	text-align: center;
-}
-#nav a {
-	display: inline-block;
-	padding: 3px 5px;
-	margin-right: 10px;
-	font-family:Tahoma;
-	background: #ccc;
-	color: #000;
-	text-decoration: none;
-}
-#nav a.active {
-	background: #333;
-	color: #fff;
-}
-.highlight { 
-	background: red! important;
-	}
-</style>
 
 <!-- 채널 이미지 ============================================== -->
 <div class="channelImage">
@@ -179,16 +110,17 @@
 <c:import url="/foot" />
 
 <script type="text/javascript">
-//영상 업로드=====================================
-
 $(function(){//==window.onload
-	$("#btChUpload").on("click", function(){	//모달 켜기
-		$("#chUpload").css("display", "block");
-		$("#inputFindApi").focus();
-	})
-	$("#chUploadClose").on("click", function(){	//모달 끄기
-		$("#chUpload").css("display", "none");
-	})
+	chHome('${pageContext.request.contextPath}/user/chHome');
+})
+
+//영상 업로드=====================================
+$("#btChUpload").on("click", function(){	//모달 켜기
+	$("#chUpload").css("display", "block");
+	$("#inputFindApi").focus();
+})
+$("#chUploadClose").on("click", function(){	//모달 끄기
+	$("#chUpload").css("display", "none");
 })
 //검색 버튼 이벤트 처리
 var str="";	//선택한 행 str
@@ -384,29 +316,6 @@ function chHome(url) { //url을 click이벤트 파라미터로 넘겨받아 처�
 			console.log("error @chDoor.jsp/chInfo(): " + err.status);
 		}
 	});
-}
-
-function findThumbs(){
-	//1)string 형태로 파싱
-	var reviewData=JSON.parse('${reviewListJson}');
-	
-	var str="";
-	//2)반복문 돌려서 div에 리스트 출력하기
-	$.each(reviewData, function(index, review){	//index=반복문 i, review=reviewData의 별칭
-		str+="<img id='reviewThumbs'"+index+">";	//id가 중복되서 반복문이 중복으로 돌지 않도록 index값 붙여서 id 선언해줌
-		str+="<span>"+review.title+"<br>"+review.wdate+"<br>"+review.click+"<br></span>";
-		
-		fetchMovie('api_idx', idx.substring(0,1), function(result){
-			//result[0] 제목
-			//result[1] 개요
-			//result[2] 감독
-			//result[3] 포스터
-			//result[4] 배경
-			//result[5] 개봉일
-			$("#reviewThumbs"+index).attr("src", "https://image.tmdb.org/t/p/w500"+result[3]);
-		}) 
-	});
-	$("#reviewList").append(str);
 }
 
 //내 채널 및 영상

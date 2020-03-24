@@ -69,8 +69,8 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<button class="button-active">충전</button>
-					<button class="button-inactive">환전</button>
+					<button class="button-active" id="buyPoint">충전</button>
+					<button class="button-inactive" id="changePoint">환전</button>
 				</td>
 			</tr>
 		</table>
@@ -216,7 +216,7 @@ $(function(){
 	//[아이콘변경]적용 버튼 클릭시
 	$("#userIconEdit").click(function(){
 		iconEdit.submit();
-		/*var formData=$("#iconEdit").serialize();
+		var formData=$("#iconEdit").serialize();
 		$.ajax({
             url : "${pageContext.request.contextPath}/user/iconEdit",	//이 url로 데이터 전송함
             type : 'POST',
@@ -224,19 +224,16 @@ $(function(){
             dataType:"json",
 			cache : false,
             success:function(res) {
-               	alert("아이콘이 성공적으로 변경되었습니다.");
-        //        if(res=="iconEditTrue"){
-//               		var url="${pageContext.request.contextPath}/user/chInfo";
-  //             		chInfo(url);
-    //            }else{
-      //          	alert("다시 시도해주세요.");
-        //        }
+               	alert("다시 시도해주세요."); 
+               	var url="${pageContext.request.contextPath}/user/channel";
+               	window.location.href=url;
             }, 
             error:function(err) {
-                alert(err.status);
+                alert("아이콘이 성공적으로 변경되었습니다.");
+            	var url="${pageContext.request.contextPath}/user/channel";
+           		window.location.href=url;
             }
 		});
-		*/
 	})
 	
 });
@@ -244,6 +241,11 @@ $(function(){
 function iconEditModalClose(){
 	EditUserIcon.style.display="none";
 }
+
+//충전, 환전버튼 준비중 처리
+$("#buyPoint, changePoint").on("click",function(){
+	alert("서비스 준비중입니다.");
+})
 
 //:::내 정보 및 포인트 진입 함수: js 모두 합치고 지우기::::::::::::::::::::::::::::
 function chInfo(url){

@@ -46,8 +46,7 @@
 		</li>
 
 		<li class="topNavRight"><a href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
-		<li class="topNavRight"><a href="${pageContext.request.contextPath}/user/channel?mode=1"><i class="fa fa-cog"></i></a></li>
-		<li class="topNavRight"><a href="${pageContext.request.contextPath}/admin/main"><i class="fa fa-star"></i></a></li>
+		<li class="topNavRight"><a href="${pageContext.request.contextPath}/user/channel"><i class="fa fa-cog"></i></a></li>
 	</ul>
 </div>
 
@@ -80,12 +79,26 @@
 					</a></li>
 					
 					<li><a href="${pageContext.request.contextPath}/main#zzim"> <span class=""><i
-								class="fa fa-heart" ></i>${loginUser.name}님이 찜한 영상</span>
+								class="fa fa-heart" >
+						<c:if test="${zzimListSize ne 0}">		
+								</i>${loginUser.name}님이 찜한 영상</span>
 					</a></li>
+						</c:if>
+					<c:if test="${zzimListSize eq 0}">		
+								</i>${loginUser.name}님을 위한 추천</span>
+					</a></li>
+						</c:if>
 					
 					<li><a href="${pageContext.request.contextPath}/main#history"> <span class=""><i
-								class="fa fa-reply"></i>최근에 본 영상</span>
+								class="fa fa-reply">
+						<c:if test="${historyListSize ne 0}">		
+								</i>최근에 본 영상</span>
 					</a></li>
+						</c:if>
+					<c:if test="${historyListSize eq 0}">		
+								</i>좋아요가 많은 영상</span>
+					</a></li>
+						</c:if>
 					
 					<li><a href="${pageContext.request.contextPath}/main#click"> <span class=""><i
 								class="fa fa-star"></i>최근 인기 영상</span>

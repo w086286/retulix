@@ -49,7 +49,7 @@
  //////////////////////////////////////////////////////////////////////////////////////////////
  
          $(document).ready(function() {
-        	 console.log("page on load")
+        	
         	 var substr='${review.t_idx}';
         	 substr= substr.substring(0,1)
      
@@ -64,7 +64,7 @@
         	        	 		$('.ma').append("작성자 : "+'${member.name}');
         	        		
         	        		 }        	
-        	        	 var str='https://img.youtube.com/vi/'+'${review.t_title}'+'/mqdefault.jpg'
+        	        	 var str='https://img.youtube.com/vi/'+'${review.t_title}'+'/hqdefault.jpg'
         	        	$('.poster_img').attr("src",str);
         		 }) 
         	         
@@ -81,22 +81,19 @@
 	 
 	 
 	 
-         function poster(pos,idxy){
-        	 var str="";
-        	 var img2="";
-        	 var tmp=idxy.substring(0,1);
-        		fetchMovie(pos,tmp,function(result){
-	             	img2=result[3];
-	             str='<a href='+"showMovie?idx="+idxy+">"
-	             str+='<img src='+img2+' width = "150px" height="100%">'
-	             str+='</a>';
-	           $('.rev').append(str);
-	             })
+   
 
+         function review_poster(furl,surl){
+        	   var str='<a href='+"showReview?idx="+surl+">"
+	              str +='<img src=https://img.youtube.com/vi/'+furl+'/mqdefault.jpg width = "300px" height="150px" style="margin-top:1em">'
+	              str+='</a>'; 
+   		
+	         
+	          $('#right_mv').append(str);
+	         
+	   
+	        
          }
-
-
-
 
 
 	
@@ -104,56 +101,12 @@
 
 
 
-<!-- 리뷰어들 영상 오버레이 -->
-<!-- <div id="overlay">
-	<div class="overtube"></div>
-	<div class='close'>
-		<i onclick=overlay_close() class="far fa-times-circle"></i>
-	</div>
-	<div id="rev_mun">
-		 
-	</div>
-</div> -->
-<!-- api_idx재검색 -->
-<!-- <div id="change_info">
-	<div
-		id="change_info_tab">
-		<p>정보 수정 인터넷 검색</p>
-		<i style="color: white" class="fas fa-search"></i>&nbsp;<input
-			class="find_api" type="text">
-		<button onclick="send_ajax()">검색</button>
-		<br>
-		<div>
-			<table class='tables' id='tables' >
-			<thead>
-				<tr class='success'>
-					<th style='width: 15%'>타이틀</th>
-					<th style='width: 55%'>요약</th>
-					<th style='width: 20%'>개봉일</th>
-					<th style='width: 15%'>원제목</th>
-					<th style="display:none">api키</th>
-					<th style="display:none">idx</th>
-				</tr>
-				</thead>
-				<tbody>
-				
-				</tbody>
-			</table>
-
-
-		</div>
-		<button onclick="submit_idx_change()">확인</button>
-		<button onclick="change_info_close()">취소</button>
-	</div>
-
-</div> -->
-
 <div class ="z_container">
 
 	<div class='backgr' >
 			<%-- <div class='fix_but' style="z-index:9;color:white"><i  onclick="change_info_show('${mvo.title}')" class="fas fa-wrench"></i></div>
 		 	--%><div class="iframe" style="position:relative; display:none" >
-			<iframe id ='players'src="${review.url}?controls=0&enablejsapi=1" width = "100%" height="600px"></iframe>
+			<iframe id ='players'src="${review.url}?controls=0&enablejsapi=1" width = "85%" height="600px"></iframe>
 			
 			<i id ='imbt3' class="fas fa-times"></i>
 		 
@@ -168,7 +121,7 @@
 			 <i id="play_movie" class="fas fa-play"></i>
 			 	<div class="gudok"><!-- 구독 나중에 보기 -->
 			 	
-				<i id="likeit" style="padding-right: 25px; font-size:2em" class="fas fa-plus"></i>
+				<i id="likeit" style="font-size:2em" class="fas fa-plus"></i>
 				<i id="lasttime" onclick="change_last()" style="font-size:2em"  class="fas fa-heart"></i>		
 	</div>
 
@@ -186,20 +139,20 @@
 					poster('${pos.api_idx}','${pos.idx}');
 				 </script>
 		</c:forEach>  --%>
-		<h2 class ="text_head">관련 영상</h2>
-		<div class="rev">
-		</div>
-		<p></p>
-		
-			<h2 class ="text_head">리뷰어 영상</h2>		
-		<div class="botom_reviews">
-			
-		</div>
-<%--  <c:forEach var="review" items="${reviews}" varStatus="i">
-				 <script>
-				review_poster('${review.url}','${review.title}','${i.index}');
-				 </script>
-		</c:forEach>  --%>
+
+	
 	</div>
+	<div class="right_tool">
+				<h2 class ="text_head">다음 동영상</h2>
+		<div class="rev" id="right_mv">
+	
+		</div>
+	
+		</div>
 	 </div>
+	 	 <c:forEach var="review" items="${review_multi}" varStatus="i">
+				 <script>
+				review_poster('${review.url}','${review.idx}');
+				 </script>
+		</c:forEach>
 <c:import url="/foot" />

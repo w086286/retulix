@@ -92,9 +92,6 @@ input.label:not:hover, input.label:focus {
 	border: 0;
 	cursor: pointer;
 }
-.active {
-	background-color: darkred;
-}
 .page:hover {
 	background-color: darkred;
 }

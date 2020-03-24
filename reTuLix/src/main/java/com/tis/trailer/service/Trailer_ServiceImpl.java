@@ -93,8 +93,13 @@ public class Trailer_ServiceImpl implements Trailer_Service {
 
 	@Override
 	public List<Review_ViewVO> selectMultiReview(String idx) {
-		// TODO 자동 생성된 메소드 스텁
-		return null;
+		String tmp =idx.substring(0,2);
+		
+		Map<String,String> map= new HashMap<>();
+		map.put("start", tmp);
+		map.put("end", idx);
+		log.info("map값 확인"+map);
+		return trailer_Mapper.selectMultiReview(map);
 	}
 
 	@Override
@@ -102,5 +107,7 @@ public class Trailer_ServiceImpl implements Trailer_Service {
 		// TODO 자동 생성된 메소드 스텁
 		return trailer_Mapper.select_who_upload(email);
 	}
+
+	
 
 }

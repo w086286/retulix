@@ -40,7 +40,7 @@
 		<tbody>
 		<c:forEach var="search" items="${searchContent}">
 			<tr>
-				<td>${search.idx}</td>
+				<td><a href="showReview?idx=${search.idx}">${search.idx}</a></td>
 				<td>${search.email}</td>
 				<td>${search.name}</td>
 				<td>${search.trailerTitle}</td>
