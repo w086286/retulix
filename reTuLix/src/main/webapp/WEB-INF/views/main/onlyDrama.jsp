@@ -7,7 +7,7 @@
 	<h3 align="left" style="color: lavender">드라마</h3>
 	<c:forEach var="onDrama" items="${onDramaTitle}">
 
-		<a href="showMovie?idx=${onDrama.idx}"> <img
+		<a href="${pageContext.request.contextPath}/user/showMovie?idx=${onDrama.idx}"> <img
 			src="${pageContext.request.contextPath}/resources/poster/${onDrama.title }.png"
 			height="230px" width="158px"></a>
 
@@ -23,7 +23,7 @@
 				<ul id="content-slider" class="content-slider">
 					<c:forEach var="reList" items="${reListTitle}">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${reList.idx}"> <img
+							<a href="${pageContext.request.contextPath}/user/showMovie?idx=${reList.idx}"> <img
 								src="${pageContext.request.contextPath}/resources/poster/${reList.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
@@ -46,7 +46,7 @@
 				<ul id="content-slider" class="content-slider">
 					<c:forEach var="zzimList" items="${zzimListTitle}">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${zzimList.idx}"> <img
+							<a href="${pageContext.request.contextPath}/user/showMovie?idx=${zzimList.idx}"> <img
 								src="${pageContext.request.contextPath}/resources/poster/${zzimList.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>

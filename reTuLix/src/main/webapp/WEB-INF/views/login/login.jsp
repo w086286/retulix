@@ -5,12 +5,16 @@
 	//아이디 저장값 추출
 	Cookie[] ck=request.getCookies();
 	String ckEmail="";
-	for(int i=0; i<ck.length; i++){
-		if(ck[i].getName().equals("saveId")){
-			ckEmail=ck[i].getValue();
-		}else{
-			ckEmail="";
+	if(ck.length>0){
+		for(int i=0; i<ck.length; i++){
+			if(ck[i].getName().equals("saveId")){
+				ckEmail=ck[i].getValue();
+			}else{
+				ckEmail="";
+			}
 		}
+	}else{
+		ckEmail="";
 	}
 %>
 

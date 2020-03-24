@@ -70,7 +70,7 @@ public class LoginController {
 			//log.info(loginUser);
 			
 			//2)아이디 저장 처리
-			Cookie ckEmail=new Cookie("uid", loginUser.getEmail());	
+			Cookie ckEmail=new Cookie("saveId", loginUser.getEmail());	
 			if(saveId) ckEmail.setMaxAge(7*24*60*60);					//아이디 저장 7일간 유효
 			else ckEmail.setMaxAge(0);									//아이디 저장 안했을 경우(F) 쿠키 유효기간 삭제
 			

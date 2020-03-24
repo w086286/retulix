@@ -75,21 +75,22 @@
 		<!-- 중앙 메뉴 -->
 		<div class="sideNavMenu">
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/user/main">
-						<span class=""><i class="fa fa-home"></i>홈</span>
+					<li><a href="${pageContext.request.contextPath}/main"> <span class=""><i
+								class="fa fa-home"></i>홈</span>
 					</a></li>
 					
-					<li><a href="${pageContext.request.contextPath}/user/main#zzim">
-						<span class=""><i class="fa fa-heart" ></i>누구누구가 찜한 영상</span>
+					<li><a href="${pageContext.request.contextPath}/main#zzim"> <span class=""><i
+								class="fa fa-heart" ></i>${loginUser.name}님이 찜한 영상</span>
 					</a></li>
 					
-					<li><a href="${pageContext.request.contextPath}/user/main#history">
-						<span class=""><i class="fa fa-reply"></i>최근에 본 영상</span>
+					<li><a href="${pageContext.request.contextPath}/main#history"> <span class=""><i
+								class="fa fa-reply"></i>최근에 본 영상</span>
 					</a></li>
 					
-					<li><a href="${pageContext.request.contextPath}/user/main#click">
-						<span class=""><i class="fa fa-star"></i>최근 인기 영상</span>
+					<li><a href="${pageContext.request.contextPath}/main#click"> <span class=""><i
+								class="fa fa-star"></i>최근 인기 영상</span>
 					</a></li>
+					
 				</ul>
 			<hr>
 
@@ -99,23 +100,24 @@
 				<c:forEach var="sub" items="${email_subs}">
 				<div class="moreSub">
 				
-				<li><a href="${pageContext.request.contextPath}/user/channel?mode=2&subsEmail=${sub.email}"> <span class="">
-					<%-- <img src="${pageContext.request.contextPath}/resources/images/${sub.icon}"></img>${sub.name}</span> --%>
-					<c:if test="${sub.icon eq 'noicon.png'}">
-						<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png"></img>
-						${sub.name}</span>
-					</c:if>
-					<c:if test="${sub.icon ne 'noicon.png'}">
-						<img src="${pageContext.request.contextPath}/resources/images/userIcon/${sub.icon}"></img>
-						${sub.name}</span>
-					</c:if> 
+				<li><a href=${pageContext.request.contextPath}/user/channel?email="${sub.email}"> <span class="">
+				<%-- <img src="${pageContext.request.contextPath}/resources/images/${sub.icon}"></img>${sub.name}</span> --%>
+				 <c:if test="${sub.icon eq 'noicon.png'}">
+					<img src="${pageContext.request.contextPath}/resources/images/noUserIcon.png"></img>
+					${sub.name}</span>
+				</c:if>
+				<c:if test="${sub.icon ne 'noicon.png'}">
+					<img src="${pageContext.request.contextPath}/resources/images/userIcon/${sub.icon}"></img>
+					${sub.name}</span>
+				</c:if> 
+				
 				</a></li>
 				
 				</div>
 				</c:forEach>
 			
-				<li><a href="#">
-					<span class="more"><i class="fa fa-plus"></i>더보기</span>
+				<li><a href="#"> <span class="more"><i
+							class="fa fa-plus"></i>더보기</span>
 				</a></li>
 			</ul>
 

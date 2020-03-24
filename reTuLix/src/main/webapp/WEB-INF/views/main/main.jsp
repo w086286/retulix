@@ -16,7 +16,9 @@
 			<header> reTuLix에서 제공하는 최신 리뷰를 만나보세요 </header>
 
 			<footer>
-				<a href="showMovie?idx=${url.idx}" class="button scrolly">지금 영상 보러가기</a>
+
+				<a href="${pageContext.request.contextPath}/user/showMovie?idx=${url.idx}" class="button scrolly">지금 영상
+					보러가기</a>
 			</footer>
 
 		</div>
@@ -54,7 +56,7 @@
 
 					<c:forEach var="zzimList" items="${zzimListTitle}">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${zzimList.idx}"> <img
+							<a href="${pageContext.request.contextPath}/user/showMovie?idx=${zzimList.idx}"> <img
 								src="${pageContext.request.contextPath}/resources/poster/${zzimList.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
@@ -80,7 +82,7 @@
 
 					<c:forEach var="historyList" items="${historyListTitle}">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${historyList.idx}"> <img
+							<a href="${pageContext.request.contextPath}/user/showMovie?idx=${historyList.idx}"> <img
 								src="${pageContext.request.contextPath}/resources/poster/${historyList.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
@@ -99,7 +101,7 @@
 				<ul id="content-slider" class="content-slider">
 					<c:forEach var="clickSlider" items="${clickSlider}">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${clickSlider.idx}"> <img
+							<a href="${pageContext.request.contextPath}/user/showMovie?idx=${clickSlider.idx}"> <img
 								src="${pageContext.request.contextPath}/resources/poster/${clickSlider.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
@@ -119,7 +121,7 @@
 				<ul id="content-slider" class="content-slider">
 					<c:forEach var="MOVIE" items="${MC_title}">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${MOVIE.idx}"> <img
+							<a href="${pageContext.request.contextPath}/user/showMovie?idx=${MOVIE.idx}"> <img
 								src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
@@ -138,7 +140,7 @@
 
 					<c:forEach var="MOVIE" items="${MH_title}">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${MOVIE.idx}"> <img
+							<a href="${pageContext.request.contextPath}/user/showMovie?idx=${MOVIE.idx}"> <img
 								src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
@@ -157,7 +159,7 @@
 
 					<c:forEach var="MOVIE" items="${MS_title}">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${MOVIE.idx}"> <img
+							<a href="${pageContext.request.contextPath}/user/showMovie?idx=${MOVIE.idx}"> <img
 								src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
@@ -176,7 +178,7 @@
 
 					<c:forEach var="MOVIE" items="${MA_title}">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${MOVIE.idx}"> <img
+							<a href="${pageContext.request.contextPath}/user/showMovie?idx=${MOVIE.idx}"> <img
 								src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
@@ -195,7 +197,7 @@
 
 					<c:forEach var="MOVIE" items="${MR_title}">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${MOVIE.idx}"> <img
+							<a href="${pageContext.request.contextPath}/user/showMovie?idx=${MOVIE.idx}"> <img
 								src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
@@ -214,7 +216,7 @@
 
 					<c:forEach var="DRAMA" items="${D_title}">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${DRAMA.idx}"> <img
+							<a href="${pageContext.request.contextPath}/user/showMovie?idx=${DRAMA.idx}"> <img
 								src="${pageContext.request.contextPath}/resources/poster/${DRAMA.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
