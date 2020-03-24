@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="myChannelHead">최근 업로드</div>
+<div class="myChannelHead">모든 업로드 영상</div>
 <div id="reviewList" name="reviewList">
 	<!--
 	<c:forEach var="review" items="${reviewList}">
@@ -28,9 +28,13 @@ function findThumbs(){
 	var str="";
 	//2)반복문 돌려서 div에 리스트 출력하기
 	$.each(reviewData, function(i, review){		//i=반복문 i, review=reviewData의 별칭
+		str+="<div style='position: relative; display: inline-block; width:11em; height:380px; margin-left:1em'>";
 		str+="<a href='showReview?idx="+review.idx+"'>";
-		str+="<img id='reviewThumbs"+i+"' style='height:12em'>";	//id가 중복되서 반복문이 중복으로 돌지 않도록 index값 붙여서 id 선언해줌
-		str+="<span>"+review.title+"<br>"+review.wdate+"<br>"+review.click+"<br></span>";
+		str+="<img id='reviewThumbs"+i+"' style='width:100%'><br>";	//id가 중복되서 반복문이 중복으로 돌지 않도록 index값 붙여서 id 선언해줌
+		str+="<span style='color: #999;'>"+review.title+"<br>";
+		str+="</span><span style='color: #555; font-size: 0.9em;'>";
+		//str+=review.wdate+"<br>"+review.click+"</span></div>";
+		str+="조회수 "+review.click+" 회</span></div>";
 		
 		var api_idx=review.trailer[0].api_idx;
 		var idx=review.idx.substring(0,1);
