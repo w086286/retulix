@@ -28,7 +28,7 @@
             });
         }
         function onPlayerReady(event) {
-            console.log('onPlayerReady 실행');
+            //console.log('onPlayerReady 실행');
  
             // 플레이어 자동실행 (주의: 모바일에서는 자동실행되지 않음)
             event.target.playVideo();
@@ -42,7 +42,7 @@
                     event.data == YT.PlayerState.CUED ? '재생준비 완료됨' :
                     event.data == -1 ? '시작되지 않음' : '예외';
  
-            console.log('onPlayerStateChange 실행: ' + playerState);
+            //console.log('onPlayerStateChange 실행: ' + playerState);
             // 재생여부를 통계로 쌓는다.
             collectPlayCount(event.data);
         }
@@ -62,6 +62,6 @@
             if (data == YT.PlayerState.PLAYING && played == false) {
                 // todo statistics
                 played = true;
-                console.log('statistics');
+                //console.log('statistics');
             }
         }
