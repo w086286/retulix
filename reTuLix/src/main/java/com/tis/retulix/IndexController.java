@@ -27,6 +27,6 @@ public class IndexController {
 
 	@RequestMapping("/user/index")
 	public String home(Model model, HttpSession ses) {
-		return "index";	//WEB-INF/spring/views/index.jsp
+		return "index";	
 	}
 }

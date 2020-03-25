@@ -32,8 +32,14 @@ public class mainController {
 		List<Trailer_ViewVO> ROMList = this.mainservice.RO_Movie();
 		List<Trailer_ViewVO> DramaList = this.mainservice.Drama();
 		List<Trailer_ViewVO> ClickList = this.mainservice.clickAlign();
+		
+		List<Trailer_ViewVO> goodAlignList = this.mainservice.goodAlign();
+		List<Trailer_ViewVO> recommendList = this.mainservice.recommendList();
+		
 		List<Trailer_ViewVO> zzimList = this.mainservice.zzimList(email);
 		List<Trailer_ViewVO> historyList = this.mainservice.historyList(email);
+		
+		
 
 		Collections.shuffle(TrailerList);
 		Collections.shuffle(SFMList);
@@ -45,6 +51,8 @@ public class mainController {
 		Collections.shuffle(ClickList);
 		Collections.shuffle(zzimList);
 		Collections.shuffle(historyList);
+		Collections.shuffle(goodAlignList);
+		Collections.shuffle(recommendList);
 
 		m.addAttribute("mainTrailer", TrailerList);
 		m.addAttribute("MS_title", SFMList);
@@ -56,6 +64,9 @@ public class mainController {
 		m.addAttribute("clickSlider", ClickList);
 		m.addAttribute("zzimListTitle", zzimList);
 		m.addAttribute("historyListTitle", historyList);
+		
+		m.addAttribute("reListTitle", recommendList);
+		m.addAttribute("goodTitle", goodAlignList);
 
 		m.addAttribute("zzimListSize", zzimList.size());
 		m.addAttribute("historyListSize", historyList.size());

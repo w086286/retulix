@@ -29,10 +29,10 @@ import lombok.extern.log4j.Log4j;
 @Controller
 public class LoginController {
 	
-	@Autowired	//변수를 자료유형으로 자동으로 넣어줌
+	@Autowired	
 	private CommonUtil util;
 	
-	@Inject		//자료유형으로 주입
+	@Inject		
 	private UserService userService;
 	
 	@Resource(name="mainSvc")
@@ -45,7 +45,7 @@ public class LoginController {
 	}
 	
 	/**로그인 처리*/ 
-	/**[1]매개변수로 파라미터 전달받기*/
+	
 	@RequestMapping("/login")
 	public String loginCheck(
 			@RequestParam(name="email", defaultValue="") String email,
@@ -56,12 +56,12 @@ public class LoginController {
 			HttpServletResponse res
 			) throws NotUserException {
 		
-		/**[2]유효성 체크*/
+		//유효성 체크
 		if(email.trim().isEmpty()||pwd.isEmpty()) {
 			return "redirect:/";	//로그인 페이지로 이동
 		}
 		
-		/**[3]로직처리: 로그인 인증처리 메소드 호출*/
+		/*로직처리: 로그인 인증처리 메소드 호출*/
 		MemberVO loginUser=userService.isLoginOk(email, pwd);
 		if(loginUser!=null) {
 			ses.setAttribute("email", email);
@@ -86,7 +86,7 @@ public class LoginController {
 		}
 		return "redirect:main";
 
-		/**[4]UserServiceImpl가서 나머지 구현:findUserByUserid()*/
+		/*UserServiceImpl 나머지 구현:findUserByUserid()*/
 	}
 	
 	/**로그아웃 처리*/
@@ -96,12 +96,10 @@ public class LoginController {
 		return "redirect:/";	//로그인 페이지로 이동
 	}
 	
-	/**접근 권한 처리
-	 * GetMapping: get방식의 요청만 받고자 할 때 
-	 * PostMapping: post방식의 요청만 받고자 할 때 */
+	/**접근 권한 처리*/
 	@GetMapping("/user/mypage")
 	public String showMyPage(Model m, HttpSession ses) {
-		return "member/mypage";	//WEB-INF/views/member/mypage.jsp 찾아감
+		return "member/mypage";	
 	}
 	
 }
