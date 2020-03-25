@@ -6,6 +6,12 @@
 
 	<!-- id는 UserMapper인터페이스의 메소드명과 동일하게 준다 -->
 	<!-- [1]mybatis-config.xml에서 별칭 및 맵퍼 등록하고 와서 insert문 작성 -->
+	<update id="update_count" parameterType="string">
+		update TRAILER_VIEW set click=click+1 where idx=#{value}
+	</update>
+	<update id="update_count_Review" parameterType="string">
+		update REVIEW set click=click+1 where idx=#{value}
+	</update>
 	
 	<select id="selectMultiReview" resultType="ReviewView" parameterType="map">
 	select idx,url from (select idx,title,url from (select SUBSTR(idx,1,2) as title,idx ,substr(url,(instr(url,'/',4,4))+1) as url from Review_view where idx != #{end}) where title like #{start}  order by dbms_random.value)  where rownum <![CDATA[ <= 5 ]]> 

@@ -23,5 +23,7 @@ public interface TrailerView_Mapper {
 	MemberVO select_who_upload(String email);//사람추출
 	List<Review_ViewVO> selectMultiReview(Map idx);//리뷰1개 뺴고 랜덤 추출
 
+	int update_count(String pp);//트레일러 조회수
+	int update_count_Review(String pp);//리뷰 조회수
 	
 }

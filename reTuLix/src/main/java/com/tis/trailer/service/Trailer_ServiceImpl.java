@@ -25,7 +25,7 @@ public class Trailer_ServiceImpl implements Trailer_Service {
 	
 	@Override
 	public Trailer_ViewVO selectOne(String pp) {
-		
+		trailer_Mapper.update_count(pp);
 		return trailer_Mapper.selectOne(pp);
 	}
   
@@ -87,6 +87,7 @@ public class Trailer_ServiceImpl implements Trailer_Service {
 
 	@Override
 	public Review_ViewVO selectOneReview(String pp) {
+		trailer_Mapper.update_count_Review(pp);
 		
 		return trailer_Mapper.selectOneReview(pp);
 	}
