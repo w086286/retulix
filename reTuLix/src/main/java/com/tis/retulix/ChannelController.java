@@ -66,8 +66,13 @@ public class ChannelController {
 	public String chHome(HttpSession ses, Model m, @ModelAttribute("review") ReviewVO review) {
 		String email=LoginUser(ses, m);
 		
-		List<ReviewVO> vo=channelService.showReviewList(email);
 		
+		List<ReviewVO> vo=channelService.showReviewList(email);
+		for(int i =0;i<vo.size();i++)
+		{
+			vo.get(i).setTitle(change_title(vo.get(i).getTitle())); 
+			vo.get(i).setInfo(change_title(vo.get(i).getInfo())); 
+		}
 		//받아온 리스트를 json으로 변환한다(외부라이브러리 jackson 사용)
 		String jsonArr=null;
 		ObjectMapper jacksonMapper= new ObjectMapper();
@@ -81,6 +86,18 @@ public class ChannelController {
 		m.addAttribute("reviewListJson", jsonArr);
 		
 		return "/channel/chHome";
+	}
+	//DB에 들어있는 이메일 값에 띄어쓰기 등 들어가는 안되는 문자열이 없어지도록 가공해주는 메소드 ==> jsp에서 reviewListJson 사용시 계속 나던 신텍스 에러 해결
+	public String change_title(String title)
+	{
+		if(title==null||title.isEmpty()) {return title;}
+		title = title.replaceAll("(\r\n|\r|\n|\n\r)", "");
+		return title.replaceAll("\\'", "");
+	}
+	public String change(String info) {
+		if(info==null||info.isEmpty()) {return info;}
+		info = info.replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+		return info.replaceAll("\\'", "");
 	}
 	
 	/**[내 채널 관리]진입*/
