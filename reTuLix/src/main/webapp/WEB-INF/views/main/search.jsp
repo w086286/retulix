@@ -17,7 +17,7 @@
 	<c:forEach var="keyword" items="${keywordTitle}">
 
 		<a href="user/showMovie?idx=${keyword.idx}"> <img
-			src="${pageContext.request.contextPath}/resources/poster/${keyword.title }.png"
+			src="${pageContext.request.contextPath}/resources/images/poster/${keyword.title }.png"
 			height="230px" width="158px"></a>
 
 	</c:forEach>
@@ -33,7 +33,7 @@
 					<c:forEach var="reList" items="${reListTitle}" begin="0" end="20" step="1">
 						<div class="col-6 col-lg-2 animate-in-down">
 							<a href="user/showMovie?idx=${reList.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${reList.title}.png"
+								src="${pageContext.request.contextPath}/resources/images/poster/${reList.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
 					</c:forEach>
@@ -45,7 +45,7 @@
 	<!-- 찜 영상 -->
 	<div class="container-fluid" id="cslide">
 		<c:if test="${zzimListSize ne 0}">
-			<h3 align="left" style="color: lavender">${loginUser.name}님이 찜한
+			<h3 align="left" style="color: lavender">${loginUser.name}님이찜한
 				영상</h3>
 		</c:if>
 		<c:if test="${zzimListSize eq 0}">
@@ -56,7 +56,7 @@
 					<c:forEach var="zzimList" items="${zzimListTitle}" begin="0" end="20" step="1">
 						<div class="col-6 col-lg-2 animate-in-down">
 							<a href="user/showMovie?idx=${zzimList.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${zzimList.title}.png"
+								src="${pageContext.request.contextPath}/resources/images/poster/${zzimList.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
 					</c:forEach>

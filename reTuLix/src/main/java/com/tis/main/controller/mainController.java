@@ -82,6 +82,7 @@ public class mainController {
 		List<Trailer_ViewVO> ClickList = this.mainservice.clickAlign();
 		List<Trailer_ViewVO> recommendList = this.mainservice.recommendList();
 		List<Trailer_ViewVO> zzimList = this.mainservice.zzimList(email);
+		List<Trailer_ViewVO> historyList = this.mainservice.historyList(email);
 
 		Collections.shuffle(zzimList);
 		
@@ -90,6 +91,7 @@ public class mainController {
 		m.addAttribute("zzimListTitle", zzimList);
 
 		m.addAttribute("zzimListSize", zzimList.size());
+		m.addAttribute("historyListSize", historyList.size());
 
 		return "main/clickAlign";
 	}
@@ -102,6 +104,7 @@ public class mainController {
 		List<Trailer_ViewVO> goodAlignList = this.mainservice.goodAlign();
 		List<Trailer_ViewVO> recommendList = this.mainservice.recommendList();
 		List<Trailer_ViewVO> zzimList = this.mainservice.zzimList(email);
+		List<Trailer_ViewVO> historyList = this.mainservice.historyList(email);
 
 		Collections.shuffle(zzimList);
 		
@@ -110,6 +113,7 @@ public class mainController {
 		m.addAttribute("zzimListTitle", zzimList);
 
 		m.addAttribute("zzimListSize", zzimList.size());
+		m.addAttribute("historyListSize", historyList.size());
 
 		return "main/goodAlign";
 	}
@@ -122,6 +126,7 @@ public class mainController {
 		List<Trailer_ViewVO> DramaList = this.mainservice.Drama();
 		List<Trailer_ViewVO> recommendList = this.mainservice.recommendList();
 		List<Trailer_ViewVO> zzimList = this.mainservice.zzimList(email);
+		List<Trailer_ViewVO> historyList = this.mainservice.historyList(email);
 		
 		Collections.shuffle(DramaList);
 		Collections.shuffle(zzimList);
@@ -131,6 +136,7 @@ public class mainController {
 		m.addAttribute("zzimListTitle", zzimList);
 
 		m.addAttribute("zzimListSize", zzimList.size());
+		m.addAttribute("historyListSize", historyList.size());
 
 		return "main/onlyDrama";
 	}
@@ -143,6 +149,7 @@ public class mainController {
 		List<Trailer_ViewVO> onlyMovieList = this.mainservice.onlyMovie();
 		List<Trailer_ViewVO> recommendList = this.mainservice.recommendList();
 		List<Trailer_ViewVO> zzimList = this.mainservice.zzimList(email);
+		List<Trailer_ViewVO> historyList = this.mainservice.historyList(email);
 		
 		Collections.shuffle(onlyMovieList);
 		Collections.shuffle(zzimList);
@@ -152,6 +159,7 @@ public class mainController {
 		m.addAttribute("zzimListTitle", zzimList);
 
 		m.addAttribute("zzimListSize", zzimList.size());
+		m.addAttribute("historyListSize", historyList.size());
 
 		return "main/onlyMovie";
 	}
@@ -164,6 +172,7 @@ public class mainController {
 		List<Trailer_ViewVO> searchList = this.mainservice.searchList(keyword);
 		List<Trailer_ViewVO> recommendList = this.mainservice.recommendList();
 		List<Trailer_ViewVO> zzimList = this.mainservice.zzimList(email);
+		List<Trailer_ViewVO> historyList = this.mainservice.historyList(email);
 
 		Collections.shuffle(zzimList);
 
@@ -174,6 +183,7 @@ public class mainController {
 
 		m.addAttribute("zzimListSize", zzimList.size());
 		m.addAttribute("keywordsize", searchList.size());
+		m.addAttribute("historyListSize", historyList.size());
 
 		return "main/search";
 	}
