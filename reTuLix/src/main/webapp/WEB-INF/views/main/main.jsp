@@ -17,7 +17,7 @@
 
 			<footer>
 
-				<a href="showMovie?idx=${url.idx}" class="button scrolly">지금 영상
+				<a href="user/showMovie?idx=${url.idx}" class="button scrolly">지금 영상
 					보러가기</a>
 			</footer>
 
@@ -42,55 +42,90 @@
 <!--찜한 영상-->
 <section id="about" class="two">
 	<div class="container-fluid" id="cslide">
+
 		<c:if test="${zzimListSize ne 0}">
 			<h3 align="left" style="color: lavender">${loginUser.name}님이찜한
 				영상</h3>
-		</c:if>
-		<c:if test="${zzimListSize eq 0}">
-			<h3 align="left" style="color: lavender"></h3>
-		</c:if>
-		<div class="demo">
-			<div id="history"></div>
-			<div class="row">
-				<ul id="content-slider" class="content-slider">
+			<div class="demo">
+				<div id="history"></div>
+				<div class="row">
+					<ul id="content-slider" class="content-slider">
 
-					<c:forEach var="zzimList" items="${zzimListTitle}">
-						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${zzimList.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${zzimList.title}.png"
-								class="center-block img-fluid my-3" height="230px" width="158px"></a>
-						</div>
-					</c:forEach>
-				</ul>
-			</div>
-		</div>
+						<c:forEach var="zzimList" items="${zzimListTitle}" begin="0" end="20" step="1">
+							<div class="col-6 col-lg-2 animate-in-down">
+								<a href="user/showMovie?idx=${zzimList.idx}"> <img
+									src="${pageContext.request.contextPath}/resources/images/poster/${zzimList.title}.png"
+									class="center-block img-fluid my-3" height="230px"
+									width="158px"></a>
+							</div>
+						</c:forEach>
+		</c:if>
+		<!--찜 데이터가 없을 경우 추천영상이 나옴  -->
+		<c:if test="${zzimListSize eq 0}">
+			<h3 align="left" style="color: lavender">${loginUser.name}님을 위한
+				추천 영상</h3>
+			<div class="demo">
+				<div id="history"></div>
+				<div class="row">
+					<ul id="content-slider" class="content-slider">
+
+						<c:forEach var="reList" items="${reListTitle}" begin="0" end="20" step="1">
+							<div class="col-6 col-lg-2 animate-in-down">
+								<a href="user/showMovie?idx=${reList.idx}"> <img
+									src="${pageContext.request.contextPath}/resources/images/poster/${reList.title}.png"
+									class="center-block img-fluid my-3" height="230px"
+									width="158px"></a>
+							</div>
+						</c:forEach>
+		</c:if>
+		</ul>
 	</div>
+	</div>
+	</div>
+
+
 
 	<!--최근에 본 영상-->
 	<div class="container-fluid" id="cslide">
 		<c:if test="${historyListSize ne 0}">
 			<h3 align="left" style="color: lavender">${loginUser.name}님이최근에
 				본 영상</h3>
+			<div class="demo">
+				<div id="click"></div>
+				<div class="row">
+					<ul id="content-slider" class="content-slider">
+
+						<c:forEach var="historyList" items="${historyListTitle}" begin="0" end="20" step="1">
+							<div class="col-6 col-lg-2 animate-in-down">
+								<a href="user/showMovie?idx=${historyList.idx}"> <img
+									src="${pageContext.request.contextPath}/resources/images/poster/${historyList.title}.png"
+									class="center-block img-fluid my-3" height="230px"
+									width="158px"></a>
+							</div>
+						</c:forEach>
 		</c:if>
+		<!-- 히스토리가 없으면 좋아요가 많은 영상이 나옴  -->
 		<c:if test="${historyListSize eq 0}">
-			<h3 align="left" style="color: lavender"></h3>
+			<h3 align="left" style="color: lavender">좋아요가 많은 영상</h3>
+			<div class="demo">
+				<div id="click"></div>
+				<div class="row">
+					<ul id="content-slider" class="content-slider">
+
+						<c:forEach var="goodList" items="${goodTitle}" begin="0" end="20" step="1">
+							<div class="col-6 col-lg-2 animate-in-down">
+								<a href="user/showMovie?idx=${goodList.idx}"> <img
+									src="${pageContext.request.contextPath}/resources/images/poster/${goodList.title}.png"
+									class="center-block img-fluid my-3" height="230px"
+									width="158px"></a>
+							</div>
+						</c:forEach>
 		</c:if>
-		<div class="demo">
-			<div id="click"></div>
-			<div class="row">
-				<ul id="content-slider" class="content-slider">
 
-					<c:forEach var="historyList" items="${historyListTitle}">
-						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${historyList.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${historyList.title}.png"
-								class="center-block img-fluid my-3" height="230px" width="158px"></a>
-						</div>
-					</c:forEach>
 
-				</ul>
-			</div>
-		</div>
+		</ul>
+	</div>
+	</div>
 
 	</div>
 	<!--최근 인기 영상-->
@@ -99,10 +134,10 @@
 		<div class="demo">
 			<div class="row">
 				<ul id="content-slider" class="content-slider">
-					<c:forEach var="clickSlider" items="${clickSlider}">
+					<c:forEach var="clickSlider" items="${clickSlider}" begin="0" end="20" step="1">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${clickSlider.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${clickSlider.title}.png"
+							<a href="user/showMovie?idx=${clickSlider.idx}"> <img
+								src="${pageContext.request.contextPath}/resources/images/poster/${clickSlider.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
 					</c:forEach>
@@ -119,10 +154,10 @@
 		<div class="demo">
 			<div class="row">
 				<ul id="content-slider" class="content-slider">
-					<c:forEach var="MOVIE" items="${MC_title}">
+					<c:forEach var="MOVIE" items="${MC_title}" begin="0" end="20" step="1">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${MOVIE.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png"
+							<a href="user/showMovie?idx=${MOVIE.idx}"> <img
+								src="${pageContext.request.contextPath}/resources/images/poster/${MOVIE.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
 					</c:forEach>
@@ -138,10 +173,10 @@
 			<div class="row">
 				<ul id="content-slider" class="content-slider">
 
-					<c:forEach var="MOVIE" items="${MH_title}">
+					<c:forEach var="MOVIE" items="${MH_title}" begin="0" end="20" step="1">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${MOVIE.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png"
+							<a href="user/showMovie?idx=${MOVIE.idx}"> <img
+								src="${pageContext.request.contextPath}/resources/images/poster/${MOVIE.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
 					</c:forEach>
@@ -157,10 +192,10 @@
 			<div class="row">
 				<ul id="content-slider" class="content-slider">
 
-					<c:forEach var="MOVIE" items="${MS_title}">
+					<c:forEach var="MOVIE" items="${MS_title}" begin="0" end="20" step="1">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${MOVIE.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png"
+							<a href="user/showMovie?idx=${MOVIE.idx}"> <img
+								src="${pageContext.request.contextPath}/resources/images/poster/${MOVIE.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
 					</c:forEach>
@@ -176,10 +211,10 @@
 			<div class="row">
 				<ul id="content-slider" class="content-slider">
 
-					<c:forEach var="MOVIE" items="${MA_title}">
+					<c:forEach var="MOVIE" items="${MA_title}" begin="0" end="20" step="1">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${MOVIE.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png"
+							<a href="user/showMovie?idx=${MOVIE.idx}"> <img
+								src="${pageContext.request.contextPath}/resources/images/poster/${MOVIE.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
 					</c:forEach>
@@ -195,10 +230,10 @@
 			<div class="row">
 				<ul id="content-slider" class="content-slider">
 
-					<c:forEach var="MOVIE" items="${MR_title}">
+					<c:forEach var="MOVIE" items="${MR_title}" begin="0" end="20" step="1">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${MOVIE.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${MOVIE.title}.png"
+							<a href="user/showMovie?idx=${MOVIE.idx}"> <img
+								src="${pageContext.request.contextPath}/resources/images/poster/${MOVIE.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
 					</c:forEach>
@@ -214,10 +249,10 @@
 			<div class="row">
 				<ul id="content-slider" class="content-slider">
 
-					<c:forEach var="DRAMA" items="${D_title}">
+					<c:forEach var="DRAMA" items="${D_title}" begin="0" end="20" step="1">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${DRAMA.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${DRAMA.title}.png"
+							<a href="user/showMovie?idx=${DRAMA.idx}"> <img
+								src="${pageContext.request.contextPath}/resources/images/poster/${DRAMA.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
 					</c:forEach>

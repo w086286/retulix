@@ -5,10 +5,10 @@
 
 <div class="imgAlign">
 	<h3 align="left" style="color: lavender">조회수순 영상</h3>
-	<c:forEach var="click" items="${clickTitle}">
+	<c:forEach var="click" items="${clickTitle}" begin="0" end="79" step="1" >
 
-		<a href="showMovie?idx=${click.idx}"> <img
-			src="${pageContext.request.contextPath}/resources/poster/${click.title }.png"
+		<a href="user/showMovie?idx=${click.idx}"> <img
+			src="${pageContext.request.contextPath}/resources/images/poster/${click.title }.png"
 			height="230px" width="158px"></a>
 
 	</c:forEach>
@@ -21,10 +21,10 @@
 		<div class="demo">
 			<div class="row">
 				<ul id="content-slider" class="content-slider">
-					<c:forEach var="reList" items="${reListTitle}">
+					<c:forEach var="reList" items="${reListTitle}" begin="0" end="20" step="1">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${reList.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${reList.title}.png"
+							<a href="user/showMovie?idx=${reList.idx}"> <img
+								src="${pageContext.request.contextPath}/resources/images/poster/${reList.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
 					</c:forEach>
@@ -44,10 +44,10 @@
 		<div class="demo">
 			<div class="row">
 				<ul id="content-slider" class="content-slider">
-					<c:forEach var="zzimList" items="${zzimListTitle}">
+					<c:forEach var="zzimList" items="${zzimListTitle}" begin="0" end="20" step="1">
 						<div class="col-6 col-lg-2 animate-in-down">
-							<a href="showMovie?idx=${zzimList.idx}"> <img
-								src="${pageContext.request.contextPath}/resources/poster/${zzimList.title}.png"
+							<a href="user/showMovie?idx=${zzimList.idx}"> <img
+								src="${pageContext.request.contextPath}/resources/images/poster/${zzimList.title}.png"
 								class="center-block img-fluid my-3" height="230px" width="158px"></a>
 						</div>
 					</c:forEach>
