@@ -16,6 +16,8 @@ public class ContentVO {
 	private String url;
 	private Date wdate;
 	
+	private String adddddd;
+	
 	public ContentVO() {
 		
 	}
