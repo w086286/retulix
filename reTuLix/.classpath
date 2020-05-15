@@ -36,6 +36,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_231"/>
-	<classpathentry kind="lib" path="C:/Users/ns/eclipse/java-2019-09/eclipse/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ns/eclipse-workspace/lombok.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
