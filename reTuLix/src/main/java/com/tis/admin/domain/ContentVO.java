@@ -15,6 +15,8 @@ public class ContentVO {
 	private String info;
 	private String url;
 	private Date wdate;
+	//dfdfdfdfdfdfdfdf gittestestest
+	private String gitBumpTest;
 	
 	private String add;
 	
