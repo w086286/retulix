@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class ContentVO {
-
+//12312312312312312
 	private String idx;
 	private String email;
 	private String name;
