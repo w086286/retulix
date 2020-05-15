@@ -48,12 +48,14 @@ public class LoginController {
 	@RequestMapping("/login")
 	public String loginCheck(
 			@RequestParam(name="email", defaultValue="") String email,
-			@RequestParam(defaultValue="") String pwd,
+			@RequestParam(name="pwd", defaultValue="") String pwd,
 			@RequestParam(defaultValue="false") boolean saveId,
 			@RequestParam(defaultValue="false") boolean saveLogin,
 			Model model, HttpSession ses, HttpServletResponse res
 			) throws NotUserException {
 		//log.info(email+"/"+pwd+"/"+saveId+"/"+saveLogin);
+		
+		System.out.println("test");
 		
 		//[2]유효성 체크
 		if(email.trim().isEmpty()||pwd.isEmpty()) {
@@ -62,6 +64,11 @@ public class LoginController {
 		
 		//[3]로직처리: 로그인 인증처리 메소드 호출
 		MemberVO loginUser=userService.isLoginOk(email, pwd);
+		
+		//System.out.println("test : "+loginUser);
+		//System.out.println("test2 : "+loginUser.getEmail());
+		//System.out.println("test3 : "+loginUser.getState());
+		
 		if(loginUser!=null) {
 			//1)세션에 key-value 저장
 			ses.setAttribute("email", email);
@@ -70,12 +77,23 @@ public class LoginController {
 			//log.info(loginUser);
 			
 			//2)아이디 저장 처리
-			Cookie ckEmail=new Cookie("saveId", loginUser.getEmail());	
-			if(saveId) ckEmail.setMaxAge(7*24*60*60);					//아이디 저장 7일간 유효
-			else ckEmail.setMaxAge(0);									//아이디 저장 안했을 경우(F) 쿠키 유효기간 삭제
 			
-			ckEmail.setPath("/");		//어디서든 쿠키에 접근할 수 있도록 "/"로 경로 처리
-			res.addCookie(ckEmail);		//response에 쿠키 추가
+			
+			  Cookie ckEmail=new Cookie("saveId", loginUser.getEmail()); 
+			   
+			  
+			  if(saveId) {
+				  System.out.println("ckEmail_name : "+ckEmail.getName());
+				  System.out.println("ckEmail_value : "+ckEmail.getValue());
+				  ckEmail.setMaxAge(7*24*60*60); //아이디 저장 7일간 유효 
+			  }
+			  else { 
+				  ckEmail.setMaxAge(0);
+				  //아이디 저장 안했을 경우(F) 쿠키 유효기간 삭제
+			  }
+			  ckEmail.setPath("/"); //어디서든 쿠키에 접근할 수 있도록 "/"로 경로 처리 
+			  res.addCookie(ckEmail);
+			  //response에 쿠키 추가
 		}
 		
 		//구독자 리스트

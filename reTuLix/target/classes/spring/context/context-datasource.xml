@@ -23,7 +23,7 @@
 	<!-- HikariCP(connection pool) 등록 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521/XE" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.0.20:1521/orcl" />
 		<property name="username" value="retulix" />
 		<property name="password" value="1234" />
 	</bean>

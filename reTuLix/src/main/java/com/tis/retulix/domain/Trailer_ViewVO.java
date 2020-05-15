@@ -14,4 +14,5 @@ public class Trailer_ViewVO {
 	private int zzim;
 	private String email;
 
+
 }

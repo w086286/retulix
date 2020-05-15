@@ -3,18 +3,38 @@
 
 <%
 	//아이디 저장값 추출
-	Cookie[] ck=request.getCookies();
+	
+	Cookie ck[]=request.getCookies();
 	String ckEmail="";
-	if(ck.length>0){
-		for(int i=0; i<ck.length; i++){
-			if(ck[i].getName().equals("saveId")){
-				ckEmail=ck[i].getValue();
-			}else{
-				ckEmail="";
+
+		
+	//System.out.println("ck.length : "+ck.length);
+	
+	try{
+		System.out.println("ck.length : "+ck.length);
+		if(ck.length>0){
+			
+			for(int i=0; i<ck.length; i++){
+				
+			 	if(ck[i].getName().equals("saveId")){
+			 		//System.out.println("for - if : "+ck[i].getValue());
+					ckEmail=ck[i].getValue();
+				} 
+				
+				/* if(ck[0].getName().equals("saveId")){
+					ckEmail=ck[0].getValue();
+				} */
+				
+				
 			}
-		}
-	}else{
-		ckEmail="";
+		}//--------------if-------------------------
+	
+	}
+	catch(NullPointerException e){
+
+		response.sendRedirect("/retulix/");
+
+		return;
 	}
 %>
 
@@ -62,9 +82,15 @@
 	//아이디 저장시 input 값 설정+체크박스 체크 설정
 	var ckEmailExist="<%=ckEmail%>";
 	if(ckEmailExist!=""){
+		
+		//alert("공백이 아닌경우 ckEmailExist : "+ckEmailExist);
+		
 		$("#email").val(ckEmailExist);
 		$("#saveId").prop("checked", true);
 	}else{
+		
+		//alert("나머지 경우 ckEmailExist : "+ckEmailExist);
+		
 		$("#email").val("");
 		$("#saveId").prop("checked", false);
 	}
